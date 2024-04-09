@@ -1,4 +1,4 @@
-Vercel Frontend : https://cedt-se-project-dentnutz.vercel.app
-Vercel Backend : https://swdevprac2-project-this-is-my-kingdom-come-backend.vercel.app/
+Vercel Frontend : https://cedt-se-project-dentnutz-frontend.vercel.app
+Vercel Backend : https://cedt-se-project-dentnutz-backend.vercel.app
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/nj0X2aoJ)
