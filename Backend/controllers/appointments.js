@@ -16,7 +16,10 @@ exports.getAppointments = async (req, res, next) => {
       });
     }
     else {
-      query = Appointment.find({ dentist: req.user.id })
+      query = Appointment.find({ dentist: req.user.id }).populate({
+        path: "dentist",
+        select: "name yearsOfExperience areaOfExpertise",
+      });
     }
   }
    else {
