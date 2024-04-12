@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 const DentistSchema = new mongoose.Schema({
@@ -20,6 +21,9 @@ const DentistSchema = new mongoose.Schema({
         default: '/img/no-photo.png',
         required:[true, "Please add a link to Dentist's picture"]   
     },
+    userId:{
+        type: ObjectId,
+    }
 } ,
 
 {
