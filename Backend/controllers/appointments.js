@@ -17,7 +17,6 @@ exports.getAppointments = async (req, res, next) => {
     }
     else {
       query = Appointment.find({ dentist: req.user.id })
-      console.log("Tests");
     }
   }
    else {
