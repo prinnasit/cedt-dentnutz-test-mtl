@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 interface DentistItem {
   _id: string;
   name: string;
@@ -6,7 +8,7 @@ interface DentistItem {
   picture: string;
 }
 
-interface DentistJson {
+export interface DentistJson {
   success: boolean;
   count: number;
   pagination: Object;
@@ -22,8 +24,36 @@ interface AppointmentItem {
   createAt: string;
 }
 
+export interface ReportJson {
+  success: boolean;
+  count: number;
+  data: ReportItem[];
+}
+
+export interface ReportItem {
+  _id: string;
+  patientId:mongoose.Schema.Types.ObjectId;
+  dentistId:mongoose.Schema.Types.ObjectId;
+  treatment:string;
+  prescribed_medication:string;
+  recommendations:string;
+  date:string;
+}
+
+export interface PatientItem{
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  userType: string;
+  tel: string;
+}
+
+
+
 interface AppointmentJson {
   success: boolean;
   count: number;
   data: AppointmentItem[];
 }
+

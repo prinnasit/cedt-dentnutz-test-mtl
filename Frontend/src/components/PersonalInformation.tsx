@@ -1,11 +1,12 @@
-export default function PersonalInformation(){
+export default function PersonalInformation({name,phone,email}:{name:string,phone:string,email:string}){
     return(
-    <div className="rounded-lg shadow-md p-3">
-        <div className="font-bold text-2xl">Personal Information</div>
-        <div className="">Name: Jarukit Ma</div>
-        <div className="">Age: 20</div> 
-        <div className="">Sex: Male</div>
-        <div className="">Phone Number: 1112</div>
-        <div className="">Email: myemail@gmail.com</div>
-    </div>);
+    <div className="rounded-lg border-2 border-slate-300 p-7">
+        <div className="font-semibold text-2xl mb-3">Personal Information --------------------- </div>
+        <div className="font-medium text-xl">Name : {name}</div>
+        <div className="font-medium text-xl">Age :                  20</div> 
+        <div className="font-medium text-xl">Sex :                  Male</div>
+        <div className="font-medium text-xl">Phone Number :         {phone}</div>
+        <div className="font-medium text-xl">Email :                {email}</div>
+    </div>
+    );
 }
