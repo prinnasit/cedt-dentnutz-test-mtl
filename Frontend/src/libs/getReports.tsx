@@ -1,7 +1,7 @@
 export default async function getAppointments(token: string) {
 
   const response = await fetch(
-    "https://cedt-se-project-dentnutz-backend.vercel.app/api/v1/appointments",
+    "https://cedt-se-project-dentnutz-backend.vercel.app/api/v1/reports",
     {
       method: "GET",
       headers: {
@@ -11,7 +11,7 @@ export default async function getAppointments(token: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Cannot get Appointments");
+    throw new Error("Cannot get Reports");
   }
 
   return await response.json();
