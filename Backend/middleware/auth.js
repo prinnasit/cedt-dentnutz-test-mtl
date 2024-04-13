@@ -23,7 +23,7 @@ exports.protect = async(req , res , next)=>{
         console.log(decoded) ;
 
         req.user = await  User.findById(decoded.id) ;
-
+        req.user.id = decoded;
         next();
     }catch(err){
         console.log(err.stack) ;
