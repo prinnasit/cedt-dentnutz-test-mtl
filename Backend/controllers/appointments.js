@@ -134,6 +134,7 @@ exports.addAppointment = async (req, res, next) => {
 exports.updateAppointment = async (req, res, next) => {
   try {
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
+    let timeBeforeUpdate = appointment.appDate;
 
     if (!appointment) {
       return res.status(404).json({
@@ -174,7 +175,7 @@ exports.updateAppointment = async (req, res, next) => {
           <p>Dear ${appointment.userName},</p>
           <p>We would like to inform you that your appointment with <span style="color:red;">doctor ${appointment.dentist.name}</span> has been updated. The new details are as follows:</p>
           <ul>
-              <li>Appointment Date: ${appointment.appDate}</li>
+              <li>Appointment Date: ${timeBeforeUpdate} -> <span style="color:red;">${appointment.appDate}</span></li>
               <li>Updated At: ${appointment.createdAt}</li>
           </ul>
           <p>John doe,</p>
