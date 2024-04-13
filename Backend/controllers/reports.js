@@ -1,3 +1,6 @@
+const Report = require('../models/Report');
+
+
 exports.getReports = (req,res,next)=>{
 //dentistId, patientId
 }
