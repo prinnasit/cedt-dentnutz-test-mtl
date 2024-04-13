@@ -61,7 +61,7 @@ export default function SelectReport() {
             
             <div className="flex flex-col p-5 space-y-2">
                 {reports?.data.map( (reportItem : ReportItem) =>
-                (<HistoryBlock oneT={reportItem.date} Doctor={reportItem.dentistId} Symptom={reportItem.prescribed_medication} Treatment={reportItem.treatment} Recommendation={reportItem.recommendations} Patient={reportItem.patientId}/>)
+                (<HistoryBlock UserType={session.user.type} oneT={reportItem.date} Doctor={reportItem.dentistId} Symptom={reportItem.prescribed_medication} Treatment={reportItem.treatment} Recommendation={reportItem.recommendations} Patient={reportItem.patientId}/>)
                 )}
                 
             </div>
