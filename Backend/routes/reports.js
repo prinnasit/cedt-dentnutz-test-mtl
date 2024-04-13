@@ -8,8 +8,8 @@ const { protect , authorize } = require('../middleware/auth');
 
 //Re-route into other resource routers
 
-router.route('/').get(protect , /*authorize('dentistId','patientId'),*/getReports).post(protect , /*authorize('dentist'),*/ createReport) ;
-router.route('/:id').get(protect , /*authorize('dentistId','patientId'),*/getReport).put(protect , /*authorize('dentistId'),*/ updateReport).delete(protect , /*authorize('dentistId') ,*/deleteReport);
+router.route('/').get(protect , authorize('user'),getReports).post(protect , authorize('user'), createReport) ;
+router.route('/:id').get(protect , authorize('user'), getReport).put(protect , authorize('user'), deleteReport);
 
 module.exports=router ;
 
