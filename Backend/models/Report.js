@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 
 const ReportSchema = new mongoose.Schema({
   patientId: {
-    type: ObjectId,
+    type: mongoose.Schema.ObjectId,
     required: true,
+    ref: 'User'
   },
   dentistId: {
-    type: ObjectId,
+    type: mongoose.Schema.ObjectId,
     required: true,
+    ref: 'Dentist'
   },
   treatment: {
     type: String,
