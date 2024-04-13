@@ -1,5 +1,6 @@
 const Appointment = require("../models/Appointment");
 const Dentist = require("../models/Dentist");
+const sendMail = require("../config/mail");
 
 //@dese     Get all appointments
 //@route    Get  /api/v1/appointments
@@ -142,7 +143,8 @@ exports.addAppointment = async (req, res, next) => {
 //@ts-check     Public
 exports.updateAppointment = async (req, res, next) => {
   try {
-    let appointment = await Appointment.findById(req.params.id);
+    let appointment = await Appointment.findById(req.params.id).populate('user dentist');
+    let timeBeforeUpdate = appointment.appDate;
 
     if (!appointment) {
       return res.status(404).json({
@@ -153,7 +155,7 @@ exports.updateAppointment = async (req, res, next) => {
 
     //Make sure user is the appointment owner
     if (
-      appointment.user.toString() !== req.user.id &&
+      appointment.user.id !== req.user.id &&
       req.user.role !== "admin"
     ) {
       return res.status(401).json({
@@ -171,6 +173,27 @@ exports.updateAppointment = async (req, res, next) => {
       success: true,
       data: appointment,
     });
+
+    appointment = await Appointment.findById(req.params.id).populate('user dentist');
+
+    console.log(appointment.user.email);
+    var mailOptions = {
+      from: `"DentNutz Support" <dentnutz@gmail.com>`,
+      to: appointment.user.email,
+      subject: "Your Appointment Has Been Updated",
+      html: `
+          <p>Dear ${appointment.userName},</p>
+          <p>We would like to inform you that your appointment with <span style="color:red;">doctor ${appointment.dentist.name}</span> has been updated. The new details are as follows:</p>
+          <ul>
+              <li>Appointment Date: ${timeBeforeUpdate} -> <span style="color:red;">${appointment.appDate}</span></li>
+              <li>Updated At: ${appointment.createdAt}</li>
+          </ul>
+          <p>John doe,</p>
+          <p>DentNutz Support Team</p>
+      `,
+    };
+    sendMail(mailOptions);
+
   } catch (error) {
     console.log(error);
     return res
@@ -184,7 +207,7 @@ exports.updateAppointment = async (req, res, next) => {
 //@ts-check     Peivate
 exports.deleteAppointment = async (req, res, next) => {
   try {
-    const appointment = await Appointment.findById(req.params.id);
+    let appointment = await Appointment.findById(req.params.id).populate('user dentist');
 
     if (!appointment) {
       return res.status(404).json({
@@ -192,10 +215,10 @@ exports.deleteAppointment = async (req, res, next) => {
         message: `No appointment with the id of ${req.params.dentistId}`,
       });
     }
-
+    
     //Make sure user is the appointment owner
     if (
-      appointment.user.toString() !== req.user.id &&
+      appointment.user.id !== req.user.id &&
       req.user.role !== "admin"
     ) {
       return res.status(401).json({
@@ -203,9 +226,23 @@ exports.deleteAppointment = async (req, res, next) => {
         message: `User ${req.user.id} is not authorized to delete this appointment`,
       });
     }
-
+    var mailOptions = {
+      from: `"DentNutz Support" <dentnutz@gmail.com>`,
+      to: appointment.user.email,
+      subject: "Your Appointment Has Been Delete",
+      html: `
+          <p>Dear ${appointment.userName},</p>
+          <p>We would like to inform you that your appointment with doctor ${appointment.dentist.name} has been Delete. The new details are as follows:</p>
+          <ul>
+              <li>Appointment Date: ${appointment.appDate}</li>
+              <li>Deleted At: ${appointment.createdAt}</li>
+          </ul>
+          <p>John doe,</p>
+          <p>DentNutz Support Team</p>
+      `,
+    };
+    sendMail(mailOptions);
     await appointment.deleteOne();
-
     res.status(200).json({
       success: true,
       data: {},
