@@ -1,7 +1,6 @@
 "use client"
 "useContext"
 import { TextField } from "@mui/material";
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 
 export default function updateReport() {
 
@@ -9,7 +8,6 @@ export default function updateReport() {
   return (
     <main className="justify-center items-center p-5 flex flex-col">
         <h1 className="mx-auto w-fit text-2xl mb-10">Update "Name" Report</h1>
-        <AccessAlarmIcon style={{ fontSize: 200 }} color="action"/>
         <div className="shadow-lg rounded-lg w-4/5 flex flex-col justify-items-center content-center p-5 space-y-2">
             <div className="flex flex-row ">
                 <div className="text-xl basis-1/4">Date:</div>
