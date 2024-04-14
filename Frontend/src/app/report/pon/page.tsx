@@ -2,7 +2,6 @@
 import PersonalInformation from "@/components/PersonalInformation";
 import getReport from "@/libs/getReport";
 import getReports from "@/libs/getReports";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { useEffect, useState } from "react";
 import { useSession } from 'next-auth/react'
 import getAppointment from "@/libs/getAppointment";
