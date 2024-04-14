@@ -24,6 +24,7 @@ export default async function TopMenu() {
         <TopMenuItem title='View Appointment' pageRef='/appointment'/>
         <TopMenuItem title='Booking' pageRef='/makeappointment'/>
         <TopMenuItem title='Dentist' pageRef='/dentist'/>
+        <TopMenuItem title='Report' pageRef='/report'/>
       </div>
       
       
