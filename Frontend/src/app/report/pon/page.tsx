@@ -54,7 +54,7 @@ export default function SelectReport() {
             <div className="text-center font-semibold text-2xl">History</div>
             <div className="flex flex-col p-5 space-y-2">
                 {reports?.data.map( (reportItem : ReportItem) =>
-                (<HistoryBlock oneT={reportItem.date} Doctor={reportItem.dentistId} Symptom={reportItem.prescribed_medication} Treatment={reportItem.treatment} Recommendation={reportItem.recommendations} Patient={reportItem.patientId}/>)
+                (<HistoryBlock oneT={reportItem.date} Doctor={reportItem.dentistId.objectId} Symptom={reportItem.prescribed_medication} Treatment={reportItem.treatment} Recommendation={reportItem.recommendations} Patient={reportItem.patientId.objectId}/>)
                 )}
                 
             </div>
