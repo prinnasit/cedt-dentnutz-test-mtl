@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 interface DentistItem {
+  objectId : mongoose.Schema.Types.ObjectId
   _id: string;
   name: string;
   yearsOfExperience: string;
@@ -32,8 +33,8 @@ export interface ReportJson {
 
 export interface ReportItem {
   _id: string;
-  patientId:mongoose.Schema.Types.ObjectId;
-  dentistId:mongoose.Schema.Types.ObjectId;
+  patientId:PatientItem;
+  dentistId:DentistItem;
   treatment:string;
   prescribed_medication:string;
   recommendations:string;
@@ -41,6 +42,7 @@ export interface ReportItem {
 }
 
 export interface PatientItem{
+  objectId : mongoose.Schema.Types.ObjectId
   _id: string;
   name: string;
   email: string;

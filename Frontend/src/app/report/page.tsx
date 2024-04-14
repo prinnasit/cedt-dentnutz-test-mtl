@@ -75,11 +75,11 @@ export default function SelectReport() {
               // key={reportItem.id} // Add unique key for each report
               UserType={session.user.type}
               oneT={reportItem.date}
-              Doctor={reportItem.dentistId}
+              Doctor={reportItem.dentistId.objectId}
               Symptom={reportItem.prescribed_medication}
               Treatment={reportItem.treatment}
               Recommendation={reportItem.recommendations}
-              Patient={reportItem.patientId}
+              Patient={reportItem.patientId.objectId}
             />
           ))}
         </div>
