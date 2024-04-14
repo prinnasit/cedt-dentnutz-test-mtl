@@ -7,6 +7,7 @@ import { useState,useEffect } from "react";
 import { Dayjs } from "dayjs";
 import getDentists from "@/libs/getDentists";
 import { useSession } from "next-auth/react";
+import { DentistItem } from "../../interface";
 
 export default function DateReserve({
   onDateChange, onDentistChange, currentDate, currentDentist

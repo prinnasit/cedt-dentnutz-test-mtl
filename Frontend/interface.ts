@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface DentistItem {
+export interface DentistItem {
   objectId : mongoose.Schema.Types.ObjectId
   _id: string;
   name: string;
