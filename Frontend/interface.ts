@@ -53,7 +53,7 @@ export interface PatientItem{
 
 
 
-interface AppointmentJson {
+export interface AppointmentJson {
   success: boolean;
   count: number;
   data: AppointmentItem[];

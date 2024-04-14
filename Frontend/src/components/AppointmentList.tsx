@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AppointmentJson } from "../../interface";
 
 export default async function AppointmentList({
   appointmentJson,
