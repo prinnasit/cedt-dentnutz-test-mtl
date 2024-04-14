@@ -9,7 +9,7 @@ interface DentistItem {
   picture: string;
 }
 
-export interface DentistJson {
+interface DentistJson {
   success: boolean;
   count: number;
   pagination: Object;
@@ -25,13 +25,13 @@ interface AppointmentItem {
   createAt: string;
 }
 
-export interface ReportJson {
+interface ReportJson {
   success: boolean;
   count: number;
   data: ReportItem[];
 }
 
-export interface ReportItem {
+interface ReportItem {
   _id: string;
   patientId:PatientItem;
   dentistId:DentistItem;
@@ -41,7 +41,7 @@ export interface ReportItem {
   date:string;
 }
 
-export interface PatientItem{
+interface PatientItem{
   objectId : mongoose.Schema.Types.ObjectId
   _id: string;
   name: string;
