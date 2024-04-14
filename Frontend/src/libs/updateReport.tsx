@@ -6,7 +6,7 @@ export default async function updateReport(appID:string ,dentist:string, prescri
             'authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({appDate: appDate, dentist: dentist})
+        body: JSON.stringify({appDate: date, dentist: dentist})
     })
 
     if (!response.ok) {
