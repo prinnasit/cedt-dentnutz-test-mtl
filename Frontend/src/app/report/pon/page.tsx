@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react'
 import getAppointment from "@/libs/getAppointment";
 import HistoryBlock from "@/components/HistoryBlock";
 import { getServerSession } from "next-auth";
-import { ReportItem, ReportJson } from "../../../interface";
+import { ReportItem, ReportJson } from "../../../../interface";
 
 export default function SelectReport() {
 
