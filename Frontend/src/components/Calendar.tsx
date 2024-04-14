@@ -10,38 +10,53 @@ import {
   Appointments,
   TodayButton,
   CurrentTimeIndicator,
-  AppointmentTooltip
+  AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { useState } from 'react';
-
-const schedulerData = [
-  { startDate: '2024-04-18T12:00', endDate: '2024-04-18T13:00', title: 'Meeting' },
-  { startDate: '2024-04-18T14:00',endDate: '2024-04-18T20:00', title: 'Go to a gym' },
-];
-
-
-const Appointment = ({
-  children,data,
-} : {
-  children: React.ReactNode,
-  data: object,
-}) => (
-
-  <Appointments.Appointment
-    onClick={() => alert(JSON.stringify(data))}
-    style={{
-      backgroundColor: '#FFC107',
-      borderRadius: '8px',
-      cursor: 'pointer',
-    }}
-  >
-    {children}
-  </Appointments.Appointment>
-);
+import { useState,useEffect } from 'react';
+import getAppointments from '@/libs/getAppointments';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function Calendar() {
-    const [data,setData] = useState(schedulerData);
+    const [data,setData] = useState();
     const [currentDate,setCurrentDate] = useState(new Date());
+
+    const { data: session } = useSession();
+    const token = session?.user.token;
+    if (!token) return null;
+    const router = useRouter();
+
+    useEffect(() => {
+        const fetchAppointment = async ()=>{
+            const appointments = await getAppointments(token)
+            setData(appointments.data.map((appointment:AppointmentItem) => ({
+                startDate: appointment.appDate,
+                endDate: new Date(new Date(appointment.appDate).setHours(new Date(appointment.appDate).getHours() + 3)),
+                title: appointment.userName,
+                appID: appointment._id
+            })));
+        }
+        fetchAppointment()
+    }, []);
+
+    const Appointment = ({
+        children,
+        data
+    }: {
+        children: React.ReactNode;
+        data: {
+            startDate: string,
+            endDate: string,
+            title: string,
+            appID: string
+          };
+    }) => (
+        <Appointments.Appointment
+            onClick={() => router.push('/appointment/'+data.appID)}
+        >
+            {children}
+        </Appointments.Appointment>
+    );
 
     return (
         <Paper>
@@ -61,10 +76,6 @@ export default function Calendar() {
               appointmentComponent={Appointment}
             />
             <AppointmentTooltip
-          // headerComponent={Header}
-          // contentComponent={Content}
-          // commandButtonComponent={CommandButton}
-          // showCloseButton
         />
             <CurrentTimeIndicator
               updateInterval={1000}
