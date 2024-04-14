@@ -73,7 +73,7 @@ exports.getAppointment = async (req, res, next) => {
     }
 
     if (
-      appointment.user.toString() !== req.user.id &&
+      (appointment.user.toString() !== req.user.id && appointment.dentist._id.toString() !== req.user.id ) &&
       req.user.role !== "admin"
     ) {
       return res.status(401).json({
