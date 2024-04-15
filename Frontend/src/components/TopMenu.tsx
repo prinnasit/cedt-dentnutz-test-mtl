@@ -26,8 +26,9 @@ export default async function TopMenu() {
         <TopMenuItem title='Booking' pageRef='/makeappointment'/>
         <TopMenuItem title='Dentist' pageRef='/dentist'/>
         {
-          (session?.user.type!=='patient' && session?.user.type!=='dentist')?
-          null
+          
+          (session && session?.user.type!=='patient' && session?.user.type!=='dentist')?
+          <TopMenuItem title='Launch Nuclear' pageRef='/deleteReport'/>
         : <TopMenuItem title='Report' pageRef='/report'/>}
       </div>
       
