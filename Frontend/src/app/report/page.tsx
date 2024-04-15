@@ -79,7 +79,7 @@ export default function SelectReport() {
               UserType={session.user.type}
               oneT={reportItem.date}
               Doctor={reportItem.dentistId}
-              Symptom={reportItem.prescribed_medication}
+              Medication={reportItem.prescribed_medication}
               Treatment={reportItem.treatment}
               Recommendation={reportItem.recommendations}
               Patient={reportItem.patientId}

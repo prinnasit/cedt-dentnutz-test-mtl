@@ -70,15 +70,14 @@ export default function DateReserve({
                     <p>Dentist&nbsp;:&nbsp;Doctor</p>
                 </div>
                 <FormControl fullWidth>
-                    <InputLabel id="Dentist-select-label">Dentist</InputLabel>
+                    <InputLabel id="Dentist-select-label">dentist</InputLabel>
                     <Select
                         name="dentist"
                         id="dentist"
                         label="Dentist"
                         labelId="Dentist-select-label"
-                        className="w-50"
                         value={dentist}
-                        // className="h2-[2em] min-w-[200px] w-fit mb-10 text-3xl font-semibold"
+                        className="h2-[2em] min-w-[200px] w-fit mb-10 text-2xl font-semibold"
                         inputProps={{ MenuProps: { disableScrollLock: true } }}
                         onChange={(e) => {
                             setDentist(e.target.value),
@@ -100,29 +99,9 @@ export default function DateReserve({
                 <div className="text-2xl mx-auto">
                     <p>Appointment&nbsp;date&nbsp;:&nbsp;</p>
                 </div>
-                <FormControl fullWidth>
-                    <InputLabel id="Appointment-date-select-label">
-                        Appointment
-                    </InputLabel>
-                    <Select
-                        labelId="Appointment-date-select-label"
-                        id="Appointment-date-select"
-                        value={reserveTime}
-                        label="Appointment Time"
-                        onChange={(e) => {
-                            setReserveTime(e.target.value as number || 0);
-                            onTimeChange(e.target.value === 1? morning : e.target.value === 2? afternoon : null);
-                            setComponentTime(e.target.value === 1? morning : e.target.value === 2? afternoon : null)
-                        }}
-                    >   
-                        <MenuItem value={0}>Please Select Time</MenuItem>
-                        <MenuItem value={1}>9.00</MenuItem>
-                        <MenuItem value={2}>13.00</MenuItem>
-                    </Select>
-                </FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                        className="text-2xl font-semibold"
+                        className="text-2xl font-semibold min-w-[18%] w-fit"
                         value={reserveDate}
                         onChange={(value) => {
                             setReserveDate(value);
@@ -132,7 +111,27 @@ export default function DateReserve({
                         renderInput={(props) => <TextField {...props} />}
                     />
                 </LocalizationProvider>
-                <h1>{dayjs(componentDate).format('YYYY-MM-DD HH:mm:ss Z')}</h1>
+                <FormControl className="text-2xl font-semibold min-w-[15%]">
+                    <InputLabel id="Appointment-date-select-label">
+                        Time
+                    </InputLabel>
+                    <Select
+                        labelId="Appointment-date-select-label"
+                        id="Appointment-date-select"
+                        value={reserveTime}
+                        label="Appointment Time"
+                        
+                        onChange={(e) => {
+                            setReserveTime(e.target.value as number || 0);
+                            onTimeChange(e.target.value === 1? morning : e.target.value === 2? afternoon : null);
+                            setComponentTime(e.target.value === 1? morning : e.target.value === 2? afternoon : null)
+                        }}
+                    >   
+                        <MenuItem value={1}>09.00</MenuItem>
+                        <MenuItem value={2}>13.00</MenuItem>
+                    </Select>
+                </FormControl>
+                {/* <h1>{dayjs(componentDate).format('YYYY-MM-DD HH:mm:ss Z')}</h1> */}
             </div>
         </div>
     );
