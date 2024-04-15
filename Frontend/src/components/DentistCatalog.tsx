@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Card from "./Card"
+import { DentistJson } from "../../interface"
 
 export default async function DentistCatalog({dentistsJson} : {dentistsJson: Promise<DentistJson>}) {
 

@@ -11,6 +11,7 @@ import utc from "dayjs/plugin/utc";
 import getDentists from "@/libs/getDentists";
 import { useSession } from "next-auth/react";
 import TextField from "@mui/material/TextField";
+import { DentistItem } from "../../interface";
 
 export default function DateReserve({
     onDateChange,
