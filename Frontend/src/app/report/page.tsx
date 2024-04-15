@@ -9,12 +9,14 @@ import getAppointment from "@/libs/getAppointment";
 import HistoryBlock from "@/components/HistoryBlock";
 import { getServerSession } from "next-auth";
 import { ReportItem, ReportJson } from "../../../interface";
+import { useRouter } from "next/navigation";
 
 
 export default function SelectReport() {
 
   const [reports, setReports] = useState<ReportJson | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const router = useRouter();
   
   const { data: session } = useSession();
 
@@ -39,15 +41,16 @@ export default function SelectReport() {
   return (
     <main className="justify-center items-center p-5 flex flex-col">
       <h1 className="mx-auto w-fit text-2xl mb-10 font-semibold mt-5">Report</h1>
+      
 
       <form
         onSubmit={(e) => {
           e.preventDefault();
           // Handle search
         }}
-        className="max-w-[480px] w-full px-4"
+        className="max-w-[480px] w-full px-4 flex justify-between items-center"
       >
-        <div className="relative">
+        <div className="relative flex-grow">
           <input
             type="text"
             name="search"
@@ -66,6 +69,10 @@ export default function SelectReport() {
             </svg>
           </button>
         </div>
+
+        
+
+        <button onClick={(e) => { e.stopPropagation(); router.push('/report/create'); }} className="ml-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Launch Nuclear</button>
       </form>
 
       <div className="shadow-lg rounded-lg relative justify-items-center w-4/5">

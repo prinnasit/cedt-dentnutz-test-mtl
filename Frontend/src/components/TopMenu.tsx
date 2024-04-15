@@ -19,12 +19,15 @@ export default async function TopMenu() {
           <Image src={'/img/logo.png'} className="h-[100%] w-auto p-1" alt='logo' width={0} height={0} sizes='100vh' />
         </Link>
         </div>
-
+      
       <div className="flex gap-4 ml-[33%]">
         <TopMenuItem title='View Appointment' pageRef='/appointment'/>
         <TopMenuItem title='Booking' pageRef='/makeappointment'/>
         <TopMenuItem title='Dentist' pageRef='/dentist'/>
-        <TopMenuItem title='Report' pageRef='/report'/>
+        {
+          (session?.user.type!=='patient' && session?.user.type!=='doctor')?
+          null
+        : <TopMenuItem title='Report' pageRef='/report'/>}
       </div>
       
       
