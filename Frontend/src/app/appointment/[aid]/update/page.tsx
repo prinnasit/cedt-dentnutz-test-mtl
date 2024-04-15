@@ -23,9 +23,8 @@ export default function AppointmentDetailPage({
 
   const [appointmentDetail, setAppointmentDetail] = useState<any>(null);
   const [appointmentTime, setAppointmentTime] = useState<Dayjs | null>(null);
-  const [appointmentDate, setAppointmentDate] = useState<Dayjs|null>(null);
+  const [appointmentDate, setAppointmentDate] = useState<Dayjs | null>(null);
   const [dentist, setDentist] = useState<any>(null);
-  const [allDentist, setAllDentist] = useState<any>(null);
   
 
   const { data: session } = useSession();
@@ -45,15 +44,17 @@ export default function AppointmentDetailPage({
                 )
             : null;
     appDate = dayjs(timeString).format('YYYY-MM-DD HH:mm:ss Z');
-  }
+  } 
+
+  const morning: Dayjs = dayjs().hour(9).minute(0);
+  const afternoon: Dayjs = dayjs().hour(13).minute(0);
 
   useEffect(() => {
     const fetchData = async () => {
       const appointment = await getAppointment(params.aid, token);
-      const dentist = await getDentists();
-      setAllDentist(dentist);
       setAppointmentDetail(appointment);
       setAppointmentDate(dayjs(appointment.data.appDate));
+      setAppointmentTime(dayjs(appointment.data.appDate).get('hour') === 9? morning: dayjs(appointment.data.appDate).get('hour') === 13? afternoon: null);
       setDentist(appointment.data.dentist._id);
     }
     fetchData();

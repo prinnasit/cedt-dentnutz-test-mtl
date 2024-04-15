@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Paper from "@mui/material/Paper";
-import { ViewState } from "@devexpress/dx-react-scheduler";
+import { ViewState} from "@devexpress/dx-react-scheduler";
 import {
     Scheduler,
     MonthView,
@@ -11,6 +11,9 @@ import {
     TodayButton,
     CurrentTimeIndicator,
     AppointmentTooltip,
+    ViewSwitcher,
+    WeekView,
+    DayView
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { useState, useEffect } from "react";
 import getAppointments from "@/libs/getAppointments";
@@ -72,9 +75,15 @@ export default function Calendar() {
         <Paper>
             <Scheduler data={data}>
             <ViewState defaultCurrentDate={currentDate} />
-
+            
             <MonthView />
+            <WeekView startDayHour={9} endDayHour={18} />
+            <DayView
+            startDayHour={9}
+            endDayHour={18}
+          />
             <Toolbar />
+            <ViewSwitcher />
             <DateNavigator />
             <TodayButton />
             <Appointments appointmentComponent={Appointment as any} />
