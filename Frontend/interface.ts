@@ -16,7 +16,7 @@ export interface DentistJson {
   data: DentistItem[];
 }
 
-interface AppointmentItem {
+export interface AppointmentItem {
   _id: string;
   appDate: Date;
   user: string;

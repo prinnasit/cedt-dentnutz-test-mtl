@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import getAppointments from "@/libs/getAppointments";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { AppointmentItem } from "../../interface";
 
 export default function Calendar() {
     const [data, setData] = useState();
