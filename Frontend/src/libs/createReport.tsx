@@ -1,7 +1,7 @@
 
-export default async function addAppointment(dentistID:string, appDate:string , token:string) {
+export default async function createReport(dentistID:string, appDate:string , token:string) {
 
-    const response = await fetch(`https://cedt-se-project-dentnutz-backend.vercel.app/api/v1/dentists/${dentistID}/appointments`, {
+    const response = await fetch('https://cedt-se-project-dentnutz-backend.vercel.app/api/v1/reports', {
         method: 'POST',
         headers: {
             'authorization': `Bearer ${token}`,
@@ -11,7 +11,7 @@ export default async function addAppointment(dentistID:string, appDate:string , 
     })
 
     if (!response.ok) {
-        throw new Error("Failed to add appointment")
+        throw new Error("Failed to create Report")
     }
 
     return await response.json()
