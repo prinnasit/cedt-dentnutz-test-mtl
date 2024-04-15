@@ -10,14 +10,6 @@ export default function updateReport() {
         <h1 className="mx-auto w-fit text-2xl mb-10">Update "Name" Report</h1>
         <div className="shadow-lg rounded-lg w-4/5 flex flex-col justify-items-center content-center p-5 space-y-2">
             <div className="flex flex-row ">
-                <div className="text-xl basis-1/4">Date:</div>
-                <TextField multiline className="basis-3/4" id="outlined-basic" label="Date" variant="outlined" />
-            </div>
-            <div className="flex flex-row ">
-                <div className="text-xl basis-1/4">Doctor:</div>
-                <TextField multiline className="basis-3/4" id="outlined-basic" label="Doctor" variant="outlined" />
-            </div>
-            <div className="flex flex-row ">
                 <div className="text-xl basis-1/4">Symptom:</div>
                 <TextField multiline className="basis-3/4" id="outlined-basic" label="Symptom" variant="outlined" />
             </div>

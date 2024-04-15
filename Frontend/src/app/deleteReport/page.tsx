@@ -1,3 +1,11 @@
+import deleteReport from "@/libs/deleteReport";
+
+const deleteOldReport = async () = {
+    const name1 = await deleteReport(
+        
+    )
+}
+
 export default function deleteOldReports(){
     return(
         <main className="grid content-center justify-items-center">

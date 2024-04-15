@@ -10,6 +10,16 @@ export default async function TopMenu() {
 
   const session = await getServerSession(authOptions)
   const profile = session ? await getUserProfile(session.user.token) : null
+
+  function renderTopMenuItem() {
+    if(!session) return null;
+    else if (session && session.user.type !== 'patient' && session.user.type !== 'dentist') {
+      return <TopMenuItem title='Launch Nuclear' pageRef='/deleteReport' />;
+    } else {
+      return <TopMenuItem title='Report' pageRef='/report' />;
+    }
+  }
+
   return (  
     <div className="h-[64px] top-0 left-0 right-0 z-30 px-10 fixed flex flex-row justify-stretch items-center shadow-lg "
     style={{ backgroundColor: 'rgb(65, 201, 226)' }}>
@@ -25,11 +35,7 @@ export default async function TopMenu() {
         <TopMenuItem title='View Appointment' pageRef='/appointment'/>
         <TopMenuItem title='Booking' pageRef='/makeappointment'/>
         <TopMenuItem title='Dentist' pageRef='/dentist'/>
-        {
-          
-          (session && session?.user.type!=='patient' && session?.user.type!=='dentist')?
-          <TopMenuItem title='Launch Nuclear' pageRef='/deleteReport'/>
-        : <TopMenuItem title='Report' pageRef='/report'/>}
+        {renderTopMenuItem()}
       </div>
       
       
