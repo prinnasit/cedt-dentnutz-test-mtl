@@ -56,7 +56,7 @@ export default function AppointmentDetailPage({
           </div>
           <div className="space-x-10">
           {
-            (session.user.type==='patient' || (session.user.type!=='patient' && session.user.type!=='doctor'))?
+            (session.user.type==='patient' || (session.user.type!=='patient' && session.user.type!=='dentist'))?
             <div>
             <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
             <button
