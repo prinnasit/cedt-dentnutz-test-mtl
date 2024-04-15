@@ -24,9 +24,10 @@ const ReportSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    default: Date.now,
+  appointmentID: {
+    type: mongoose.Schema.ObjectId,
+    required: true,
+    ref: 'Appointment'
   },
   
 });

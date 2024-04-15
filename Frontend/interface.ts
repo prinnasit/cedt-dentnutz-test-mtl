@@ -38,7 +38,7 @@ export interface ReportItem {
   treatment:string;
   prescribed_medication:string;
   recommendations:string;
-  date:string;
+  appointmentId:AppointmentItem;
 }
 
 export interface PatientItem{

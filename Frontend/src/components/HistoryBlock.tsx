@@ -1,7 +1,6 @@
-import mongoose, { Date } from "mongoose";
 import { DentistItem, PatientItem } from "../../interface";
 
-export default function HistoryBlock({UserType,oneT,Doctor,Symptom,Treatment,Recommendation,Patient}:{UserType:string,oneT:string,Doctor:DentistItem,Symptom:string,Treatment:string,Recommendation:string,Patient:PatientItem}){
+export default function HistoryBlock({UserType,oneT,Doctor,Symptom,Treatment,Recommendation,Patient}:{UserType:string,oneT:Date,Doctor:DentistItem,Symptom:string,Treatment:string,Recommendation:string,Patient:PatientItem}){
     return(
     <div className="rounded-lg shadow-md p-3 text-black relative">
 
