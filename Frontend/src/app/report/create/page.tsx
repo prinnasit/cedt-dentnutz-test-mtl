@@ -23,10 +23,10 @@ export default function addReport() {
     const [appointmentDate, setAppointmentDate] = useState<Date|null>(null);
     
     let appt = searchParams.get("apptId");
-    if (!appt) appt = "";
 
     useEffect(() => {
         const fetchAppointment = async () => {
+          if (!appt) return;
           const appointment = await getAppointment(appt, token);
           setAppointmentDate(appointment.data.appDate);
         };
