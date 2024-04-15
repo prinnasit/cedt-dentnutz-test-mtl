@@ -34,7 +34,7 @@ export default function updateReportPage() {
       },[]);
 
     const editReport = async () => {
-        if (!treatment || !recommendation || !medication) return alert("Please enter all fields");
+        if (!treatment || !recommendation || !medication || !reportID) return alert("Please enter all fields");
         const report = await updateReport(
             treatment,
             medication,
