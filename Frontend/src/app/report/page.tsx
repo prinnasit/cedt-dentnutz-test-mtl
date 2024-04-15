@@ -69,10 +69,6 @@ export default function SelectReport() {
             </svg>
           </button>
         </div>
-
-        
-
-        <button onClick={(e) => { e.stopPropagation(); router.push('/report/create'); }} className="ml-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Launch Nuclear</button>
       </form>
 
       <div className="shadow-lg rounded-lg relative justify-items-center w-4/5">
