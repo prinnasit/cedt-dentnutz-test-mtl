@@ -54,23 +54,22 @@ export default function addReport() {
   
   return (
     <main className="justify-center items-center p-5 flex flex-col">
-        <h1 className="mx-auto w-fit text-2xl mb-10 bold">Create Report</h1>
+        <h1 className="mx-auto w-fit text-2xl mb-10 bold text-black">Create Report</h1>
         <div className="shadow-lg rounded-lg w-4/5 flex flex-col justify-items-center content-center p-5 space-y-2">
             
             
-        
             <div className="flex flex-row ">
-                <div className="text-xl basis-1/4">Medication:</div>
-                <TextField multiline className="basis-3/4" id="outlined-basic" label="Symptom" variant="outlined" 
-                onChange={(e)=>{setMedication(e.target.value)}}/>
-            </div>
-            <div className="flex flex-row ">
-                <div className="text-xl basis-1/4">Treatment:</div>
+                <div className="text-xl basis-1/4 text-black">Treatment:</div>
                 <TextField multiline className="basis-3/4" id="outlined-basic" label="Treatment" variant="outlined" 
                 onChange={(e)=>{setTreatment(e.target.value)}}/>
             </div>
             <div className="flex flex-row ">
-                <div className="text-xl basis-1/4">Recommmendation:</div>
+                <div className="text-xl basis-1/4 text-black">Medication:</div>
+                <TextField multiline className="basis-3/4" id="outlined-basic" label="Medication" variant="outlined" 
+                onChange={(e)=>{setMedication(e.target.value)}}/>
+            </div>
+            <div className="flex flex-row ">
+                <div className="text-xl basis-1/4 text-black">Recommmendation:</div>
                 <TextField multiline className="basis-3/4" id="outlined-basic" label="Recommmendation" variant="outlined" 
                 onChange={(e)=>{setRecommendation(e.target.value)}}/>
             </div>

@@ -1,12 +1,12 @@
-export default async function updateReport(appID:string ,dentist:string, prescribe:string , recommend:string, date:string, token:string) {
+export default async function updateReport(treatment:string, prescribe:string , recommend:string, reportID:string,  token:string) {
 
-    const response = await fetch(`https://cedt-se-project-dentnutz-backend.vercel.app/api/v1/reports/${appID}`, {
+    const response = await fetch(`https://cedt-se-project-dentnutz-backend.vercel.app/api/v1/reports/${reportID}`, {
         method: 'PUT',
         headers: {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({appDate: date, dentist: dentist})
+        body: JSON.stringify({treatment:treatment, prescribed_medication:prescribe , recommendations:recommend})
     })
 
     if (!response.ok) {
