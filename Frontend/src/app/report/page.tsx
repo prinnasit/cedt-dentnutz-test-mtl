@@ -77,7 +77,7 @@ export default function SelectReport() {
             <HistoryBlock
               // key={reportItem.id} // Add unique key for each report
               UserType={session.user.type}
-              oneT={reportItem.appointmentId.appDate}
+              oneT={reportItem.date}
               Doctor={reportItem.dentistId}
               Symptom={reportItem.prescribed_medication}
               Treatment={reportItem.treatment}

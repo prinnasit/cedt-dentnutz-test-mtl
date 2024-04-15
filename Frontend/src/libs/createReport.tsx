@@ -1,5 +1,5 @@
 
-export default async function createReport(dentistID:string,patientID:string, apptDate:Date, treatment:string, presMed:string ,rec:string, token:string) {
+export default async function createReport(patientID:string,dentistID:string, apptDate:Date, treatment:string, presMed:string ,rec:string, token:string) {
 
     const response = await fetch('https://cedt-se-project-dentnutz-backend.vercel.app/api/v1/reports', {
         method: 'POST',
