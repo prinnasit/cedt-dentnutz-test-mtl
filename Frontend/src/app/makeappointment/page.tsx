@@ -21,7 +21,7 @@ export default function AppointmentMaking() {
   const [dentistID, setDentistID] = useState<string | null>(searchParams.get("dentistid"));
   const [dentist, setDentist] = useState<string | null>(searchParams.get("dentistname"));
 
-  let appDate = null
+  let appDate: string | null = null;
 
   if (appointmentDate && appointmentTime) {
     const timeString =

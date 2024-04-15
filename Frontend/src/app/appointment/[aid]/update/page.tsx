@@ -33,7 +33,7 @@ export default function AppointmentDetailPage({
   const token = session?.user.token;
   if (!token) return null;
 
-  let appDate = null;
+  let appDate: string | null = null;
 
   if (appointmentDate && appointmentTime) {
     const timeString =
