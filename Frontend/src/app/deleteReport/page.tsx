@@ -1,7 +1,6 @@
 import { useSession } from "next-auth/react";
 import deleteReport from "@/libs/deleteReport";
 
-import deleteReport from "@/libs/deleteRep o
     const { data: session } = useSession();
     const token = session?.user.token;
     if (!token) return null;
@@ -12,7 +11,6 @@ import deleteReport from "@/libs/deleteRep o
             token
         )
     }
-rt";
 
 const deleteOldReport = async () = {
     const name1 = await deleteReport(
