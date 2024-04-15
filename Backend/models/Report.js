@@ -24,7 +24,7 @@ const ReportSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  appointmentID: {
+  appointmentId: {
     type: mongoose.Schema.ObjectId,
     required: true,
     ref: 'Appointment'
