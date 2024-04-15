@@ -32,13 +32,14 @@ export interface ReportJson {
 }
 
 export interface ReportItem {
+  objectId : mongoose.Schema.Types.ObjectId
   _id: string;
   patientId:PatientItem;
   dentistId:DentistItem;
   treatment:string;
   prescribed_medication:string;
   recommendations:string;
-  appointmentId:AppointmentItem;
+  date: Date;
 }
 
 export interface PatientItem{

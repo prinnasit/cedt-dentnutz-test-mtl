@@ -1,4 +1,19 @@
+import { useSession } from "next-auth/react";
+import deleteReport from "@/libs/deleteReport";
+
+    
+
 export default function deleteOldReports(){
+//     const { data: session } = useSession();
+//     const token = session?.user.token;
+//     if (!token) return null;
+
+
+// const deleteOldReport = async () => {
+//     const name1 = await deleteReport(
+        
+//     )
+// }
     return(
         <main className="grid content-center justify-items-center">
             <div className="my-8 ">

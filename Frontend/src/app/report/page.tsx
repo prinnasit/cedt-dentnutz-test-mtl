@@ -27,7 +27,7 @@ export default function SelectReport() {
   
   useEffect( ()=>{
     const fetchData = async ()=>{
-      const data = await getReports(token); 
+      const data = await getReports(token);
       setReports(data)
     }
     fetchData()
@@ -75,9 +75,9 @@ export default function SelectReport() {
         <div className="flex flex-col p-5 space-y-2">
           {filteredReports.map((reportItem: ReportItem) => (
             <HistoryBlock
-              // key={reportItem.id} // Add unique key for each report
+              Key={reportItem._id}
               UserType={session.user.type}
-              oneT={reportItem.appointmentId.appDate}
+              oneT={reportItem.date}
               Doctor={reportItem.dentistId}
               Symptom={reportItem.prescribed_medication}
               Treatment={reportItem.treatment}

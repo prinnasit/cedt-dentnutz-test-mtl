@@ -19,7 +19,6 @@ export default function AppointmentMaking() {
   const [appointmentDate, setAppointmentDate] = useState<Dayjs | null>(null);
   const [appointmentTime, setAppointmentTime] = useState<Dayjs | null>(null);
   const [dentistID, setDentistID] = useState<string | null>(searchParams.get("dentistid"));
-  const [dentist, setDentist] = useState<string | null>(searchParams.get("dentistname"));
 
   let appDate: string | null = null;
 
