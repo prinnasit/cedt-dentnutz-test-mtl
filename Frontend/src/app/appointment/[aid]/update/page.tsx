@@ -22,6 +22,7 @@ export default function AppointmentDetailPage({
 }) {
 
   const [appointmentDetail, setAppointmentDetail] = useState<any>(null);
+  const [appointmentTime, setAppointmentTime] = useState<Dayjs | null>(null);
   const [appointmentDate, setAppointmentDate] = useState<Dayjs|null>(null);
   const [dentist, setDentist] = useState<any>(null);
   const [allDentist, setAllDentist] = useState<any>(null);
@@ -31,6 +32,20 @@ export default function AppointmentDetailPage({
 
   const token = session?.user.token;
   if (!token) return null;
+
+  let appDate: string | null = null;
+
+  if (appointmentDate && appointmentTime) {
+    const timeString =
+    appointmentDate && appointmentTime
+            ? dayjs(
+                    `${appointmentDate.format(
+                        "YYYY-MM-DD"
+                    )}T${appointmentTime.format("HH:mm")}`
+                )
+            : null;
+    appDate = dayjs(timeString).format('YYYY-MM-DD HH:mm:ss Z');
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,12 +59,12 @@ export default function AppointmentDetailPage({
     fetchData();
   },[]);
 
- 
+  
 
   const router = useRouter();
 
     const editAppointment = async () => {
-        await updateAppointment(appointmentDetail.data._id,dentist,dayjs(appointmentDate).format("YYYY/MM/DD"),token);
+        await updateAppointment(appointmentDetail.data._id,dentist,dayjs(appDate).format('YYYY-MM-DD HH:mm:ss Z'),token);
         router.push(`/appointment/${appointmentDetail.data._id}`);
       }
 
@@ -71,6 +86,9 @@ export default function AppointmentDetailPage({
             }} currentDentist= {dentist}
             currentDate={appointmentDate}
             onDentistChange={(value: string) => {setDentist(value)}}
+            onTimeChange={(value: Dayjs) => {
+              setAppointmentTime(value);
+            }}
           />
           <button className="block bg-blue-500 rounded-lg hover:bg-blue-400 text-white font-semibold px-5 py-3 shadow-sm text-white mx-auto text-2xl"
             name="Submit Changes" onClick={editAppointment}>

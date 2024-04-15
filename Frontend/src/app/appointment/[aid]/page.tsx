@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { LinearProgress } from "@mui/material";
 import { Suspense } from "react";
+import dayjs from "dayjs";
 
 export default function AppointmentDetailPage({
   params,
@@ -52,7 +53,7 @@ export default function AppointmentDetailPage({
           </div>
           <div className="text-2xl text-slate-700">
             Appointment Date :{" "}
-            {new Date(appointmentDetail.data.appDate).toLocaleDateString()}
+            {dayjs(appointmentDetail.data.appDate).format('YYYY-MM-DD HH:mm:ss Z')}
           </div>
           <div className="space-x-10">
           {

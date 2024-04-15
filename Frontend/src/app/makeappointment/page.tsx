@@ -17,10 +17,44 @@ export default function AppointmentMaking() {
   if (!token) return null;
 
   const [appointmentDate, setAppointmentDate] = useState<Dayjs | null>(null);
+  const [appointmentTime, setAppointmentTime] = useState<Dayjs | null>(null);
   const [dentistID, setDentistID] = useState<string | null>(searchParams.get("dentistid"));
   const [dentist, setDentist] = useState<string | null>(searchParams.get("dentistname"));
 
-  let appDate = dayjs(appointmentDate).format("YYYY/MM/DD");
+  let appDate: string | null = null;
+
+  if (appointmentDate && appointmentTime) {
+    const timeString =
+    appointmentDate && appointmentTime
+            ? dayjs(
+                    `${appointmentDate.format(
+                        "YYYY-MM-DD"
+                    )}T${appointmentTime.format("HH:mm")}`
+                )
+            : null;
+    appDate = dayjs(timeString).format('YYYY-MM-DD HH:mm:ss Z');
+  }
+  
+
+//   function onTimeChange(value: number | null) {
+//     let selectedTime: dayjs.Dayjs | null = null;
+//     if (value === 1) {
+//         selectedTime = morning;
+//     } else if (value === 2) {
+//         selectedTime = afternoon;
+//     }
+
+//     const timeString =
+//         reserveDate && selectedTime
+//             ? dayjs(
+//                     `${reserveDate.format(
+//                         "YYYY-MM-DD"
+//                     )}T${selectedTime.format("HH:mm")}`
+//                 )
+//             : null;
+
+//     setReserveDate(dayjs(timeString));
+// }
 
   const makingAppointment = async () => {
     if (!dentistID || !appDate) return alert("Please enter all fields");
@@ -50,6 +84,9 @@ export default function AppointmentMaking() {
             }} currentDentist= {dentistID}
             currentDate={appointmentDate}
             onDentistChange={(value: string) => {setDentistID(value)}}
+            onTimeChange={(value: Dayjs) => {
+              setAppointmentTime(value);
+            }}
           />
             
         <button
