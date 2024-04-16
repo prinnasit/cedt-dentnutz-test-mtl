@@ -13,7 +13,7 @@ export default async function TopMenu() {
 
   function renderTopMenuItem() {
     if (!session) {
-      <div className="flex gap-4 ml-[28%]">
+      <div className="flex gap-4 ml-[25%]">
         <TopMenuItem title='Dentist' pageRef='/dentist'/>
         <TopMenuItem title='Booking' pageRef='/makeappointment'/>
         <TopMenuItem title='View Appointment' pageRef='/appointment'/>
@@ -32,7 +32,7 @@ export default async function TopMenu() {
       }
       else if (session.user.type === 'dentist') {
         return (
-          <div className="flex gap-4 ml-[30%]">
+          <div className="flex gap-4 ml-[25%]">
             <TopMenuItem title='View Schedule' pageRef='/schedule'/>
             <TopMenuItem title='View Report' pageRef='/report'/>
           </div>
@@ -41,10 +41,9 @@ export default async function TopMenu() {
       else {
         return (
           <div className="flex gap-4 ml-[25%]">
-            <TopMenuItem title='Booking' pageRef='/makeappointment'/>
+            <TopMenuItem title='View Schedule' pageRef='/schedule'/>
             <TopMenuItem title='View Appointment' pageRef='/appointment'/>
             <TopMenuItem title='View Report' pageRef='/report'/>
-            <TopMenuItem title='Launch Nuclear' pageRef='/deleteReport'/>
           </div>
         )
       }
