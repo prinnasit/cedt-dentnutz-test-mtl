@@ -31,4 +31,6 @@ const ReportSchema = new mongoose.Schema({
   
 });
 
+ReportSchema.index({ date: 1 }, { expireAfterSeconds: 60 * 60 * 24 * 365 });
+
 module.exports = mongoose.model("Report", ReportSchema);
