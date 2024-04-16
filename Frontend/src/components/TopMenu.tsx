@@ -22,16 +22,16 @@ export default async function TopMenu() {
 
   return (  
     <div className="h-[64px] top-0 left-0 right-0 z-30 px-10 fixed flex flex-row justify-stretch items-center shadow-lg "
-    style={{ backgroundColor: 'rgb(65, 201, 226)' }}>
+    style={{ backgroundColor: 'rgb(250, 250, 250)' }}>
 
       <div className='h-[100%] justify-start w-fit'>
       <Link href="/" className='mr-5'>
-          <Image src={'/img/logo.png'} className="h-[100%] w-auto p-1" alt='logo' width={0} height={0} sizes='100vh' />
+          <Image src={'/img/logo1.png'} className="h-[100%] w-auto p-1" alt='logo' width={0} height={0} sizes='100vh' />
         </Link>
         </div>
         
       
-      <div className="flex gap-4 ml-[33%]">
+      <div className="flex gap-10 ml-[20%] text-slate-950 font-medium">
         <TopMenuItem title='View Appointment' pageRef='/appointment'/>
         <TopMenuItem title='Booking' pageRef='/makeappointment'/>
         <TopMenuItem title='Dentist' pageRef='/dentist'/>
@@ -48,7 +48,7 @@ export default async function TopMenu() {
           
             <Link href="/api/auth/signout" className="py-1 border-b-2 text-medium border-transparent ml-3">
               <button className='bg-red-500 text-white font-semibold py-2 
-              px-2 my-8 rounded-lg hover:bg-red-600  hover:text-red-200' >Sign-Out of {profile.data.name}</button>
+              px-2 my-8 rounded-lg hover:bg-red-600  ' >Sign-Out of {profile.data.name}</button>
             </Link>
 
             

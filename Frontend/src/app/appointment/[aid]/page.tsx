@@ -43,35 +43,24 @@ export default function AppointmentDetailPage({
       <div className=" mb-20 "><LinearProgress/></div>
     </div>);
   return (
-    <main className="text-center mt-20 mb-20">
-        <div
-          className=" font-mono font-semibold w-fit rounded-lg mx-auto 
-          my-2 px-14 py-5 text-black space-y-14" style={{ backgroundColor: 'rgb(247, 238, 221)' }}
+    <main className=" mt-5 mb-20">
+      <h1 className="text-5xl font-medium w-fit text-black bg rounded-lg m-3 py-6 px-10 mx- bg-bule-300 "> Patient Appointments</h1>
+        <div className="font-semibold w-fit rounded-xl mx-auto my-2 px-14 py-5 text-black shadow-lg"
           key={appointmentDetail.data._id}>
-          <div className="text-5xl mt-4">Patient : {appointmentDetail.data.userName}</div>
-          <div className="text-3xl text-slate-700">
-            Dentist : Doctor {appointmentDetail.data.dentist?.name}
-          </div>
-          <div className="text-2xl text-slate-700">
-            Appointment Date :{" "}
-            {dayjs(appointmentDetail.data.appDate).format('YYYY-MM-DD HH:mm:ss Z')}
-          </div>
-          <div className="space-x-10">
+          <div className="text-3xl text-slate-800 mt-5 text-left font-medium">Patient : {appointmentDetail.data.userName}</div>
+          <div className="text-3xl text-slate-800 mt-5 text-left font-medium">Dentist : Doctor {appointmentDetail.data.dentist?.name}</div>
+          <div className="text-3xl text-slate-800 mt-5 text-left font-medium">Appointment Date : {dayjs(appointmentDetail.data.appDate).format('DD / MM / YYYY')}</div>
+          <div className="text-right">
           {
             (session.user.type==='patient' || (session.user.type!=='patient' && session.user.type!=='dentist'))?
             <div>
             <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
-            <button
-              className="block bg-blue-500 rounded-lg hover:bg-blue-400 text-white font-semibold px-3 py-2 shadow-sm text-white inline"
-              name="Edit Appointment"
-            >
-              Edit Appointment
-            </button>
-          </Link>
-          <button onClick={cancelAppointment} className="ml-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+              <button className=" text-base text-blue-500 mt-5 text-right font-medium" name="Edit Appointment">Edit</button>
+            </Link>
+          <button onClick={cancelAppointment} className="ms-5 text-base text-blue-500 mt-5 text-right font-medium me-2">
           Cancle
-        </button>
-        </div>
+          </button>
+          </div>
             :
             <div>
             <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/create?userId=${appointmentDetail.data.user}&dentistId=${appointmentDetail.data.dentist._id}&apptId=${appointmentDetail.data._id}`)}}
