@@ -13,7 +13,11 @@ export default async function TopMenu() {
 
   function renderTopMenuItem() {
     if (!session) {
-      return null
+      <div className="flex gap-4 ml-[28%]">
+        <TopMenuItem title='Dentist' pageRef='/dentist'/>
+        <TopMenuItem title='Booking' pageRef='/makeappointment'/>
+        <TopMenuItem title='View Appointment' pageRef='/appointment'/>
+      </div>
     }
     else {
       if (session.user.type === 'patient') {
