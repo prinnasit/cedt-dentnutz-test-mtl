@@ -35,8 +35,16 @@ export default function AppointmentDetailPage({
 
   const cancelAppointment = async () => {
     await deleteAppointment(appointmentDetail.data._id, token);
-    router.push("/schedule");
-  };
+    if (session.user.type === 'dentist' || session.user.role === 'admin') {
+      
+        router.push("/schedule");
+  
+    } else if (session.user.type === 'patient') {
+      
+        router.push("/appointment");
+      };
+    }
+  
 
   if (!appointmentDetail) return (<div>
       <p className="mt-20 mb-5 text-black text-center text-5xl text-bold space-y-6">Loading... </p>
@@ -69,7 +77,7 @@ export default function AppointmentDetailPage({
             </button>
           </Link>
           <button onClick={cancelAppointment} className="ml-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-          Cancle
+          Cancel
         </button>
         </div>
             :
