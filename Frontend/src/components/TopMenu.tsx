@@ -14,7 +14,7 @@ export default async function TopMenu() {
   function renderTopMenuItem() {
     if (!session) {
       return (
-        <div className="flex gap-4 ml-[25%]">
+        <div className="flex gap-4 ml-[35%]">
           <TopMenuItem title='Dentist' pageRef='/dentist'/>
           <TopMenuItem title='Booking' pageRef='/makeappointment'/>
           <TopMenuItem title='View Appointment' pageRef='/appointment'/>
@@ -24,7 +24,7 @@ export default async function TopMenu() {
     else {
       if (session.user.type === 'patient') {
         return (
-          <div className="flex gap-4 ml-[25%]">
+          <div className="flex gap-4 ml-[32%]">
             <TopMenuItem title='Dentist' pageRef='/dentist'/>
             <TopMenuItem title='Booking' pageRef='/makeappointment'/>
             <TopMenuItem title='View Appointment' pageRef='/appointment'/>
@@ -34,7 +34,7 @@ export default async function TopMenu() {
       }
       else if (session.user.type === 'dentist') {
         return (
-          <div className="flex gap-4 ml-[25%]">
+          <div className="flex gap-4 ml-[37%]">
             <TopMenuItem title='View Schedule' pageRef='/schedule'/>
             <TopMenuItem title='View Report' pageRef='/report'/>
           </div>
@@ -42,10 +42,10 @@ export default async function TopMenu() {
       }
       else {
         return (
-          <div className="flex gap-4 ml-[25%]">
+          <div className="flex gap-4 ml-[35%]">
+            <TopMenuItem title='Dentist' pageRef='/dentist'/>
             <TopMenuItem title='View Schedule' pageRef='/schedule'/>
             <TopMenuItem title='View Appointment' pageRef='/appointment'/>
-            <TopMenuItem title='View Report' pageRef='/report'/>
           </div>
         )
       }
