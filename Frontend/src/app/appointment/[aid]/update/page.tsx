@@ -61,7 +61,6 @@ export default function AppointmentDetailPage({
   },[]);
 
   
-
   const router = useRouter();
 
     const editAppointment = async () => {
@@ -75,23 +74,20 @@ export default function AppointmentDetailPage({
   </div>);
 
   return (
-    <main className="text-center mt-20 mb-20">
+    <main className="mt-10 mb-20 text-left">
+      <div className="text-center font-semibold text-4xl mb-10 ">Edit Appointment</div>
       <div
-          className="bg-slate-200 font-mono font-semibold w-fit rounded-lg mx-auto my-2 px-10 py-5 text-black space-y-8 justify-center items-center"
+          className="font-medium w-fit rounded-3xl mx-auto my-2 px-10 py-5 text-black space-y-8 justify-center items-center border-gray-300 border-2 text-center "
           key={appointmentDetail.data._id}
         >
-          <div className="text-5xl mt-4">Patient : {appointmentDetail.data.userName}</div>
-          <DateReserve
-            onDateChange={(value: Dayjs) => {
-              setAppointmentDate(value);
-            }} currentDentist= {dentist}
+          <div className="text-3xl mt-4">Patient : {appointmentDetail.data.userName}</div>
+          <DateReserve 
+            onDateChange={(value: Dayjs) => {setAppointmentDate(value);}} currentDentist={dentist}
             currentDate={appointmentDate}
             onDentistChange={(value: string) => {setDentist(value)}}
-            onTimeChange={(value: Dayjs) => {
-              setAppointmentTime(value);
-            }}
+            onTimeChange={(value: Dayjs) => {setAppointmentTime(value);}}
           />
-          <button className="block bg-blue-500 rounded-lg hover:bg-blue-400 text-white font-semibold px-5 py-3 shadow-sm text-white mx-auto text-2xl"
+          <button className="block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"
             name="Submit Changes" onClick={editAppointment}>
             Submit Changes
           </button>

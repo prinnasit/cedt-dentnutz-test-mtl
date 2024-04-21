@@ -68,6 +68,14 @@ export default async function TopMenu() {
       {renderTopMenuItem()}
       
 
+            <Link href="/api/auth/signin" className="text-xl text-slate-950 font-medium ml-3 flex items-center gap-2 px-2 py-3.5 rounded-2xl hover:text-primary-default hover:text-slate-700 hover:underline ">
+              Sign In
+            </Link>
+          
+            <Link href="/api/auth/register" className="py-1 border-b-2 text-medium border-transparent">
+              <button className='bg-blue-500 text-white font-semibold py-2 
+              px-2 my-8 rounded-lg hover:bg-blue-400   hover:text-blue-500' > Register</button>
+      </Link>
 
       <div className='flex ml-auto items-center gap-4 w-auto'>
         <div>
@@ -93,7 +101,6 @@ export default async function TopMenu() {
         </div>
           
         <div className='h-8 border-r border-default'></div>
-        
         <Link href="/myaccount">
           <Button className='group flex items-center gap-2 rounded-2xl hover:text-primary-default hover:bg-cyan-500 py-2 outline-none text-high'>
               <img

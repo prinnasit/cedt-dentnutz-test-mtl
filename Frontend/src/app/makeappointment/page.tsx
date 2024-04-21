@@ -78,11 +78,8 @@ export default function AppointmentMaking() {
 
   return (
     <main className="w-[100%] text-center items-center space-y-5 mt-20 mb-20" >
-      <div className=" font-mono font-semibold w-fit rounded-lg mx-auto my-2 
-      px-14 py-5 text-black space-y-14 justify-center items-center" style={{ backgroundColor: 'rgb(247, 238, 221)' }}>
-        <div className="text-5xl mt-4" >
-          Dentist Appointment
-        </div>
+      <div className="font-semibold w-fit rounded-3xl mx-auto my-2 px-14 py-5 text-black space-y-14 justify-center items-center border-2 border-gray-400">
+        <div className="text-5xl mt-4" >Create Appointment</div>
 
           <DateReserve
             onDateChange={(value: Dayjs) => {
@@ -96,11 +93,8 @@ export default function AppointmentMaking() {
           />
             
         <button
-          className="block rounded-md bg-[#008DDA] hover:bg-indigo-500 px-5 py-4 shadow-sm text-xl text-bold mb-10 mt-3 text-white mx-auto"
-          name="Make Appointment"
-          onClick={makingAppointment}
-        >
-          Make Appointment
+          className="block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"name="Make Appointment"
+          onClick={makingAppointment}>Create Appointment
         </button>
       </div>
     </main>

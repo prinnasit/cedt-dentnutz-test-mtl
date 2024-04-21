@@ -64,9 +64,10 @@ export default function DateReserve({
     if (!allDentist) return null;
 
     return (
-        <div className="rounded-lg space-x-5 space-y-2 w-[100%] px-10 py-5 flex flex-col justify-center items-center">
-            <div className="flex flex-row items-center">
-                <div className="text-2xl font-semibold mb-[9.25%] mr-5">
+        <div className="rounded-lg space-x-5 space-y-2 px-10 py-5 flex flex-col ">
+            
+            <div className="flex flex-row items-left space-x-5 ">
+                <div className="text-2xl font-medium mt-3 ml-10 mr-11 ">
                     <p>Dentist&nbsp;:&nbsp;Doctor</p>
                 </div>
                 <FormControl fullWidth>
@@ -77,7 +78,7 @@ export default function DateReserve({
                         label="Dentist"
                         labelId="Dentist-select-label"
                         value={dentist}
-                        className="h2-[2em] min-w-[200px] w-fit mb-10 text-2xl font-semibold"
+                        className="h2-[2em] min-w-[200px] w-fit mb-10 text-lg font-medium"
                         inputProps={{ MenuProps: { disableScrollLock: true } }}
                         onChange={(e) => {
                             setDentist(e.target.value),
@@ -95,13 +96,13 @@ export default function DateReserve({
                 </FormControl>
             </div>
 
-            <div className="flex flex-row items-center space-x-5">
-                <div className="text-2xl mx-auto">
+            <div className="flex flex-row items-left space-x-5">
+                <div className="text-2xl font-medium mt-3 ml-5">
                     <p>Appointment&nbsp;date&nbsp;:&nbsp;</p>
                 </div>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                        className="text-2xl font-semibold min-w-[18%] w-fit"
+                        className="text-2xl font-semibold  w-fit"
                         value={reserveDate}
                         onChange={(value) => {
                             setReserveDate(value);
@@ -111,10 +112,8 @@ export default function DateReserve({
                         renderInput={(props) => <TextField {...props} />}
                     />
                 </LocalizationProvider>
-                <FormControl className="text-2xl font-semibold min-w-[15%]">
-                    <InputLabel id="Appointment-date-select-label">
-                        Time
-                    </InputLabel>
+                <FormControl className="text-2xl font-semibold min-w-[15%] items-left">
+                    <InputLabel id="Appointment-date-select-label">Time</InputLabel>
                     <Select
                         labelId="Appointment-date-select-label"
                         id="Appointment-date-select"

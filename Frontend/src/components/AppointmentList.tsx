@@ -3,42 +3,46 @@ import Link from "next/link";
 import { AppointmentJson } from "../../interface";
 
 export default async function AppointmentList({
-    appointmentJson,
+  appointmentJson,
 }: {
-    appointmentJson: Promise<AppointmentJson>;
+  appointmentJson: Promise<AppointmentJson>;
 }) {
-    const appointmentJsonReady = await appointmentJson;
+  const appointmentJsonReady = await appointmentJson;
 
-    return (
-        <div
-            className="w-fit mx-auto py-10 px-16 rounded-xl"
-            style={{ backgroundColor: "rgb(247, 238, 221)" }}
-        >
-            {appointmentJsonReady.data.map((appointmentItem) => (
-                <Link
-                    href={`/appointment/${appointmentItem._id}`}
-                    className=""
-                    key={appointmentItem._id}
-                >
-                    <div
-                        className="bg-slate-200 font-mono w-[40vw] font-bold rounded-xl my-2 px-10 py-10 text-black space-y-5 text-center hover:bg-slate-300 relative"
-                        key={appointmentItem._id}
-                    >
-                        <div className="text-4xl text-slate-800 mt-5">
-                            {dayjs(appointmentItem.appDate).format('YYYY-MM-DD HH:mm:ss Z')}
-                        </div>
-                        <div className="text-3xl text-slate-700 absolute top-0 left-0 pl-5">
-                            Name: {appointmentItem.userName}
-                        </div>
-                        <div className="text-3xl text-slate-700">
-                            Doctor {appointmentItem.dentist?.name}
-                        </div>
-                        <div className="text-lg text-slate-400 font-normal">
-                            (click to see more infomation)
-                        </div>
-                    </div>
-                </Link>
-            ))}
-        </div>
-    );
+  return (
+    <div className="container mx-auto">  
+      <div className="flex flex-wrap p-5">
+        {appointmentJsonReady.data.map((appointmentItem) => (
+          <Link
+            href={`/appointment/${appointmentItem._id}`}
+            className="w-full sm:w-1/2 md:w-1/2 xl:w-1/2 p-4 transition ease-in-out hover:scale-105"
+            key={appointmentItem._id}
+          >
+            <div
+              className="p-4 bg-white font-medium rounded-xl text-black text-center border-2 border-white  hover: border-2 hover:bg-slate-50 relative shadow-lg hover:border-sky-500 "
+              key={appointmentItem._id}
+            >
+              <div className="text-2xl text-slate-800 mt-5 text-left">
+                Patient : {appointmentItem.userName}
+              </div>
+              <div className="text-2xl text-slate-800 mt-5 text-left">
+                Doctor : {appointmentItem.dentist?.name}
+              </div>
+              <div className="text-2xl text-slate-800 mt-5 text-left">
+                Date :{" "}
+                {dayjs(appointmentItem.appDate).format(
+                  "DD / MM / YYYY - HH:mm"
+                )}
+              </div>
+              {/* <div className="text-base text-blue-500 mt-5 text-right mr-5">Edit</div> */}
+
+              {/* <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
+                            <button className="text-base text-blue-500 mt-5 text-right" name="Edit Appointment">Edit</button>
+                        </Link> */}
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }
