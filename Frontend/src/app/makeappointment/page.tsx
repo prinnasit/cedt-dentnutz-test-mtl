@@ -27,7 +27,7 @@ export default function AppointmentMaking() {
     appointmentDate && appointmentTime
             ? dayjs(
                     `${appointmentDate.format(
-                        "YYYY-MM-DD"
+                        "DD-MM-YYYY"
                     )}T${appointmentTime.format("HH:mm")}`
                 )
             : null;

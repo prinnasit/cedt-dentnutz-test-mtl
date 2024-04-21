@@ -114,7 +114,7 @@ export default async function TopMenu() {
                 alt="logoprofile"
                 className="w-8 h-8 wl-3 group-hover:border group-hover:border-primary-default group-hover:shadow-primary rounded-full object-cover border-default shadow-default"/>
               {
-                session ? <div className='text-white text-xl font-medium'>{profile.data.name}</div>
+                session ? <div className='text-xl text-white font-medium ml-1 flex items-center gap-2 px-2 py-3.5 hover:text-slate-100 hover:underline '>{profile.data.name}</div>
                 : <div className="text-xl text-white font-medium ml-1 flex items-center gap-2 px-2 py-3.5 hover:text-slate-100 hover:underline ">Profile</div>
               }
           </div>
