@@ -17,21 +17,20 @@ export default async function TopMenu() {
       return <TopMenuItem title='Launch Nuclear' pageRef='/deleteReport' />;
     } else {
       return <TopMenuItem title='Report' pageRef='/report' />;
-    }
+    }  
   }
 
   return (  
-    <div className="h-[64px] top-0 left-0 right-0 z-30 px-10 fixed flex flex-row justify-stretch items-center shadow-lg "
-    style={{ backgroundColor: 'rgb(250, 250, 250)' }}>
+    <div className="h-[64px] top-0 left-0 right-0 z-30 px-10 fixed flex flex-row justify-stretch items-center shadow-sm bg-sky-400">
 
       <div className='h-[100%] justify-start w-fit'>
       <Link href="/" className='mr-5'>
-          <Image src={'/img/logo1.png'} className="h-[100%] w-auto p-1" alt='logo' width={0} height={0} sizes='100vh' />
+          <Image src={'/img/logo1.png'} className="h-[62px] w-auto p-1" alt='logo' width={0} height={0} sizes='100vh' />
         </Link>
         </div>
         
       
-      <div className="flex gap-10 ml-[20%] text-slate-950 font-medium">
+      <div className="flex gap-10 ml-[20%] text-white font-medium">
         <TopMenuItem title='View Appointment' pageRef='/appointment'/>
         <TopMenuItem title='Booking' pageRef='/makeappointment'/>
         <TopMenuItem title='Dentist' pageRef='/dentist'/>
@@ -46,9 +45,9 @@ export default async function TopMenu() {
         {
           session ? <div className='flex flex-row space-x-5'>
           
-            <Link href="/api/auth/signout" className="py-1 border-b-2 text-medium border-transparent ml-3">
-              <button className='bg-red-500 text-white font-semibold py-2 
-              px-2 my-8 rounded-lg hover:bg-red-600  ' >Sign-Out of {profile.data.name}</button>
+            <Link href="/api/auth/signout" className="text-xl text-white font-medium ml-3 flex items-center gap-2 px-2 py-3.5 rounded-2xl hover:underline duration-100">
+             
+             Sign Out of {profile.data.name}
             </Link>
 
             
@@ -57,9 +56,8 @@ export default async function TopMenu() {
 
           : <div className='flex flex-row-reverse '>
 
-            <Link href="/api/auth/signin" className="py-1 border-b-2 text-medium border-transparent ml-4">
-              <button className='bg-blue-500 text-white font-semibold py-2 
-              px-2 my-8 rounded-lg hover:bg-blue-400   hover:text-blue-500' > Sign-in</button>
+            <Link href="/api/auth/signin" className="text-xl text-slate-950 font-medium ml-3 flex items-center gap-2 px-2 py-3.5 rounded-2xl hover:text-primary-default hover:text-slate-700 hover:underline ">
+              Sign In
             </Link>
           
             <Link href="/api/auth/register" className="py-1 border-b-2 text-medium border-transparent">
@@ -75,7 +73,7 @@ export default async function TopMenu() {
         
         <div className='h-8 border-r border-default'></div>
         <Link href="/myaccount">
-              <Button className='group flex items-center gap-2 rounded-2xl hover:text-primary-default hover:bg-cyan-500 py-2 outline-none text-high'>
+              <Button className='group flex items-center gap-2 rounded-2xl hover:text-primary-default hover:bg-blue-500 py-2 outline-none text-high'>
                 <img src={'/img/profilelogo.png'} alt="logoprofile" className="w-8 h-8 group-hover:border group-hover:border-primary-default 
                 group-hover:shadow-primary rounded-full object-cover border-default shadow-default" />
                 <p className='text-white'>Profile</p>

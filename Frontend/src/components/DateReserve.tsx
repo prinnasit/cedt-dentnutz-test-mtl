@@ -64,10 +64,10 @@ export default function DateReserve({
     if (!allDentist) return null;
 
     return (
-        <div className="rounded-lg space-x-5 space-y-2 w-[100%] px-10 py-5 flex flex-col ">
+        <div className="rounded-lg space-x-5 space-y-2 px-10 py-5 flex flex-col ">
             
-            <div className="flex flex-row items-left space-x-5">
-                <div className="text-2xl font-medium mb-[9.25%] mr-5">
+            <div className="flex flex-row items-left space-x-5 ">
+                <div className="text-2xl font-medium mt-3 ml-10 mr-11 ">
                     <p>Dentist&nbsp;:&nbsp;Doctor</p>
                 </div>
                 <FormControl fullWidth>
@@ -97,7 +97,7 @@ export default function DateReserve({
             </div>
 
             <div className="flex flex-row items-left space-x-5">
-                <div className="text-2xl ">
+                <div className="text-2xl font-medium mt-3 ml-5">
                     <p>Appointment&nbsp;date&nbsp;:&nbsp;</p>
                 </div>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>

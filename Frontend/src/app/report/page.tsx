@@ -40,7 +40,7 @@ export default function SelectReport() {
 
   return (
     <main className="justify-center items-center p-5 flex flex-col">
-      <h1 className="mx-auto w-fit text-2xl mb-10 font-semibold mt-5">Report</h1>
+      <h1 className="text-center font-semibold text-4xl mb-10 mt-5">Report</h1>
       
 
       <form
@@ -71,8 +71,8 @@ export default function SelectReport() {
         </div>
       </form>
 
-      <div className="shadow-lg rounded-lg relative justify-items-center w-4/5">
-        <div className="flex flex-col p-5 space-y-2">
+      <div>
+        <div className= "flex flex-wrap pt-10 rounded-xl ml-20">
           {filteredReports.map((reportItem: ReportItem) => (
             <HistoryBlock
               Key={reportItem._id}

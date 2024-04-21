@@ -41,12 +41,8 @@ export default async function DentistDetailPage({
                 </Link>
               </div>
               <div className="bg-slate-200 h-[85%] rounded-lg pl-2 py-5 space-y-5">
-                <div className=" mx-5">
-                  Year Of Experiences: {dentistDetail.data.yearsOfExperience}{" "}
-                </div>
-                <div className=" mx-5 ">
-                  Area Of Expertise: {dentistDetail.data.areaOfExpertise}{" "}
-                </div>
+                <div className=" mx-5">Year Of Experiences: {dentistDetail.data.yearsOfExperience}{" "}</div>
+                <div className=" mx-5 "> Area Of Expertise: {dentistDetail.data.areaOfExpertise}{" "}</div>
               </div>
             </div>
           </div>

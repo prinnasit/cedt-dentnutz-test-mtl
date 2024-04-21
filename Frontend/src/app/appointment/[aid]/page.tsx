@@ -44,12 +44,12 @@ export default function AppointmentDetailPage({
     </div>);
   return (
     <main className=" mt-5 mb-20">
-      <h1 className="text-5xl font-medium w-fit text-black bg rounded-lg m-3 py-6 px-10 mx- bg-bule-300 "> Patient Appointments</h1>
-        <div className="font-semibold w-fit rounded-xl mx-auto my-2 px-14 py-5 text-black shadow-lg"
+      <h1 className="text-center font-semibold text-4xl mb-10 "> Patient Appointments</h1>
+        <div className=" font-medium w-fit rounded-3xl mx-auto my-2 px-10 py-5 text-black space-y-8 justify-center  border-gray-300 border-2 text-center "
           key={appointmentDetail.data._id}>
-          <div className="text-3xl text-slate-800 mt-5 text-left font-medium">Patient : {appointmentDetail.data.userName}</div>
-          <div className="text-3xl text-slate-800 mt-5 text-left font-medium">Dentist : Doctor {appointmentDetail.data.dentist?.name}</div>
-          <div className="text-3xl text-slate-800 mt-5 text-left font-medium">Appointment Date : {dayjs(appointmentDetail.data.appDate).format('DD / MM / YYYY')}</div>
+          <div className="text-2xl font-medium mt-3 ml-5 text-left">Patient : {appointmentDetail.data.userName}</div>
+          <div className="text-2xl font-medium mt-3 ml-5 text-left">Dentist : Doctor {appointmentDetail.data.dentist?.name}</div>
+          <div className="text-2xl font-medium mt-3 ml-5 text-left">Appointment Date : {dayjs(appointmentDetail.data.appDate).format('DD / MM / YYYY - HH:mm')}</div>
           <div className="text-right">
           {
             (session.user.type==='patient' || (session.user.type!=='patient' && session.user.type!=='dentist'))?
@@ -64,10 +64,10 @@ export default function AppointmentDetailPage({
             :
             <div>
             <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/create?userId=${appointmentDetail.data.user}&dentistId=${appointmentDetail.data.dentist._id}&apptId=${appointmentDetail.data._id}`)}}
-              className="ml-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                +
-                </button>
-            <button onClick={cancelAppointment} className="ml-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+              className="text-base text-blue-500 mt-5 text-right font-medium mr-5">
+                Create Report
+            </button>
+            <button onClick={cancelAppointment} className="text-base text-blue-500 mt-5 text-right font-medium">
                 Finish
             </button>
             </div>
