@@ -35,8 +35,18 @@ export default function AppointmentDetailPage({
 
   const cancelAppointment = async () => {
     await deleteAppointment(appointmentDetail.data._id, token);
-    router.push("/schedule");
-  };
+    if (session.user.type === 'dentist') {
+      
+        router.push("/schedule");
+  
+    } else if (session.user.type === 'patient') {
+      
+        router.push("/appointment");
+      } else {
+        router.push("/schedule");
+      }
+    } 
+  
 
   if (!appointmentDetail) return (<div>
       <p className="mt-20 mb-5 text-black text-center text-5xl text-bold space-y-6">Loading... </p>
@@ -55,12 +65,17 @@ export default function AppointmentDetailPage({
             (session.user.type==='patient' || (session.user.type!=='patient' && session.user.type!=='dentist'))?
             <div>
             <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
-              <button className=" text-base text-blue-500 mt-5 text-right font-medium" name="Edit Appointment">Edit</button>
-            </Link>
-          <button onClick={cancelAppointment} className="ms-5 text-base text-blue-500 mt-5 text-right font-medium me-2">
-          Cancle
-          </button>
-          </div>
+            <button
+              className="block bg-blue-500 rounded-lg hover:bg-blue-400 text-white font-semibold px-3 py-2 shadow-sm text-white inline"
+              name="Edit Appointment"
+            >
+              Edit Appointment
+            </button>
+          </Link>
+          <button onClick={cancelAppointment} className="ml-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+          Cancel
+        </button>
+        </div>
             :
             <div>
             <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/create?userId=${appointmentDetail.data.user}&dentistId=${appointmentDetail.data.dentist._id}&apptId=${appointmentDetail.data._id}`)}}

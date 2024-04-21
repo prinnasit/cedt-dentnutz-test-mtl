@@ -57,15 +57,22 @@ export default function AppointmentMaking() {
 
   const makingAppointment = async () => {
     if (!dentistID || !appDate) return alert("Please enter all fields");
-    const appointment = await addAppointment(
-      dentistID,
-      appDate,
-      token
-    );
-    if (appointment) {
-      alert("Appointment booked successfully");
-    } else {
-      alert("Appointment booking failed");
+    try {
+      const appointment = await addAppointment(
+        dentistID,
+        appDate,
+        token
+        
+      );
+
+      if (appointment) {
+        alert("Appointment booked successfully");
+      } else {
+        alert("Appointment booking failed");
+      }
+
+    } catch (error) {
+      alert("Cannot book Appointment");
     }
   };
 
