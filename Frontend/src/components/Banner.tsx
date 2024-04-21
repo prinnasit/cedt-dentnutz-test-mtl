@@ -38,10 +38,10 @@ export default function Banner() {
             {
                 session && me? <div className='font-semibold text-cyan-800 text-xl mb-2'>Welcome {me.data.name}</div> : null
             }
-            <button className='bg-orange-400 text-white text-2xl font-semibold py-2 px-2 my-5 rounded-full text-center ml-20 drop-shadow-md hover:bg-orange-300 py-3 px-5'
+            {/* <button className='bg-orange-400 text-white text-2xl font-semibold py-2 px-2 my-5 rounded-full text-center ml-20 drop-shadow-md hover:bg-orange-300 py-3 px-5'
                 onClick={(e)=>{e.stopPropagation(); router.push('/dentist');}}>
                 Care Your Teeth Now 
-            </button>   
+            </button>    */}
         </div>
 
         <div className='flex-grow'>
