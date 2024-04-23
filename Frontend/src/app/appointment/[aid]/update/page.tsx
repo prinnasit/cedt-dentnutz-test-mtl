@@ -64,6 +64,9 @@ export default function AppointmentDetailPage({
   const router = useRouter();
 
     const editAppointment = async () => {
+      if (!dentist) {
+        alert("Please select dentist");
+      }
       if (!appDate) {
         alert("Please select date for appointment");
       }
