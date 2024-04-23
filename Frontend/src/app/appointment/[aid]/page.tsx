@@ -9,7 +9,7 @@ import { useState } from "react";
 import { LinearProgress } from "@mui/material";
 import { Suspense } from "react";
 import dayjs from "dayjs";
-import { sweetAlert } from "@/components/alert";
+import { confirmAlert } from "@/components/alert";
 
 export default function AppointmentDetailPage({
   params,
@@ -35,25 +35,16 @@ export default function AppointmentDetailPage({
   const router = useRouter();
 
   const cancelAppointment = async () => {
-    const confirmed = window.confirm("Are you sure you want to cancel this appointment?");
-    if (confirmed) {
+    confirmAlert("Are you sure?", "cancel this appointment", "warning", "Appointment cancelled",  "Cancellation cancelled", async () => {
       await deleteAppointment(appointmentDetail.data._id, token);
-      sweetAlert("Successfully", "Appointment cancelled", "success")
-      if (session.user.type === 'dentist') {
-        
-          router.push("/schedule");
-    
-      } else if (session.user.type === 'patient') {
-        
-          router.push("/makeappointment");
-        } else {
-          router.push("/schedule");
-        }
+      if (session.user.type === 'patient') {
+        router.push("/makeappointment");
       }
       else {
-        sweetAlert("Cancelled", "Cancellation cancelled", "error")
+        router.push("/schedule");
       }
-    }
+    })
+  }
   
 
   if (!appointmentDetail) return (<div>
