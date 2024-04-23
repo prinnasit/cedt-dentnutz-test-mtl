@@ -3,13 +3,15 @@
 import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import  createReport  from "@/libs/createReport";
 import getAppointment from "@/libs/getAppointment";
+import { sweetAlert } from "@/components/alert";
 
 
 export default function addReport() {
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     const { data: session } = useSession();
     const token = session?.user.token;
@@ -34,7 +36,23 @@ export default function addReport() {
       }, []);
 
     const makingReport = async () => {
-        if (!treatment || !recommendation || !medication || !patient || !dentist || !appointmentDate) return alert("Please enter all fields");
+        if (!treatment) {
+          sweetAlert("Incomplete", "Please enter treatment", "warning");
+          return
+        }
+        if (!recommendation) {
+          sweetAlert("Incomplete", "Please enter recommendation", "warning");
+          return
+        }
+        if (!medication) {
+          sweetAlert("Incomplete", "Please enter medication", "warning");
+          return
+        }
+        if (!patient || !dentist || !appointmentDate) {
+          sweetAlert("Incomplete", "Please select appointment again", "warning");
+          router.push("/schedule");
+          return
+        }
         const report = await createReport(
             patient,
             dentist,
@@ -45,9 +63,9 @@ export default function addReport() {
             token
         );
         if (report) {
-          alert("Create Report successfully");
+          sweetAlert("Successfully", "Create report successfully", "success");
         } else {
-          alert("Create Report failed");
+          sweetAlert("Failed", "Create report failed", "error");
         }
       };
 

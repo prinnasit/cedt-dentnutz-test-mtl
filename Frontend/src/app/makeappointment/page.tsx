@@ -7,6 +7,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useSession } from "next-auth/react";
 import addAppointment from "@/libs/addAppointment";
 import { LinearProgress } from "@mui/material";
+import { sweetAlert } from "@/components/alert";
 
 export default function AppointmentMaking() {
   const { data: session } = useSession();
@@ -59,11 +60,11 @@ export default function AppointmentMaking() {
 
   const makingAppointment = async () => {
     if (!dentistID) {
-      alert("Please select dentist");
+      sweetAlert("Incomplete", "Please select dentist", "warning");
       return
     }
     if (!appDate) {
-      alert("Please select date for appointment")
+      sweetAlert("Incomplete", "Please select date for appointment", "warning");
       return
     }
     try {
@@ -75,14 +76,14 @@ export default function AppointmentMaking() {
       );
 
       if (appointment) {
-        alert("Appointment booked successfully");
+        sweetAlert("Successfully", "Appointment booked successfully", "success");
         router.push("/appointment");
       } else {
-        alert("Appointment booking failed");
+        sweetAlert("Failed", "Appointment booking failed", "error");
       }
 
     } catch (error) {
-      alert("Cannot book more than 1 appointment");
+      sweetAlert("Failed", "Cannot book more than 1 appointment", "error")
       router.push("/appointment");
     }
   };
