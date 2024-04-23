@@ -76,12 +76,14 @@ export default function AppointmentMaking() {
 
       if (appointment) {
         alert("Appointment booked successfully");
+        router.push("/appointment");
       } else {
         alert("Appointment booking failed");
       }
 
     } catch (error) {
       alert("Cannot book more than 1 appointment");
+      router.push("/appointment");
     }
   };
 
