@@ -12,10 +12,12 @@ export default function AppointmentMaking() {
   const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const token = session?.user.token;
   if (!token) return null;
 
+  if (session.user.type === 'dentist' ) {
+    router.push('/');
+  }
   const [appointmentDate, setAppointmentDate] = useState<Dayjs | null>(null);
   const [appointmentTime, setAppointmentTime] = useState<Dayjs | null>(null);
   const [dentistID, setDentistID] = useState<string | null>(searchParams.get("dentistid"));
