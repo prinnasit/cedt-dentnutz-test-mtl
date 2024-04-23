@@ -58,7 +58,14 @@ export default function AppointmentMaking() {
 // }
 
   const makingAppointment = async () => {
-    if (!dentistID || !appDate) return alert("Please enter all fields");
+    if (!dentistID) {
+      alert("Please select dentist");
+      return
+    }
+    if (!appDate) {
+      alert("Please select date for appointment")
+      return
+    }
     try {
       const appointment = await addAppointment(
         dentistID,
@@ -74,7 +81,7 @@ export default function AppointmentMaking() {
       }
 
     } catch (error) {
-      alert("Cannot book Appointment");
+      alert("Cannot book more than 1 appointment");
     }
   };
 
