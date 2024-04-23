@@ -3,6 +3,7 @@ import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import userRegister from "@/libs/userRegister";
+import { sweetAlert } from "@/components/alert";
 
 export default function Booking() {
     const [name, setName] = useState("");
@@ -13,9 +14,21 @@ export default function Booking() {
     const router = useRouter();
 
     const register = async () => {
-        if (!name || !email || !password || !tel) {
-            alert("Please fill in all the fields");
-            return;
+        if (!name) {
+            sweetAlert("Incomplete", "Please enter name", "warning");
+            return
+        }
+        if (!email) {
+            sweetAlert("Incomplete", "Please enter email", "warning");
+            return
+        }
+        if (!password) {
+            sweetAlert("Incomplete", "Please enter password", "warning");
+            return
+        }
+        if (!tel) {
+            sweetAlert("Incomplete", "Please enter tel", "warning");
+            return
         }
 
         try {
@@ -23,10 +36,10 @@ export default function Booking() {
             if (newUser) {
                 router.push("/api/auth/signin");
             } else {
-                alert("Failed to register");
+                sweetAlert("Failed", "Failed to register", "error");
             }
         } catch (error) {
-            alert("Failed to register");
+            sweetAlert("Failed", "Failed to register", "error");
         }
     };
 
