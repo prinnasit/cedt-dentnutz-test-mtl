@@ -13,22 +13,34 @@ export default async function AppointmentList({
     <div className="container mx-auto">  
       <div className="flex flex-wrap p-5">
         {appointmentJsonReady.data.map((appointmentItem) => (
-          <Link href={`/appointment/${appointmentItem._id}`}
+        <Link href={`/appointment/${appointmentItem._id}`}
             className="w-full sm:w-1/2 md:w-1/2 xl:w-1/2 p-4 transition ease-in-out hover:scale-105"
             key={appointmentItem._id}>
             <div
-              className="p-4 bg-white font-medium rounded-xl text-black text-center border-2 border-slate-200  hover: border-2 hover:bg-slate-50 relative shadow-lg hover:border-sky-500 " key={appointmentItem._id}>
-              <div className="text-2xl text-slate-800 mt-5 text-left">Patient : {appointmentItem.userName}</div>
-              <div className="text-2xl text-slate-800 mt-5 text-left">Doctor : {appointmentItem.dentist?.name}</div>
-              <div className="text-2xl text-slate-800 mt-5 text-left">Date :{" "} {dayjs(appointmentItem.appDate).format("DD / MM / YYYY - HH:mm")}</div>
-
-              {/* <div className="text-base text-blue-500 mt-5 text-right mr-5">Edit</div> */}
-
+              className=" bg-white rounded-xl border-2 border-slate-200 hover: border-2 hover:bg-slate-50 shadow-lg hover:border-sky-500 " key={appointmentItem._id}>
               {/* <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
                             <button className="text-base text-blue-500 mt-5 text-right" name="Edit Appointment">Edit</button>
-                        </Link> */}
-            </div>
-          </Link>
+              </Link> */}
+              <table className=" border-separate border-spacing-6">
+                <tbody className=" text-2xl mx-10">
+                  <tr >
+                    <td className="font-semibold font-medium pl-5 pr-20" >Name : </td>
+                    <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{appointmentItem.userName}</td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold font-medium pl-5 pr-20">Dentist : </td>
+                    <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{appointmentItem.dentist?.name}</td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold font-medium pl-5 pr-20">Date : </td>
+                    <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{" "} {dayjs(appointmentItem.appDate).format("DD / MM / YYYY - HH:mm")}</td>
+                  </tr>
+                </tbody>
+            </table>
+            <div className="text-blue-500 text-right m-5 mt-0 font-semibold">Edit</div>
+                        //ฝากทำให้ไปหน้า edit หน่อย for UX
+          </div>
+        </Link>
         ))}
       </div>
     </div>
