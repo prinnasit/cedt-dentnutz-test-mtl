@@ -37,7 +37,9 @@ export default async function AppointmentList({
                   </tr>
                 </tbody>
               </table>
-            <Link href={`/appointment/${appointmentItem._id}/update`} className="text-blue-500 text-right m-5 mt-0 font-semibold">Edit</Link>
+            <Link href={`/appointment/${appointmentItem._id}/update`}>
+              <div className="text-base text-sky-500 m-5 mt-0 text-right font-semibold">Edit</div>
+            </Link>
           </div>
         </Link>
         ))}
