@@ -34,18 +34,25 @@ export default function AppointmentDetailPage({
   const router = useRouter();
 
   const cancelAppointment = async () => {
-    await deleteAppointment(appointmentDetail.data._id, token);
-    if (session.user.type === 'dentist') {
-      
-        router.push("/schedule");
-  
-    } else if (session.user.type === 'patient') {
-      
-        router.push("/appointment");
-      } else {
-        router.push("/schedule");
+    const confirmed = window.confirm("Are you sure you want to cancel this appointment?");
+    if (confirmed) {
+      await deleteAppointment(appointmentDetail.data._id, token);
+      alert("Appointment cancelled");
+      if (session.user.type === 'dentist') {
+        
+          router.push("/schedule");
+    
+      } else if (session.user.type === 'patient') {
+        
+          router.push("/makeappointment");
+        } else {
+          router.push("/schedule");
+        }
       }
-    } 
+      else {
+        alert("Cancellation cancelled");
+      }
+    }
   
 
   if (!appointmentDetail) return (<div>
