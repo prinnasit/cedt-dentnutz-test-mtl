@@ -12,3 +12,46 @@ export const sweetAlert = (
         confirmButtonText: '👍 OK!',
     });
 };
+
+export const footerAlert = (
+    title: string,
+    message: string,
+    icon: "success" | "error" | "warning" | "info" | "question" = "success",
+    footer: string,
+) => {
+    Swal.fire({
+        title: title,
+        text: message,
+        icon: icon,
+        footer: footer,
+        confirmButtonText: '👍 OK!'
+    })
+}
+
+export const confirmAlert = (
+    title: string,
+    message: string,
+    icon: "success" | "error" | "warning" | "info" | "question" = "success",
+    confirmMessage: string,
+    cancelMessage: string,
+    confirmFunction: () => {}
+) => {
+    Swal.fire({
+        title: title,
+        text: message,
+        icon: icon,
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Confirm",
+        cancelButtonText: "No, Cancel",
+        preConfirm: confirmFunction
+    }).then((result) => {
+        if (result.isConfirmed) {
+            sweetAlert("Successfully", confirmMessage, "success");
+        }
+        else if (result.dismiss) {
+            sweetAlert("Cancelled", cancelMessage, "error");
+        }
+    })
+}
