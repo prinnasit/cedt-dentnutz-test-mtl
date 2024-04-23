@@ -36,9 +36,8 @@ export default async function AppointmentList({
                     <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{" "} {dayjs(appointmentItem.appDate).format("DD / MM / YYYY - HH:mm")}</td>
                   </tr>
                 </tbody>
-            </table>
-            <div className="text-blue-500 text-right m-5 mt-0 font-semibold">Edit</div>
-                        //ฝากทำให้ไปหน้า edit หน่อย for UX
+              </table>
+            <Link href={`/appointment/${appointmentItem._id}/update`} className="text-blue-500 text-right m-5 mt-0 font-semibold">Edit</Link>
           </div>
         </Link>
         ))}
