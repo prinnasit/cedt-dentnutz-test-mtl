@@ -57,9 +57,9 @@ export default async function TopMenu() {
       className="h-[64px] top-0 left-0 right-0 z-30 px-10 fixed flex flex-row justify-stretch items-center shadow-lg "
       style={{ backgroundColor: 'rgb(65, 201, 226)' }}
     >
-      <div className='h-[100%] justify-start w-fit'>
+      <div className='h-[100%] w-fit items-center'>
         <Link href="/" className='mr-5'>
-          <Image src={'/img/logo.png'} className="h-[100%] w-auto p-1" alt='logo' width={0} height={0} sizes='100vh' />
+          <Image src={'/img/LOGO.svg'} className="h-[85%] w-auto p-1" alt='logo' width={0} height={0} />
         </Link>
       </div>
 
