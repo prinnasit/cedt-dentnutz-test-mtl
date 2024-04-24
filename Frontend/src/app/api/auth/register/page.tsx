@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { sweetAlert } from "@/components/alert";
 import { error } from "console";
+import Swal from "sweetalert2";
 
 export default function Booking() {
     const [name, setName] = useState("");
@@ -51,17 +52,38 @@ export default function Booking() {
             tel
                 .replace(/^\+66\s?(?=\d{2}\s?\d{3}\s?\d{4}$)/, "")
                 .replace(/\s+/g, "-");
-        console.log(name, email, password,'user','patient', formattedTel);
+        console.log(name, email, password, "user", "patient", formattedTel);
         if (!name || !email || !password || !tel) {
-            sweetAlert("Incomplete", "Please fill in all the fields", "warning");
+            sweetAlert(
+                "Incomplete",
+                "Please fill in all the fields",
+                "warning"
+            );
             return;
         }
 
         try {
-            const newUser = await userRegister(name, email, password, formattedTel);
+            const newUser = await userRegister(
+                name,
+                email,
+                password,
+                formattedTel
+            );
             if (newUser) {
-                sweetAlert("Success", "Registration successful", "success");
-                router.push("/api/auth/signin");
+                Swal.fire({
+                    title: "Registration successful",
+                    // message: "Registration successful",
+                    confirmButtonText: '👍 OK!',
+                    icon: "success",
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        // Swal.fire("Saved!", "", "success");
+                        router.push("/api/auth/signin");
+                    }
+                });
+                // sweetAlert("Success", "Registration successful", "success");
+                // router.push("/api/auth/signin");
             } else {
                 sweetAlert("Failed", "Failed to register : ", "error");
             }
@@ -192,7 +214,7 @@ export default function Booking() {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign Up
+                            Register
                         </Typography>
                         <Box
                             component="form"
@@ -410,7 +432,7 @@ export default function Booking() {
                                         : ""
                                 }
                             />
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 <FormControlLabel
                                     control={
                                         <Checkbox
@@ -420,7 +442,7 @@ export default function Booking() {
                                     }
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
-                            </Grid>
+                            </Grid> */}
                             <Button
                                 fullWidth
                                 variant="outlined"
@@ -438,12 +460,10 @@ export default function Booking() {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
+                                    <Link href="#" variant="body2"></Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
+                                    <Link href="../auth/signin" variant="body2">
                                         {"have an account? Sign In"}
                                     </Link>
                                 </Grid>
