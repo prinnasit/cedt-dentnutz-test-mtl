@@ -71,12 +71,11 @@ export default function Booking() {
             );
             if (newUser) {
                 Swal.fire({
-                    title: "Registration successful",
+                    title: "Registration successful!",
                     // message: "Registration successful",
                     confirmButtonText: '👍 OK!',
                     icon: "success",
                 }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
                         // Swal.fire("Saved!", "", "success");
                         router.push("/api/auth/signin");
@@ -85,7 +84,7 @@ export default function Booking() {
                 // sweetAlert("Success", "Registration successful", "success");
                 // router.push("/api/auth/signin");
             } else {
-                sweetAlert("Failed", "Failed to register : ", "error");
+                sweetAlert("Failed", "Failed to register", "error");
             }
         } catch (error) {
             const err = error as Error;
