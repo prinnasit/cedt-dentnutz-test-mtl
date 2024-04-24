@@ -23,11 +23,15 @@ exports.register = async (req, res, next) => {
     // res.status(200).json({success:true  , token});
     sendTokenResponse(user, 200, res);
   } catch (err) {
-    res.status(400).json({ success: false });
+    console.log(1);
     console.log(err.stack);
+    if (err.code === 11000) {
+      res.status(400).json({ success: false, error: 'Email already exists' });
+    } else {
+      res.status(400).json({ success: false, error: err.message });
+    }
   }
 };
-
 //@desc  Login user
 //@route  POST /api/auth/login
 //@access Public
