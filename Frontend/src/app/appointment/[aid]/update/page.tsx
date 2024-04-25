@@ -64,9 +64,18 @@ export default function AppointmentDetailPage({
   const router = useRouter();
 
     const editAppointment = async () => {
+      if (!dentist) {
+        alert("Please select dentist");
+      }
+      if (!appDate) {
+        alert("Please select date for appointment");
+      }
+      else {
         await updateAppointment(appointmentDetail.data._id,dentist,dayjs(appDate).format('YYYY-MM-DD HH:mm:ss Z'),token);
+        alert("Update appointment successfully");
         router.push(`/appointment/${appointmentDetail.data._id}`);
       }
+    }
 
   if (!appointmentDetail) return (<div>
     <p className="mt-20 mb-5 text-black text-center text-5xl text-bold space-y-6">Loading... </p>
