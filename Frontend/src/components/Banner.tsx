@@ -39,7 +39,7 @@ export default function Banner() {
     path="/appointment";
   }
   else if(session.user.type === "patient"){
-    buttonMessage= "Care Your Teeeeeeth";
+    buttonMessage= "Care Your Teeth";
     path="/dentist";
   }
   else if(session.user.type === "dentist"){
@@ -59,18 +59,22 @@ export default function Banner() {
                 
             }
             {
-              session?.user.type=='patient'&& <div className='font-medium text-cyan-800 text-l mb-2'>
+              session==null && <div className='font-medium text-cyan-800 text-l mb-2'>
+                Welcome to our dental booking platform! Your journey to a healthier smile starts here.</div>
+            }
+            {
+              session?.user.type=='patient'&& session?.user.role!=='admin' && <div className='font-medium text-cyan-800 text-l mb-2'>
                 Taking care of your oral health  is an investment 
                 in happiness and confidence throughout every stage of life.</div>
             }
             {
-              session?.user.type=='dentist'&& <div className='font-medium text-cyan-800 text-l mb-2'>
+              session?.user.type=='dentist'&& session?.user.role!=='admin'&& <div className='font-medium text-cyan-800 text-l mb-2'>
                 We're thrilled to have you join us. Our team is here to ensure you have a seamless experience.</div>
 
             }
             {
-              session?.user.type!=='patient' && session?.user.type!=='dentist' && <div className='font-medium text-cyan-800 text-l mb-2'>
-                Welcome to our dental booking platform! Your journey to a healthier smile starts here.</div>
+              session?.user.role=='admin' && <div className='font-medium text-cyan-800 text-l mb-2'>
+                Stay focused and keep up the good work! Your efforts are valued and appreciated by all. Keep pushing forward, you're doing great!</div>
             }
             <button className='bg-orange-400 text-white text-2xl font-semibold py-2 px-2 my-5 rounded-full text-center ml-20 drop-shadow-md hover:bg-orange-300 py-3 px-5'
                 onClick={(e)=>{e.stopPropagation(); router.push(path);}}>
