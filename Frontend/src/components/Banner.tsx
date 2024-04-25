@@ -34,19 +34,17 @@ export default function Banner() {
     buttonMessage= "Care Your Teeth";
     path="/dentist";
   }
+  else if(session.user.role === "admin"){
+    buttonMessage= "All Appointment";
+    path="/appointment";
+  }
   else if(session.user.type === "patient"){
-    console.log("i am patient");
     buttonMessage= "Care Your Teeeeeeth";
     path="/dentist";
   }
   else if(session.user.type === "dentist"){
     buttonMessage= "Your Schedule";
     path="/schedule"
-  }
-  else{
-    buttonMessage= "All Appointment";
-    path="/appointment";
-
   }
 
   return (
