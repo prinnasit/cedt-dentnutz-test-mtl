@@ -22,7 +22,6 @@ export default function AppointmentDetailPage({
 
   const token = session?.user.token;
   if (!token) return null;
-  console.log(session.user.type)
 
   useEffect(() => {
     const fetchAppointment = async () => {
@@ -35,7 +34,7 @@ export default function AppointmentDetailPage({
   const router = useRouter();
 
   const cancelAppointment = async () => {
-    confirmAlert("Are you sure?", "cancel this appointment", "warning", "Appointment cancelled",  "Cancellation cancelled", async () => {
+    confirmAlert("Are you sure?", "cancel this appointment", "warning", "Appointment cancelled", async () => {
       await deleteAppointment(appointmentDetail.data._id, token);
       if (session.user.type === 'patient') {
         router.push("/makeappointment");
