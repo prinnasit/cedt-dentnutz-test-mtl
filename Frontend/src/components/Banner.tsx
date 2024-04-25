@@ -27,21 +27,57 @@ export default function Banner() {
     fetchMe()
   },[])
 
-  
+  let buttonMessage;
+  let path="/dentist";
+
+  if(session === null){
+    buttonMessage= "Care Your Teeth";
+    path="/dentist";
+  }
+  else if(session.user.type === "patient"){
+    console.log("i am patient");
+    buttonMessage= "Care Your Teeeeeeth";
+    path="/dentist";
+  }
+  else if(session.user.type === "dentist"){
+    buttonMessage= "Your Schedule";
+    path="/schedule"
+  }
+  else{
+    buttonMessage= "All Appointment";
+    path="/appointment";
+
+  }
+
   return (
-    <div className="block p-5 m-0 w-screen h-[80vh] relative flex flex-row items-center justify-center"
+    <div className="p-5 m-0 w-screen h-[80vh] relative flex flex-row items-center justify-center"
     style={{ backgroundColor: 'rgb(247, 238, 221)' }}>
         
-        <div className="text-black text-left rounded-lg px-10 py-10 mx-20 z-20 items-center" style={{ backgroundColor: 'rgb(250, 250, 250)' }}>
+        <div className="text-black text-left rounded-lg px-10 py-10 mx-20 z-20 items-center w-2/5" style={{ backgroundColor: 'rgb(250, 250, 250)' }}>
             <h1 className='text-8xl font-semibold mt-0 mb-0 '>Dentnutz</h1>
             <h2 className='text-5xl font-normal mt-0 mb-3 text-sky-400'>Teeth Protector</h2>
             {
-                session && me? <div className='font-semibold text-cyan-800 text-xl mb-2'>Welcome {me.data.name}</div> : null
+              session && me? <div className='font-semibold text-cyan-800 text-xl mb-2'>Welcome {me.data.name}</div> : null
+                
             }
-            {/* <button className='bg-orange-400 text-white text-2xl font-semibold py-2 px-2 my-5 rounded-full text-center ml-20 drop-shadow-md hover:bg-orange-300 py-3 px-5'
-                onClick={(e)=>{e.stopPropagation(); router.push('/dentist');}}>
-                Care Your Teeth Now 
-            </button>    */}
+            {
+              session?.user.type=='patient'&& <div className='font-medium text-cyan-800 text-l mb-2'>
+                Taking care of your oral health  is an investment 
+                in happiness and confidence throughout every stage of life.</div>
+            }
+            {
+              session?.user.type=='dentist'&& <div className='font-medium text-cyan-800 text-l mb-2'>
+                We're thrilled to have you join us. Our team is here to ensure you have a seamless experience.</div>
+
+            }
+            {
+              session?.user.type!=='patient' && session?.user.type!=='dentist' && <div className='font-medium text-cyan-800 text-l mb-2'>
+                Welcome to our dental booking platform! Your journey to a healthier smile starts here.</div>
+            }
+            <button className='bg-orange-400 text-white text-2xl font-semibold py-2 px-2 my-5 rounded-full text-center ml-20 drop-shadow-md hover:bg-orange-300 py-3 px-5'
+                onClick={(e)=>{e.stopPropagation(); router.push(path);}}>
+                {buttonMessage}
+            </button>   
         </div>
 
         <div className='flex-grow'>
