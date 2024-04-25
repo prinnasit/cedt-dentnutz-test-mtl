@@ -59,7 +59,7 @@ export default function SelectReport() {
             type="text"
             name="search"
             className="w-full border h-12 shadow p-4 rounded-full dark:text-gray-800 dark:border-gray-700 dark:bg-gray-200"
-            placeholder="search patient or doctor"
+            placeholder="search with patient or doctor name"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
