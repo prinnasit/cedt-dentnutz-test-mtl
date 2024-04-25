@@ -1,4 +1,6 @@
+import dayjs from "dayjs";
 import Link from "next/link";
+import { AppointmentJson } from "../../interface";
 
 export default async function AppointmentList({
   appointmentJson,
@@ -8,28 +10,40 @@ export default async function AppointmentList({
   const appointmentJsonReady = await appointmentJson;
 
   return (
-    <div className="w-fit mx-auto py-10 px-16 rounded-xl" style={{ backgroundColor: 'rgb(247, 238, 221)' }}>
-      {appointmentJsonReady.data.map((appointmentItem) => (
-        <Link href={`/appointment/${appointmentItem._id}`} className="" key={appointmentItem._id}>
-          <div
-            className="bg-slate-200 font-mono w-[40vw] font-bold rounded-xl my-2 px-10 py-10 text-black space-y-5 text-center hover:bg-slate-300 relative"
-            key={appointmentItem._id}
-          >
-            <div className="text-4xl text-slate-800 mt-5">
-              {new Date(appointmentItem.appDate).toLocaleDateString()}
-            </div>
-            <div className="text-3xl text-slate-700 absolute top-0 left-0 pl-5">
-              Name: {appointmentItem.userName}
-            </div>
-            <div className="text-3xl text-slate-700">
-              Doctor {appointmentItem.dentist?.name}
-            </div>
-            <div className="text-lg text-slate-400 font-normal">
-              (click to see more infomation)
-            </div>
+    <div className="container mx-auto">  
+      <div className="flex flex-wrap p-5">
+        {appointmentJsonReady.data.map((appointmentItem) => (
+        <Link href={`/appointment/${appointmentItem._id}`}
+            className="w-full sm:w-1/2 md:w-1/2 xl:w-1/2 p-4 transition ease-in-out hover:scale-105"
+            key={appointmentItem._id}>
+            <div
+              className=" bg-white rounded-xl border-2 border-slate-200 hover: border-2 hover:bg-slate-50 shadow-lg hover:border-sky-500 " key={appointmentItem._id}>
+              {/* <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
+                            <button className="text-base text-blue-500 mt-5 text-right" name="Edit Appointment">Edit</button>
+              </Link> */}
+              <table className=" border-separate border-spacing-6">
+                <tbody className=" text-2xl mx-10">
+                  <tr >
+                    <td className="font-semibold font-medium pl-5 pr-20" >Name : </td>
+                    <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{appointmentItem.userName}</td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold font-medium pl-5 pr-20">Dentist : </td>
+                    <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{appointmentItem.dentist?.name}</td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold font-medium pl-5 pr-20">Date : </td>
+                    <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{" "} {dayjs(appointmentItem.appDate).format("DD / MM / YYYY - HH:mm")}</td>
+                  </tr>
+                </tbody>
+              </table>
+            <Link href={`/appointment/${appointmentItem._id}/update`}>
+              <div className="text-base text-sky-500 m-5 mt-0 text-right font-semibold">Edit</div>
+            </Link>
           </div>
         </Link>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

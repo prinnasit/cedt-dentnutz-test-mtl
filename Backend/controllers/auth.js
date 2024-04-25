@@ -7,7 +7,7 @@ const User = require("../models/User");
 //@ts-check     Public
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password, role ,tel } = req.body;
+    const { name, email, password, role ,tel, userType} = req.body;
 
     //Create User
     const user = await User.create({
@@ -15,18 +15,22 @@ exports.register = async (req, res, next) => {
       email,
       password,
       role,
-      tel
+      userType,
+      tel,
     });
 
     // const token =user.getSignedJwtToken();
     // res.status(200).json({success:true  , token});
     sendTokenResponse(user, 200, res);
   } catch (err) {
-    res.status(400).json({ success: false });
     console.log(err.stack);
+    if (err.code === 11000) {
+      res.status(400).json({ success: false, error: 'Email already exists' });
+    } else {
+      res.status(400).json({ success: false, error: err.message });
+    }
   }
 };
-
 //@desc  Login user
 //@route  POST /api/auth/login
 //@access Public
@@ -91,7 +95,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, token });
+    .json({ success: true, token, type:user.userType });
 };
 
 //@desc  Get current Logged in user

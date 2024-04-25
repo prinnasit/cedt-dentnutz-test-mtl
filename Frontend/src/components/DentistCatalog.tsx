@@ -1,12 +1,13 @@
 import Link from "next/link"
 import Card from "./Card"
+import { DentistJson } from "../../interface"
 
 export default async function DentistCatalog({dentistsJson} : {dentistsJson: Promise<DentistJson>}) {
 
     const dentistsJsonReady = await dentistsJson
 
     return (
-            <div className="bg-black rounded-lg pt-10 m-5 flex flex-wrap justify-center" style={{ backgroundColor: 'rgb(247, 238, 221)' }} >
+            <div className=" rounded-2xl border-2 border-gray-300 pt-10 m-5 flex flex-wrap justify-center"  >
                 {
                     dentistsJsonReady.data.map( (dentistItem) => (
                    

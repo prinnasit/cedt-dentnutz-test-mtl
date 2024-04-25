@@ -19,6 +19,11 @@ const UserSchema=  new mongoose.Schema({
         enum:['user','admin'], 
         default:'user'
         } ,
+    userType:{
+        type: String,
+        enum: ['patient', 'dentist'],
+        default:'patient'
+    },
     password:{ 
         type:String, 
         required:[true,'Please add a password'] , 

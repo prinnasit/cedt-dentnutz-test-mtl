@@ -32,15 +32,16 @@ export default function Banner() {
     <div className="block p-5 m-0 w-screen h-[80vh] relative flex flex-row items-center justify-center"
     style={{ backgroundColor: 'rgb(247, 238, 221)' }}>
         
-        <div className="text-black text-left max-w-md rounded-lg p-10 mx-20 z-20 font-mono" style={{ backgroundColor: 'rgb(247, 238, 221)' }}>
-            <h1 className='text-5xl font-bold text-amber-500 mb-10'>CUD Dentist Clinic</h1>
+        <div className="text-black text-left rounded-lg px-10 py-10 mx-20 z-20 items-center" style={{ backgroundColor: 'rgb(250, 250, 250)' }}>
+            <h1 className='text-8xl font-semibold mt-0 mb-0 '>Dentnutz</h1>
+            <h2 className='text-5xl font-normal mt-0 mb-3 text-sky-400'>Teeth Protector</h2>
             {
-                session && me? <div className='font-semibold text-cyan-800 text-xl'>Welcome {me.data.name}</div> : null
+                session && me? <div className='font-semibold text-cyan-800 text-xl mb-2'>Welcome {me.data.name}</div> : null
             }
-            <button className='bg-blue-500 text-white text-2xl font-semibold py-2 px-2 my-8 rounded hover:bg-blue-400   hover:text-blue-500'
+            {/* <button className='bg-orange-400 text-white text-2xl font-semibold py-2 px-2 my-5 rounded-full text-center ml-20 drop-shadow-md hover:bg-orange-300 py-3 px-5'
                 onClick={(e)=>{e.stopPropagation(); router.push('/dentist');}}>
-                Select Your Dentist
-            </button>   
+                Care Your Teeth Now 
+            </button>    */}
         </div>
 
         <div className='flex-grow'>
