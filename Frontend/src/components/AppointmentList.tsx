@@ -24,15 +24,15 @@ export default async function AppointmentList({
               <table className=" border-separate border-spacing-6">
                 <tbody className=" text-2xl mx-10">
                   <tr >
-                    <td className="font-semibold font-medium pl-5 pr-20" >Name : </td>
+                    <td className="text-gray-800 font-semibold font-medium pl-5 pr-20" >Name : </td>
                     <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{appointmentItem.userName}</td>
                   </tr>
                   <tr>
-                    <td className="font-semibold font-medium pl-5 pr-20">Dentist : </td>
+                    <td className="text-gray-800 font-semibold font-medium pl-5 pr-20">Dentist : </td>
                     <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{appointmentItem.dentist?.name}</td>
                   </tr>
                   <tr>
-                    <td className="font-semibold font-medium pl-5 pr-20">Date : </td>
+                    <td className="text-gray-800 font-semibold font-medium pl-5 pr-20">Date : </td>
                     <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 py-2">{" "} {dayjs(appointmentItem.appDate).format("DD / MM / YYYY - HH:mm")}</td>
                   </tr>
                 </tbody>

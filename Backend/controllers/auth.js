@@ -92,7 +92,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, token, type:user.userType });
+    .json({ success: true, token, type:user.userType , role:user.role });
 };
 
 //@desc  Get current Logged in user
