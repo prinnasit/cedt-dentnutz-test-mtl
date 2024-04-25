@@ -29,7 +29,7 @@ export default function AppointmentMaking() {
     appointmentDate && appointmentTime
             ? dayjs(
                     `${appointmentDate.format(
-                        "DD-MM-YYYY"
+                        "YYYY-MM-DD"
                     )}T${appointmentTime.format("HH:mm")}`
                 )
             : null;
@@ -59,6 +59,7 @@ export default function AppointmentMaking() {
 
   const makingAppointment = async () => {
     if (!dentistID || !appDate) return alert("Please enter all fields");
+    console.log(dentistID, appDate, token);
     try {
       const appointment = await addAppointment(
         dentistID,
