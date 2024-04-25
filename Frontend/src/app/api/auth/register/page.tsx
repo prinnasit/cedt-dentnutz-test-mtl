@@ -186,7 +186,7 @@ export default function Booking() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid container component="main" sx={{ height: "100vh" }}>
+            <Grid container component="main" sx={{ height: "1000px" }}>
                 <CssBaseline />
                 <Grid
                     item
