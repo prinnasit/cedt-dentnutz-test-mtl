@@ -34,14 +34,9 @@ export default function AppointmentDetailPage({
   const router = useRouter();
 
   const cancelAppointment = async () => {
-    confirmAlert("Are you sure?", "cancel this appointment", "warning", "Appointment cancelled", async () => {
+    confirmAlert("Are you sure?", "Cancel this appointment", "warning", "Appointment cancelled", async () => {
       await deleteAppointment(appointmentDetail.data._id, token);
-      if (session.user.type === 'patient') {
-        router.push("/makeappointment");
-      }
-      else {
-        router.push("/schedule");
-      }
+      router.push("/")
     })
   }
   
