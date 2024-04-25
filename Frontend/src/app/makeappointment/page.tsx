@@ -10,13 +10,13 @@ import { LinearProgress } from "@mui/material";
 import { sweetAlert } from "@/components/alert";
 
 export default function AppointmentMaking() {
-  const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session } = useSession();
   const token = session?.user.token;
   if (!token) return null;
 
-  if (session.user.type === 'dentist' ) {
+  if ((session.user.type === 'dentist') || (session.user.type !== 'dentist' && session.user.type !== 'patient' )){
     router.push('/');
   }
   const [appointmentDate, setAppointmentDate] = useState<Dayjs | null>(null);
