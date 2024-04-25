@@ -19,13 +19,17 @@ import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { sweetAlert } from "@/components/alert";
 import { error } from "console";
 import Swal from "sweetalert2";
+import { set } from "mongoose";
 
 export default function Booking() {
     const [name, setName] = useState("");
+    const [nameLast, setNameLast] = useState("");
+    const [nameFist, setNameFirst] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [tel, setTel] = useState("");
     const [nameStatus, setNameStatus] = useState(0);
+    const [nameLastStatus, setNameLastStatus] = useState(0);
     const [emailStatus, setEmailStatus] = useState(0);
     const [passwordStatus, setPasswordStatus] = useState(0);
     const [passwordConStatus, setPasswordConStatus] = useState(0);
@@ -73,7 +77,7 @@ export default function Booking() {
                 Swal.fire({
                     title: "Registration successful!",
                     // message: "Registration successful",
-                    confirmButtonText: '👍 OK!',
+                    confirmButtonText: "👍 OK!",
                     icon: "success",
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -97,13 +101,26 @@ export default function Booking() {
         }
     };
 
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
-        setName(newName);
-        if (newName.length > 3) {
+        setNameFirst(newName);
+        setName(nameFist + " " + nameLast);
+        console.log(name);
+        if (newName.length > 0) {
             setNameStatus(2); // correct
         } else {
             setNameStatus(1); // error
+        }
+    };
+    const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newName = e.target.value;
+        setNameLast(newName);
+        setName(nameFist + " " + nameLast);
+        console.log(name);
+        if (newName.length > 0) {
+            setNameLastStatus(2); // correct
+        } else {
+            setNameLastStatus(1); // error
         }
     };
 
@@ -221,7 +238,102 @@ export default function Booking() {
                             // onSubmit={handleSubmit}
                             sx={{ mt: 1 }}
                         >
-                            <TextField
+                            {/* style={{ padding: 0 ,marginTop: '20px', paddingRight: '20px'}} */}
+                            <Grid
+                                container
+                                spacing={2}
+                                style={{ marginTop: "20px" }}
+                            >
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    style={{
+                                        paddingLeft: 0,
+                                        paddingTop: "16px",
+                                    }}
+                                >
+                                    <TextField
+                                        autoComplete="given-name"
+                                        name="firstName"
+                                        required
+                                        fullWidth
+                                        onChange={handleFirstNameChange}
+                                        error={nameStatus === 1}
+                                        id="firstName"
+                                        label="First Name"
+                                        autoFocus
+                                        onKeyDown={(event) => {
+                                            if (event.key === ' ') {
+                                                event.preventDefault();
+                                            }
+                                        }}
+                                        sx={{
+                                            // Root class for the input field
+                                            "& .MuiOutlinedInput-root": {
+                                                color:
+                                                    nameStatus === 2
+                                                        ? "green"
+                                                        : "inherit",
+                                                "& .MuiOutlinedInput-notchedOutline":
+                                                    {
+                                                        borderColor:
+                                                            nameStatus === 2
+                                                                ? "green"
+                                                                : "inherit",
+                                                    },
+                                            },
+                                            // Class for the label of the input field
+                                            "& .MuiInputLabel-outlined": {
+                                                color:
+                                                    nameStatus === 2
+                                                        ? "green"
+                                                        : "inherit",
+                                            },
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        onChange={handleLastNameChange}
+                                        error={nameLastStatus === 1}
+                                        id="lastName"
+                                        label="Last Name"
+                                        name="lastName"
+                                        autoComplete="family-name"
+                                        onKeyDown={(event) => {
+                                            if (event.key === ' ') {
+                                                event.preventDefault();
+                                            }
+                                        }}
+                                        sx={{
+                                            // Root class for the input field
+                                            "& .MuiOutlinedInput-root": {
+                                                color:
+                                                    nameLastStatus === 2
+                                                        ? "green"
+                                                        : "inherit",
+                                                "& .MuiOutlinedInput-notchedOutline":
+                                                    {
+                                                        borderColor:
+                                                            nameLastStatus === 2
+                                                                ? "green"
+                                                                : "inherit",
+                                                    },
+                                            },
+                                            // Class for the label of the input field
+                                            "& .MuiInputLabel-outlined": {
+                                                color:
+                                                    nameLastStatus === 2
+                                                        ? "green"
+                                                        : "inherit",
+                                            },
+                                        }}
+                                    />
+                                </Grid>
+                                {/* <TextField
                                 margin="normal"
                                 required
                                 fullWidth
@@ -266,172 +378,192 @@ export default function Booking() {
                                         : ""
                                 }
                                 autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                onChange={handleEmailChange}
-                                error={emailStatus === 1}
-                                sx={{
-                                    // Root class for the input field
-                                    "& .MuiOutlinedInput-root": {
-                                        color:
-                                            emailStatus === 2
-                                                ? "green"
-                                                : "inherit",
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            borderColor:
+                            /> */}
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    onChange={handleEmailChange}
+                                    error={emailStatus === 1}
+                                    sx={{
+                                        // Root class for the input field
+                                        "& .MuiOutlinedInput-root": {
+                                            color:
+                                                emailStatus === 2
+                                                    ? "green"
+                                                    : "inherit",
+                                            "& .MuiOutlinedInput-notchedOutline":
+                                                {
+                                                    borderColor:
+                                                        emailStatus === 2
+                                                            ? "green"
+                                                            : "inherit",
+                                                },
+                                        },
+                                        // Class for the label of the input field
+                                        "& .MuiInputLabel-outlined": {
+                                            color:
                                                 emailStatus === 2
                                                     ? "green"
                                                     : "inherit",
                                         },
-                                    },
-                                    // Class for the label of the input field
-                                    "& .MuiInputLabel-outlined": {
-                                        color:
-                                            emailStatus === 2
-                                                ? "green"
-                                                : "inherit",
-                                    },
-                                }}
-                                helperText={
-                                    emailStatus === 1
-                                        ? "Please enter a valid email address"
-                                        : ""
-                                }
-                                autoFocus
-                            />
-                            <MuiTelInput
-                                margin="normal"
-                                value={tel}
-                                onChange={handleTelChange}
-                                required
-                                fullWidth
-                                defaultCountry="TH"
-                                forceCallingCode
-                                error={telStatus === 1}
-                                sx={{
-                                    // Root class for the input field
-                                    "& .MuiOutlinedInput-root": {
-                                        color:
-                                            telStatus === 2
-                                                ? "green"
-                                                : "inherit",
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            borderColor:
+                                    }}
+                                    helperText={
+                                        emailStatus === 1
+                                            ? "Please enter a valid email address"
+                                            : ""
+                                    }
+                                    autoFocus
+                                    onKeyDown={(event) => {
+                                        if (event.key === ' ') {
+                                            event.preventDefault();
+                                        }
+                                    }}
+                                />
+                                <MuiTelInput
+                                    margin="normal"
+                                    value={tel}
+                                    onChange={handleTelChange}
+                                    required
+                                    fullWidth
+                                    defaultCountry="TH"
+                                    forceCallingCode
+                                    error={telStatus === 1}
+                                    sx={{
+                                        // Root class for the input field
+                                        "& .MuiOutlinedInput-root": {
+                                            color:
+                                                telStatus === 2
+                                                    ? "green"
+                                                    : "inherit",
+                                            "& .MuiOutlinedInput-notchedOutline":
+                                                {
+                                                    borderColor:
+                                                        telStatus === 2
+                                                            ? "green"
+                                                            : "inherit",
+                                                },
+                                        },
+                                        // Class for the label of the input field
+                                        "& .MuiInputLabel-outlined": {
+                                            color:
                                                 telStatus === 2
                                                     ? "green"
                                                     : "inherit",
                                         },
-                                    },
-                                    // Class for the label of the input field
-                                    "& .MuiInputLabel-outlined": {
-                                        color:
-                                            telStatus === 2
-                                                ? "green"
-                                                : "inherit",
-                                    },
-                                }}
-                                helperText={
-                                    telStatus === 1
-                                        ? "Please enter a valid phone number. For example: 80 123 4567."
-                                        : ""
-                                }
-                                id="Telephone Number"
-                                label="Telephone Number"
-                                name="Telephone Number"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                id="password"
-                                type={showPassword ? "text" : "password"}
-                                sx={{
-                                    // Root class for the input field
-                                    "& .MuiOutlinedInput-root": {
-                                        color:
-                                            passwordStatus === 2
-                                                ? "green"
-                                                : "inherit",
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            borderColor:
+                                    }}
+                                    helperText={
+                                        telStatus === 1
+                                            ? "Please enter a valid phone number. For example: 80 123 4567."
+                                            : ""
+                                    }
+                                    id="Telephone Number"
+                                    label="Telephone Number"
+                                    name="Telephone Number"
+                                    autoFocus
+                                    
+                                />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    id="password"
+                                    type={showPassword ? "text" : "password"}
+                                    sx={{
+                                        // Root class for the input field
+                                        "& .MuiOutlinedInput-root": {
+                                            color:
+                                                passwordStatus === 2
+                                                    ? "green"
+                                                    : "inherit",
+                                            "& .MuiOutlinedInput-notchedOutline":
+                                                {
+                                                    borderColor:
+                                                        passwordStatus === 2
+                                                            ? "green"
+                                                            : "inherit",
+                                                },
+                                        },
+                                        // Class for the label of the input field
+                                        "& .MuiInputLabel-outlined": {
+                                            color:
                                                 passwordStatus === 2
                                                     ? "green"
                                                     : "inherit",
                                         },
-                                    },
-                                    // Class for the label of the input field
-                                    "& .MuiInputLabel-outlined": {
-                                        color:
-                                            passwordStatus === 2
-                                                ? "green"
-                                                : "inherit",
-                                    },
-                                }}
-                                onChange={handlePasswordChange}
-                                error={passwordStatus === 1}
-                                helperText={
-                                    passwordStatus === 1 ? (
-                                        <div>
-                                            The password must contain:
-                                            <br />- At least 1 uppercase letter
-                                            <br />- At least 1 lowercase letter
-                                            <br />- At least 1 number
-                                            <br />- At least 6 characters
-                                        </div>
-                                    ) : (
-                                        ""
-                                    )
-                                }
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="confirmPassword"
-                                label="Confirm Password"
-                                type="password"
-                                id="confirmPassword"
-                                onChange={handlePasswordConChange}
-                                error={passwordConStatus === 1}
-                                sx={{
-                                    // Root class for the input field
-                                    "& .MuiOutlinedInput-root": {
-                                        color:
-                                            passwordConStatus === 2
-                                                ? "green"
-                                                : "inherit",
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            borderColor:
+                                    }}
+                                    onChange={handlePasswordChange}
+                                    error={passwordStatus === 1}
+                                    helperText={
+                                        passwordStatus === 1 ||
+                                        passwordStatus === 0
+                                            ? "The password must contain:\n- At least 1 uppercase letter\n- At least 1 lowercase letter\n- At least 1 number\n- At least 6 characters"
+                                                .split("\n")
+                                                .map((line, index) => (
+                                                    <span key={index}>
+                                                        {line}
+                                                        <br />
+                                                    </span>
+                                                ))
+                                            : ""
+                                    }
+                                    onKeyDown={(event) => {
+                                        if (event.key === ' ') {
+                                            event.preventDefault();
+                                        }
+                                    }}
+                                />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="confirmPassword"
+                                    label="Confirm Password"
+                                    type="password"
+                                    id="confirmPassword"
+                                    onChange={handlePasswordConChange}
+                                    error={passwordConStatus === 1}
+                                    sx={{
+                                        // Root class for the input field
+                                        "& .MuiOutlinedInput-root": {
+                                            color:
+                                                passwordConStatus === 2
+                                                    ? "green"
+                                                    : "inherit",
+                                            "& .MuiOutlinedInput-notchedOutline":
+                                                {
+                                                    borderColor:
+                                                        passwordConStatus === 2
+                                                            ? "green"
+                                                            : "inherit",
+                                                },
+                                        },
+                                        // Class for the label of the input field
+                                        "& .MuiInputLabel-outlined": {
+                                            color:
                                                 passwordConStatus === 2
                                                     ? "green"
                                                     : "inherit",
                                         },
-                                    },
-                                    // Class for the label of the input field
-                                    "& .MuiInputLabel-outlined": {
-                                        color:
-                                            passwordConStatus === 2
-                                                ? "green"
-                                                : "inherit",
-                                    },
-                                }}
-                                helperText={
-                                    passwordConStatus === 1
-                                        ? "Passwords do not match"
-                                        : ""
-                                }
-                            />
-                            {/* <Grid item xs={12}>
+                                    }}
+                                    helperText={
+                                        passwordConStatus === 1
+                                            ? "Passwords do not match"
+                                            : ""
+                                    }
+                                    onKeyDown={(event) => {
+                                        if (event.key === ' ') {
+                                            event.preventDefault();
+                                        }
+                                    }}
+                                />
+                                {/* <Grid item xs={12}>
                                 <FormControlLabel
                                     control={
                                         <Checkbox
@@ -442,29 +574,33 @@ export default function Booking() {
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
                             </Grid> */}
-                            <Button
-                                fullWidth
-                                variant="outlined"
-                                onClick={register}
-                                disabled={
-                                    nameStatus !== 2 ||
-                                    emailStatus !== 2 ||
-                                    telStatus !== 2 ||
-                                    passwordStatus !== 2 ||
-                                    passwordConStatus !== 2
-                                }
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Sign In
-                            </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2"></Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="../auth/signin" variant="body2">
-                                        {"have an account? Sign In"}
-                                    </Link>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    onClick={register}
+                                    disabled={
+                                        nameStatus !== 2 ||
+                                        emailStatus !== 2 ||
+                                        telStatus !== 2 ||
+                                        passwordStatus !== 2 ||
+                                        passwordConStatus !== 2
+                                    }
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Sign In
+                                </Button>
+                                <Grid container>
+                                    <Grid item xs>
+                                        <Link href="#" variant="body2"></Link>
+                                    </Grid>
+                                    <Grid item>
+                                        <Link
+                                            href="../auth/signin"
+                                            variant="body2"
+                                        >
+                                            {"have an account? Sign In"}
+                                        </Link>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Box>
