@@ -17,7 +17,7 @@ export default async function AppointmentList({
             className="w-full sm:w-1/2 md:w-1/2 xl:w-1/2 p-4 transition ease-in-out hover:scale-105"
             key={appointmentItem._id}>
             <div
-              className=" bg-white rounded-xl border-2 border-slate-200 hover: border-2 hover:bg-slate-50 shadow-lg hover:border-sky-500 " key={appointmentItem._id}>
+              className="bg-white rounded-xl border-2 border-slate-200 hover: border-2 hover:bg-slate-50 shadow-lg hover:border-sky-500 " key={appointmentItem._id}>
               {/* <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
                             <button className="text-base text-blue-500 mt-5 text-right" name="Edit Appointment">Edit</button>
               </Link> */}
