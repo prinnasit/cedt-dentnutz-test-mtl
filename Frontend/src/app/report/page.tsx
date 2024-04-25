@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 
 
 export default function SelectReport() {
-
+  
   const [reports, setReports] = useState<ReportJson | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const router = useRouter();
@@ -24,11 +24,15 @@ export default function SelectReport() {
     return <div>loading...</div>;
   }
   const token = session.user.token;
-  
+  if (session.user.type !== 'dentist' && session.user.type !== 'patient' ) {
+    router.push('/');
+  }
   useEffect( ()=>{
     const fetchData = async ()=>{
-      const data = await getReports(token);
-      setReports(data)
+      if(session.user.type === 'dentist' || session.user.type === 'patient'){
+        const data = await getReports(token);
+        setReports(data);
+      }
     }
     fetchData()
   },[])

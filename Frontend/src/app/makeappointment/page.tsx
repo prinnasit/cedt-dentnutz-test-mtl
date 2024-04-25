@@ -9,13 +9,15 @@ import addAppointment from "@/libs/addAppointment";
 import { LinearProgress } from "@mui/material";
 
 export default function AppointmentMaking() {
-  const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
-
+  const { data: session } = useSession();
   const token = session?.user.token;
   if (!token) return null;
 
+  if ((session.user.type === 'dentist') || (session.user.type !== 'dentist' && session.user.type !== 'patient' )){
+    router.push('/');
+  }
   const [appointmentDate, setAppointmentDate] = useState<Dayjs | null>(null);
   const [appointmentTime, setAppointmentTime] = useState<Dayjs | null>(null);
   const [dentistID, setDentistID] = useState<string | null>(searchParams.get("dentistid"));

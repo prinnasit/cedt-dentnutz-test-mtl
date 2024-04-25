@@ -21,7 +21,8 @@ const UserSchema=  new mongoose.Schema({
         } ,
     userType:{
         type: String,
-        enum: ['patient', 'dentist']
+        enum: ['patient', 'dentist'],
+        default:'patient '
     },
     password:{ 
         type:String, 
