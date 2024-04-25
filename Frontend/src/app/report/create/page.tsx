@@ -48,7 +48,7 @@ export default function addReport() {
           sweetAlert("Incomplete", "Please enter medication", "warning");
           return
         }
-        if (!patient || !dentist || !appointmentDate) {
+        if (!patient || !dentist || !appointmentDate || !appt) {
           sweetAlert("Incomplete", "Please select appointment again", "warning");
           router.push("/schedule");
           return
@@ -56,6 +56,7 @@ export default function addReport() {
         const report = await createReport(
             patient,
             dentist,
+            appt,
             appointmentDate,
             treatment,
             medication,
