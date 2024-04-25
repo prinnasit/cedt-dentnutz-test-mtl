@@ -56,7 +56,6 @@ export default function Booking() {
             tel
                 .replace(/^\+66\s?(?=\d{2}\s?\d{3}\s?\d{4}$)/, "")
                 .replace(/\s+/g, "-");
-        console.log(name, email, password, "user", "patient", formattedTel);
         if (!name || !email || !password || !tel) {
             sweetAlert(
                 "Incomplete",
@@ -105,7 +104,6 @@ export default function Booking() {
         const newName = e.target.value;
         setNameFirst(newName);
         setName(nameFist + " " + nameLast);
-        console.log(name);
         if (newName.length > 0) {
             setNameStatus(2); // correct
         } else {
@@ -116,7 +114,6 @@ export default function Booking() {
         const newName = e.target.value;
         setNameLast(newName);
         setName(nameFist + " " + nameLast);
-        console.log(name);
         if (newName.length > 0) {
             setNameLastStatus(2); // correct
         } else {
