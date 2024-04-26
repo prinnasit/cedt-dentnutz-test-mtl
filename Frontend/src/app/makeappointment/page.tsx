@@ -83,8 +83,17 @@ export default function AppointmentMaking() {
       }
 
     } catch (error) {
-      sweetAlert("Failed", "Cannot book more than 1 appointment", "error")
-      router.push("/appointment");
+      const err =  error as Error;
+      if(err.message === "Appointment date and dentist already exists") {
+        sweetAlert("Failed", "Appointment date and dentist already exists", "error");
+      } else if(err.message === "Cannot book more than 1 appointment") {
+        sweetAlert("Failed", "Cannot book more than 1 appointment", "error");
+      }
+      else{
+        //console.log(appointmentDate, appointmentTime, dentistID, appDate )
+        sweetAlert("Failed", "Failed to add appointment", "error");
+      }
+      //console.log(error)
     }
   };
 
