@@ -76,7 +76,6 @@ export default function updateReportPage() {
             <button className="block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"onClick={editReport}>Confirm Details</button>
 
         </div>
-    </div>
 </main>
 
   );
