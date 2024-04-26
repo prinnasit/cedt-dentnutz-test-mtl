@@ -52,33 +52,30 @@ export default function updateReportPage() {
 
   
   return (
-<main className="flex justify-center items-center p-10 flex-col mb-10 ">
-    <h1 className="mx-auto w-fit text-2xl mb-10 font-bold text-black mt-7 ">Update Report</h1>
-    <div className="shadow-lg rounded-lg w-4/5 flex flex-col p-5 space-y-7 text-center  ">
-        <div className="items-center ">
-            <div className="w-1/4 text-black text-s ml-10  mb-1">Treatment</div>
-            <input type="text" className="rounded-2xl text-black outline-2 border border-gray-300 hover:border-gray-500 focus:border-bule-500 focus:outline-none focus:ring-2 
-            focus:ring-blue-500 focus:ring-opacity-70 w-3/4 p-3"
-            onChange={(e) => {setTreatment(e.target.value)}}  value={treatment}/>
-       
+    <main className="justify-center items-center p-5 flex flex-col">
+        <h1 className="text-center font-semibold text-4xl mb-10 mt-8">Update Report</h1>
+        <div className="border-gray-200 border-2 rounded-2xl w-4/5 flex flex-col justify-items-center content-center p-5 space-y-2"> 
+            <div className="flex flex-row ">
+                <div className="font-semibold pl-8 rounded-lg text-left text-2xl font-medium">Treatment:</div>
+                <TextField multiline className="basis-3/5" id="outlined-basic" label="Treatment" variant="outlined" 
+                onChange={(e)=>{setTreatment(e.target.value)}}
+                value={treatment}/>
+            </div>
+            <div className="flex flex-row ">
+                <div className="font-semibold pl-8 rounded-lg text-left text-2xl font-medium ">Medication:</div>
+                <TextField multiline className="basis-3/5" id="outlined-basic" label="Medication" variant="outlined" 
+                onChange={(e)=>{setMedication(e.target.value)}}
+                value={medication}/>
+            </div>
+            <div className="flex flex-row">
+                <div className="font-semibold pl-8 rounded-lg text-left text-2xl font-medium">Recommmendation : </div>
+                <TextField multiline className="basis-3/5 " id="outlined-basic" label="Recommmendation" variant="outlined" 
+                onChange={(e)=>{setRecommendation(e.target.value)}}
+                value={recommendation}/>
+            </div>
+            <button className="block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"onClick={editReport}>Confirm Details</button>
+
         </div>
-        <div className=" items-center ">
-            <div className="w-1/4 text-black text-s ml-10  mb-1">Medication</div>
-            <input type="text" className="rounded-xl text-black outline-2 border border-gray-300 hover:border-gray-500 focus:border-bule-500 focus:outline-none focus:ring-2 
-            focus:ring-blue-500 focus:ring-opacity-70 w-3/4 p-3"
-            onChange={(e) => {setMedication(e.target.value)}}  value={medication}/>
-            
-        </div>
-        <div className=" items-center mb-5">
-            <div className="w-1/4 text-black text-s ml-[70px] ">Recommendation:</div>
-          
-            <textarea className="rounded-xl text-black outline-2 border border-gray-300 hover:border-gray-500 focus:border-bule-500 focus:outline-none focus:ring-2 
-            focus:ring-blue-500 focus:ring-opacity-70 w-3/4 p-2" rows={4}
-            onChange={(e) => {setRecommendation(e.target.value)}}  value={recommendation}></textarea>
-        </div>
-        <button className="bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-8 py-1 shadow-xl text-white mx-auto text-xl "onClick={editReport}>Submit
-        </button>
-    </div>
 </main>
 
   );
