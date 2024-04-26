@@ -13,6 +13,7 @@ export default async function DentistDetailPage({
 }) {
 
   const dentistDetail = await getDentist(params.did);
+  const session = await getServerSession(authOptions)
 
   return (
     <main className="text-center p-5">
@@ -65,9 +66,11 @@ export default async function DentistDetailPage({
                 {/* <div className="mx-5">Year Of Experiences: {dentistDetail.data.yearsOfExperience}{" "}</div>
                 <div className="mx-5 "> Area Of Expertise: {dentistDetail.data.areaOfExpertise}{" "}</div> */}
               </div>
-              <Link href={`/makeappointment?dentistid=${dentistDetail.data.id}&dentistname=$<div>{dentistDetail.data.name}</div>`}>
-                  <button className="bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-7 py-2 shadow-lg text-white mx-auto text-2xl mt-4">Select</button>
-              </Link>
+              {
+                session?.user.type==='patient' && session?.user.role !== 'admin' &&  <Link href={`/makeappointment?dentistid=${dentistDetail.data.id}&dentistname=$<div>{dentistDetail.data.name}</div>`}>
+                <button className="bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-7 py-2 shadow-lg text-white mx-auto text-2xl mt-4">Select</button>
+                </Link>
+              }
             </div>
           </div>
       </Suspense>
