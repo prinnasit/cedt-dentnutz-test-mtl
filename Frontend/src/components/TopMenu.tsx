@@ -27,7 +27,7 @@ export default function TopMenu() {
     const navigation: { name: string; href: string; current: boolean }[] = [];
     if (!session) {
         navigation.push(
-            { name: "Dentist", href: "/dentist", current: path === "dentist" },
+            { name: "Dentist", href: "/dentist", current: path === "(dentistinfo)/dentist" },
             {
                 name: "Booking",
                 href: "/makeappointment",
@@ -45,7 +45,7 @@ export default function TopMenu() {
                 {
                     name: "Dentist",
                     href: "/dentist",
-                    current: path === "dentist",
+                    current: path === "(dentistinfo)/dentist",
                 },
                 {
                     name: "Booking",
@@ -62,6 +62,11 @@ export default function TopMenu() {
         } else if (session.user.type === "dentist") {
             navigation.push(
                 {
+                    name: "Appointment",
+                    href: "/appointment",
+                    current: path === "appointment",
+                },
+                {
                     name: "Schedule",
                     href: "/schedule",
                     current: path === "schedule",
@@ -77,7 +82,7 @@ export default function TopMenu() {
                 {
                     name: "Dentist",
                     href: "/dentist",
-                    current: path === "dentist",
+                    current: path === "(dentistinfo)/dentist",
                 },
                 {
                     name: "Appointment",
@@ -96,7 +101,7 @@ export default function TopMenu() {
                 {
                     name: "Dentist",
                     href: "/dentist",
-                    current: path === "dentist",
+                    current: path === "(dentistinfo)/dentist",
                 },
                 {
                     name: "Booking",
@@ -111,7 +116,6 @@ export default function TopMenu() {
             );
         }
     }
-
     return (
         <div className="fixed top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 bg-slate-700">
             <Disclosure as="nav" className="">
