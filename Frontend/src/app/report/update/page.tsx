@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import updateReport from "@/libs/updateReport";
 import getReport from "@/libs/getReport";
 import { useSearchParams } from "next/navigation";
+import Input from "@mui/material";
 
 export default function updateReportPage() {
 
@@ -73,7 +74,10 @@ export default function updateReportPage() {
                 value={recommendation}/>
             </div>
             <button className="block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"onClick={editReport}>Confirm Details</button>
+
         </div>
-    </main>
+    </div>
+</main>
+
   );
 }

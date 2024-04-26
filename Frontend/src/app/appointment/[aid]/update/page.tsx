@@ -14,6 +14,7 @@ import getDentists from "@/libs/getDentists";
 import updateAppointment from "@/libs/updateAppointment";
 import DateReserve from "@/components/DateReserve";
 import { LinearProgress } from "@mui/material";
+import { sweetAlert } from "@/components/alert";
 
 export default function AppointmentDetailPage({
   params,
@@ -64,9 +65,18 @@ export default function AppointmentDetailPage({
   const router = useRouter();
 
     const editAppointment = async () => {
+      if (!dentist) {
+        sweetAlert("Incomplete", "Please select dentist", "warning");
+      }
+      if (!appDate) {
+        sweetAlert("Incomplete", "Please select date for appointment", "warning")
+      }
+      else {
         await updateAppointment(appointmentDetail.data._id,dentist,dayjs(appDate).format('YYYY-MM-DD HH:mm:ss Z'),token);
+        sweetAlert("Successfully", "Update appointment successfully", "success")
         router.push(`/appointment/${appointmentDetail.data._id}`);
       }
+    }
 
   if (!appointmentDetail) return (<div>
     <p className="mt-20 mb-5 text-black text-center text-5xl text-bold space-y-6">Loading... </p>
