@@ -72,6 +72,25 @@ export default function TopMenu() {
                     current: path === "report",
                 }
             );
+        } else if (session.user.role === "admin") {
+            navigation.push(
+                {
+                    name: "Dentist",
+                    href: "/dentist",
+                    current: path === "dentist",
+                },
+                {
+                    name: "Appointment",
+                    href: "/appointment",
+                    current: path === "appointment",
+                },
+                {
+                    name: "Schedule",
+                    href: "/schedule",
+                    current: path === "schedule",
+                },
+               
+            );
         } else {
             navigation.push(
                 {
