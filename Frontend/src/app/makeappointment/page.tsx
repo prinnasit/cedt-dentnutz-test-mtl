@@ -16,7 +16,7 @@ export default function AppointmentMaking() {
   const token = session?.user.token;
   if (!token) return null;
 
-  if ((session.user.type === 'dentist') || (session.user.type !== 'dentist' && session.user.type !== 'patient' )){
+  if ((session.user.type === 'dentist') || (session.user.role==="admin")){
     router.push('/');
   }
   const [appointmentDate, setAppointmentDate] = useState<Dayjs | null>(null);

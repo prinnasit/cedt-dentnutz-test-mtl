@@ -55,7 +55,7 @@ export default function AppointmentDetailPage({
           <div className="text-2xl font-medium mt-3 ml-5 text-left">Appointment Date : {dayjs(appointmentDetail.data.appDate).format('DD / MM / YYYY - HH:mm')}</div>
           <div className="text-right">
           {
-            (session.user.type==='patient' || (session.user.type!=='patient' && session.user.type!=='dentist'))?
+            ((session.user.type==='patient'&& session.user.role!=="admin") || (session.user.role==="admin"))?
             <div>
             <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
             <button

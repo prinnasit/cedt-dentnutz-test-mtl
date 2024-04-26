@@ -40,7 +40,7 @@ export default function TopMenu() {
             }
         );
     } else {
-        if (session.user.type === "patient") {
+        if (session.user.type === "patient" && session.user.role!=="admin") {
             navigation.push(
                 {
                     name: "Dentist",
