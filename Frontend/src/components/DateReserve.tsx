@@ -2,7 +2,7 @@
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { Select, MenuItem, FormControl, InputLabel, CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/en";
@@ -61,7 +61,10 @@ export default function DateReserve({
         fetchData();
     }, []);
 
-    if (!allDentist) return null;
+    // if (!allDentist) return null;
+
+    if (!allDentist) return (
+        <CircularProgress />);
 
     return (
         <div className="rounded-lg space-x-5 space-y-2 px-10 py-5 flex flex-col ">
