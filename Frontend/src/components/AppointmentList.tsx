@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 import Link from "next/link";
 import { AppointmentJson } from "../../interface";
+import { getServerSession } from "next-auth";
+import { authOptions } from '../app/api/auth/[...nextauth]/route'
 
 export default async function AppointmentList({
   appointmentJson,
@@ -8,7 +10,7 @@ export default async function AppointmentList({
   appointmentJson: Promise<AppointmentJson>;
 }) {
   const appointmentJsonReady = await appointmentJson;
-
+  const session = await getServerSession(authOptions);
   return (
     <div className="container mx-auto">  
       <div className="flex flex-wrap p-5">
@@ -37,9 +39,11 @@ export default async function AppointmentList({
                   </tr>
                 </tbody>
               </table>
-            <Link href={`/appointment/${appointmentItem._id}/update`}>
-              <div className="text-base text-sky-500 m-5 mt-0 text-right font-semibold">Edit</div>
-            </Link>
+            {
+              session?.user.type !== "dentist" && <Link href={`/appointment/${appointmentItem._id}/update`}>
+                <div className="text-base text-sky-500 m-5 mt-0 text-right font-semibold">Edeit</div>
+              </Link>
+            }
           </div>
         </Link>
         ))}
