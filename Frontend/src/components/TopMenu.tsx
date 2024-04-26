@@ -147,7 +147,7 @@ export default function TopMenu() {
                                         <a href="/">
                                             <img
                                                 className="h-8 w-auto"
-                                                src="/img/LOGO.svg"
+                                                src="/img/LOGO2.png"
                                                 alt="Dentnutz"
                                             />
                                         </a>
