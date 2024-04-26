@@ -178,7 +178,7 @@ export default function TopMenu() {
                                 </div>
                                 <a className="ml-3 text-xs leading-5 font-medium text-sky-600 dark:text-sky-400 bg-sky-400/10 rounded-full py-1 px-3 hidden xl:flex items-center hover:bg-sky-400/20">
                                     <strong className="font-semibold">
-                                        {session ? session?.user.role : null}
+                                        {!session ? "Please Sign-in" : session.user.role === "admin" ? session?.user.role : session?.user.type}
                                     </strong>
                                 </a>
                                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0  dark:border-slate-500">
