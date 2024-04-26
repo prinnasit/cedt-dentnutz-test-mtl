@@ -32,7 +32,7 @@ export default function Banner() {
 
   if(session === null){
     buttonMessage= "Care Your Teeth";
-    path="/dentist";
+    path="/api/auth/signin";
   }
   else if(session.user.role === "admin"){
     buttonMessage= "All Appointment";
