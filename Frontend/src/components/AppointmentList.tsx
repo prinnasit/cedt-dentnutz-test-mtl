@@ -41,7 +41,7 @@ export default async function AppointmentList({
               </table>
             {
               session?.user.type !== "dentist" && <Link href={`/appointment/${appointmentItem._id}/update`}>
-                <div className="text-base text-sky-500 m-5 mt-0 text-right font-semibold">Edeit</div>
+                <div className="text-base text-sky-500 m-5 mt-0 text-right font-semibold">Edit</div>
               </Link>
             }
           </div>
