@@ -25,8 +25,10 @@ export default function ReportDetailPage({
   
     useEffect(() => {
         const fetchReport = async () => {
-          const report = await getReport(params.rid, token);
-          setReportDetail(report);
+          if(session.user.role !== "admin"){
+            const report = await getReport(params.rid, token);
+            setReportDetail(report);
+          }
         };
         fetchReport();
         
