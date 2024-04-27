@@ -23,11 +23,12 @@ exports.getAppointments = async (req, res, next) => {
     if (req.params.dentistID) {
       query = Appointment.find({
         dentist: req.params.dentistID,
+        finished:false,
       }).populate({
         path: "dentist"
       });
     } else {
-      query = Appointment.find().populate({
+      query = Appointment.find({finished:false}).populate({
         path: "dentist"
       });
     }
