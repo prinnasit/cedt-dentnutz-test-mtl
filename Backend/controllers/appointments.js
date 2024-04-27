@@ -33,6 +33,7 @@ exports.getAppointments = async (req, res, next) => {
     }
   }
   try {
+    query.sort('appDate')
     const appointments = await query;
     res.status(200).json({
       success: true,
