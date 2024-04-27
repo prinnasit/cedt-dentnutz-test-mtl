@@ -7,6 +7,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import  createReport  from "@/libs/createReport";
 import getAppointment from "@/libs/getAppointment";
 import { sweetAlert } from "@/components/alert";
+import { useRef } from "react";
 
 
 export default function addReport() {
@@ -25,6 +26,7 @@ export default function addReport() {
     const [appointmentDate, setAppointmentDate] = useState<Date|null>(null);
     
     let appt = searchParams.get("apptId");
+    const isClickedRef = useRef(false);
 
     useEffect(() => {
         const fetchAppointment = async () => {
@@ -36,6 +38,7 @@ export default function addReport() {
       }, []);
 
     const makingReport = async () => {
+      if (!isClickedRef.current) {
         if (!treatment) {
           sweetAlert("Incomplete", "Please enter treatment", "warning");
           return
@@ -53,6 +56,7 @@ export default function addReport() {
           router.push("/schedule");
           return
         }
+        isClickedRef.current = true;
         const report = await createReport(
             patient,
             dentist,
@@ -69,8 +73,8 @@ export default function addReport() {
         } else {
           sweetAlert("Failed", "Create report failed", "error");
         }
+      }
       };
-
   
   return (
     <main className="justify-center items-center p-5 flex flex-col">
@@ -95,7 +99,7 @@ export default function addReport() {
             </div>
 
             <button className="block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"
-                onClick={makingReport}
+                onClick={makingReport} disabled={isClickedRef.current}
             >Create Report</button>
         </div>
     </main>
