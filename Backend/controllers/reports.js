@@ -11,14 +11,10 @@ exports.getReports = async (req,res,next)=>{
         }).populate({path:"patientId"});
     }
     else if(req.user.userType==="dentist"){
-        if (req.body.appointmentId) {
-            query = Report.find({ dentistId: req.user.id, appointmentId: req.body.appointmentId })
-        } else {
-            query = Report.find({ dentistId: req.user.id }).populate({
-                path: "dentistId",
-                select: "name yearsOfExperience areaOfExpertise",
-            }).populate({path:"patientId"});
-        }
+        query = Report.find({ dentistId: req.user.id }).populate({
+            path: "dentistId",
+            select: "name yearsOfExperience areaOfExpertise",
+        }).populate({path:"patientId"});
     }
     else{
         return res.status(401).json({success:false , message: 'Not authorize to access this route'});
