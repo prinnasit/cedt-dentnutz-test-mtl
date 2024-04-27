@@ -1,7 +1,7 @@
 
 export default async function addAppointment(dentistID:string, appDate:string , token:string) {
 
-    const response = await fetch(`https://cedt-se-project-dentnutz-backend.vercel.app/api/v1/dentists/${dentistID}/appointments`, {
+    const response = await fetch(`http://localhost:5000/api/v1/dentists/${dentistID}/appointments`, {
         method: 'POST',
         headers: {
             'authorization': `Bearer ${token}`,
@@ -15,6 +15,9 @@ export default async function addAppointment(dentistID:string, appDate:string , 
     }
     else if (response.status == 404) {
         throw new Error("Appointment date and dentist already exists")
+    }
+    else if (response.status == 418) {
+        throw new Error("Cannot book appointment in the past")
     }
     else if(!response.ok){
         throw new Error("Failed to add appointment")

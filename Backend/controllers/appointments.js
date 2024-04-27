@@ -128,6 +128,16 @@ exports.addAppointment = async (req, res, next) => {
       });
     }
 
+    // Check if the appointment date is in the past
+    const appointmentDate = new Date(req.body.appDate);
+    const currentDate = new Date();
+    if (appointmentDate < currentDate) {
+      return res.status(418).json({
+        success: false,
+        message: 'You cannot create an appointment in the past.',
+      });
+    }
+
     if (existedAppointmentsForDentist) {
       return res.status(404).json({
         success: false,
