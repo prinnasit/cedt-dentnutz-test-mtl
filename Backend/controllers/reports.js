@@ -5,10 +5,10 @@ exports.getReports = async (req,res,next)=>{
 //dentistId or patientId
     let query;
     if(req.user.userType==="patient"){
-        query = Report.find({ patientId: req.user.id }).populate('dentistId patientId appointmentID');
+        query = Report.find({ patientId: req.user.id }).populate('dentistId patientId appointmentId');
     }
     else if(req.user.userType==="dentist"){
-        query = Report.find({ dentistId: req.user.id }).populate('dentistId patientId appointmentID');
+        query = Report.find({ dentistId: req.user.id }).populate('dentistId patientId appointmentId');
     }
     else{
         return res.status(401).json({success:false , message: 'Not authorize to access this route'});
@@ -29,10 +29,10 @@ exports.getReport = async (req,res,next)=>{
 //dentistId or patientId
     let query;
     if(req.user.userType==="patient"){
-        query = Report.findById(req.params.id).populate('dentistId patientId appointmentID');
+        query = Report.findById(req.params.id).populate('dentistId patientId appointmentId');
     }
     else if(req.user.userType==="dentist"){
-        query = Report.findById(req.params.id).populate('dentistId patientId appointmentID');
+        query = Report.findById(req.params.id).populate('dentistId patientId appointmentId');
     }
     else{
         return res.status(401).json({success:false , message: 'Not authorize to access this route'});
