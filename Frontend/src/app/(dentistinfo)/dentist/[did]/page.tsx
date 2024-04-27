@@ -26,9 +26,7 @@ export default async function DentistDetailPage({
             <Image
               src={dentistDetail.data.picture}
               alt="Hospital Image"
-              width={0}
-              height={0}
-              sizes="100vm"
+              width={640}
               className="rounded-lg w-[30%] mx-20 "
             />
             <div className="text-xl mx-5 text-gray-800 w-[50%]">
