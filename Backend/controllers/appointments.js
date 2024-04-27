@@ -1,6 +1,7 @@
 const Appointment = require("../models/Appointment");
 const Dentist = require("../models/Dentist");
 const sendMail = require("../config/mail");
+const Report = require("../models/Report");
 
 //@dese     Get all appointments
 //@route    Get  /api/v1/appointments
@@ -119,12 +120,24 @@ exports.addAppointment = async (req, res, next) => {
       dentist: req.params.dentistId ,
       appDate: req.body.appDate
     });
+    const activeAppointment = await Appointment.findOne({ 
+      user: req.user.id, 
+      finished: false
+    });
 
     //If the user is not an admin , htey can only create 1 appointment
-    if (existedAppointments.length >= 1 && req.user.role !== "admin") {
+    // if (existedAppointments.length >= 1 && req.user.role !== "admin") {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: `The user with id ${req.user.id} has already made 1 appointments`,
+    //   });
+    // }
+
+    //Check if already active appointment
+    if (activeAppointment && req.user.role !== "admin") {
       return res.status(400).json({
         success: false,
-        message: `The user with id ${req.user.id} has already made 1 appointments`,
+        message: `The user with id ${req.user.id} already have an active appointment`,
       });
     }
 
@@ -166,6 +179,14 @@ exports.updateAppointment = async (req, res, next) => {
   try {
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
     let timeBeforeUpdate = appointment.appDate;
+    let report = await Report.findOne({ appointment: req.params.id });
+
+    if(!report){
+      return res.status(418).json({
+        success: false,
+        message: `No report with the appointment id of ${req.params.id}`,
+      });
+    }
 
     if (!appointment) {
       return res.status(404).json({
@@ -177,7 +198,8 @@ exports.updateAppointment = async (req, res, next) => {
     //Make sure user is the appointment owner
     if (
       appointment.user.id !== req.user.id &&
-      req.user.role !== "admin"
+      req.user.role !== "admin" &&
+      req.user.userType !== "dentist"
     ) {
       return res.status(401).json({
         success: false,
