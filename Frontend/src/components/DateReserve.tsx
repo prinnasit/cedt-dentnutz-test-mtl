@@ -124,7 +124,7 @@ export default function DateReserve({
                         labelId="Appointment-date-select-label"
                         id="Appointment-date-select"
                         value={reserveTime}
-                        label="Appointment Time"
+                        label="Time"
                         
                         onChange={(e) => {
                             setReserveTime(e.target.value as number || 0);
