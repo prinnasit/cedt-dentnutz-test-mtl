@@ -22,6 +22,7 @@ export interface AppointmentItem {
   user: string;
   userName: string;
   dentist: DentistItem;
+  finished: boolean;
   createAt: string;
 }
 

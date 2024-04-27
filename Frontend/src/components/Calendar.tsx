@@ -34,7 +34,10 @@ export default function Calendar() {
         const fetchAppointment = async () => {
             const appointments = await getAppointments(token);
             setData(
-                appointments.data.map((appointment: AppointmentItem) => ({
+                appointments.data
+                .filter((appointment: AppointmentItem) => !appointment.finished)
+                .map((appointment: AppointmentItem) => (
+                    {
                     startDate: appointment.appDate,
                     endDate: new Date(
                         new Date(appointment.appDate).setHours(

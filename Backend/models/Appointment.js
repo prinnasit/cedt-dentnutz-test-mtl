@@ -23,6 +23,10 @@ const AppointmentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  finished: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);
