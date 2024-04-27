@@ -175,7 +175,7 @@ exports.updateAppointment = async (req, res, next) => {
     let timeBeforeUpdate = appointment.appDate;
     let report = await Report.findOne({ appointmentId: req.params.id });
 
-    if(!report){
+    if(!report && req.body.finished){
       return res.status(418).json({
         success: false,
         message: `No report with the appointment id of ${req.params.id}`,
