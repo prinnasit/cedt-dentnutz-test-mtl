@@ -1,6 +1,7 @@
   "use client";
 import getAppointment from "@/libs/getAppointment";
 import deleteAppointment from "@/libs/deleteAppointment";
+import checkReport from "@/libs/checkReport";
 import updateAppointment from "@/libs/updateAppointment";
 import updateAppointmentStatus from "@/libs/updateAppointmentStatus";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export default function AppointmentDetailPage({
   params: { aid: string };
 }) {
   const [appointmentDetail, setAppointmentDetail] = useState<any>(null);
+  const [hasReport, setHasReport] = useState<boolean>(false);
 
   const { data: session } = useSession();
 
@@ -29,6 +31,10 @@ export default function AppointmentDetailPage({
     const fetchAppointment = async () => {
       const appointment = await getAppointment(params.aid, token);
       setAppointmentDetail(appointment);
+      const report = await checkReport(params.aid, token);
+      if (report.data.length > 0) {
+        setHasReport(true);
+      }
     };
     fetchAppointment();
   }, []);
@@ -97,9 +103,9 @@ export default function AppointmentDetailPage({
               className="text-base text-blue-500 mt-5 text-right font-medium mr-5">
                 Create Report
             </button>
-            <button onClick={finishAppointment} className="text-base text-blue-500 mt-5 text-right font-medium">
+            {hasReport && <button onClick={finishAppointment} className="text-base text-blue-500 mt-5 text-right font-medium">
                 Finish
-            </button>
+            </button>}
             </div>
             
           }
