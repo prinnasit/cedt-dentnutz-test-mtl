@@ -24,6 +24,7 @@ export interface AppointmentItem {
   dentist: DentistItem;
   finished: boolean;
   createAt: string;
+  report: ReportItem[];
 }
 
 export interface ReportJson {
@@ -37,6 +38,7 @@ export interface ReportItem {
   _id: string;
   patientId:PatientItem;
   dentistId:DentistItem;
+  appointmentId:AppointmentItem;
   treatment:string;
   prescribed_medication:string;
   recommendations:string;

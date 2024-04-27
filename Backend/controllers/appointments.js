@@ -21,17 +21,14 @@ exports.getAppointments = async (req, res, next) => {
    else {
     //If you are an admin you can see all
     if (req.params.dentistID) {
-      console.log(req.params.dentistID);
       query = Appointment.find({
         dentist: req.params.dentistID,
       }).populate({
-        path: "dentist",
-        select: "name yearsOfExperience areaOfExpertise",
+        path: "dentist"
       });
     } else {
       query = Appointment.find().populate({
-        path: "dentist",
-        select: "name yearsOfExperience areaOfExpertise",
+        path: "dentist"
       });
     }
   }
@@ -55,10 +52,7 @@ exports.getAppointments = async (req, res, next) => {
 //@ts-check     Public
 exports.getAppointment = async (req, res, next) => {
   try {
-    const appointment = await Appointment.findById(req.params.id).populate({
-      path: "dentist",
-      select: "name yearsOfExperience areaOfExpertise",
-    });
+    const appointment = await Appointment.findById(req.params.id).populate( req.user.role === "admin" ? 'dentist' : 'dentist report');
 
     if (!appointment) {
       return res.status(404).json({

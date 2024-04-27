@@ -5,16 +5,10 @@ exports.getReports = async (req,res,next)=>{
 //dentistId or patientId
     let query;
     if(req.user.userType==="patient"){
-        query = Report.find({ patientId: req.user.id }).populate({
-            path: "dentistId",
-            select: "name yearsOfExperience areaOfExpertise",
-        }).populate({path:"patientId"});
+        query = Report.find({ patientId: req.user.id }).populate('dentistId patientId appointmentID');
     }
     else if(req.user.userType==="dentist"){
-        query = Report.find({ dentistId: req.user.id }).populate({
-            path: "dentistId",
-            select: "name yearsOfExperience areaOfExpertise",
-        }).populate({path:"patientId"});
+        query = Report.find({ dentistId: req.user.id }).populate('dentistId patientId appointmentID');
     }
     else{
         return res.status(401).json({success:false , message: 'Not authorize to access this route'});
@@ -35,16 +29,10 @@ exports.getReport = async (req,res,next)=>{
 //dentistId or patientId
     let query;
     if(req.user.userType==="patient"){
-        query = Report.findById(req.params.id).populate({
-            path: "dentistId",
-            select: "name yearsOfExperience areaOfExpertise",
-        }).populate({path:"patientId"});
+        query = Report.findById(req.params.id).populate('dentistId patientId appointmentID');
     }
     else if(req.user.userType==="dentist"){
-        query = Report.findById(req.params.id).populate({
-            path: "dentistId",
-            select: "name yearsOfExperience areaOfExpertise",
-        }).populate({path:"patientId"});
+        query = Report.findById(req.params.id).populate('dentistId patientId appointmentID');
     }
     else{
         return res.status(401).json({success:false , message: 'Not authorize to access this route'});
