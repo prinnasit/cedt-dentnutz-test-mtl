@@ -16,6 +16,9 @@ export default async function addAppointment(dentistID:string, appDate:string , 
     else if (response.status == 404) {
         throw new Error("Appointment date and dentist already exists")
     }
+    else if (response.status == 418) {
+        throw new Error("Cannot book appointment in the past")
+    }
     else if(!response.ok){
         throw new Error("Failed to add appointment")
     }

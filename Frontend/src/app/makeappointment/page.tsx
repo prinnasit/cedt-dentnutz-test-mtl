@@ -88,6 +88,8 @@ export default function AppointmentMaking() {
         sweetAlert("Failed", "Appointment date and dentist already exists", "error");
       } else if(err.message === "Cannot book more than 1 appointment") {
         sweetAlert("Failed", "Cannot book more than 1 appointment", "error");
+      } else if(err.message === "Cannot book appointment in the past") {
+        sweetAlert("Failed", "Cannot book appointment in the past", "error");
       }
       else{
         //console.log(appointmentDate, appointmentTime, dentistID, appDate )
