@@ -179,7 +179,7 @@ exports.updateAppointment = async (req, res, next) => {
   try {
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
     let timeBeforeUpdate = appointment.appDate;
-    let report = await Report.findOne({ appointment: req.params.id });
+    let report = await Report.findOne({ appointmentId: req.params.id });
 
     if(!report){
       return res.status(418).json({
