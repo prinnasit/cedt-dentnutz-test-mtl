@@ -3,6 +3,11 @@ import Link from "next/link";
 import { AppointmentJson } from "../../interface";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import utc from 'dayjs/plugin/utc';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(utc);
+dayjs.extend(customParseFormat);
 
 export default async function AppointmentList({
     appointmentJson,
@@ -51,11 +56,7 @@ export default async function AppointmentList({
                                             </td>
                                             <td className="border-gray-200 border-2 rounded-full text-gray-800 text-center items-right px-5 py-2">
                                                 {" "}
-                                                {dayjs(
-                                                    appointmentItem.appDate
-                                                ).format(
-                                                    "DD / MM / YYYY - HH:mm"
-                                                )}
+                                                {dayjs(appointmentItem.appDate).utcOffset('+07:00').format("DD / MM / YYYY - HH:mm")}
                                             </td>
                                         </tr>
                                     </tbody>
