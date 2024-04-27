@@ -111,9 +111,9 @@ export default function DateReserve({
                         value={reserveDate}
                         minDate={today}
                         onChange={(value) => {
-                            setReserveDate(value);
+                            setReserveDate(dayjs(value));
                             onDateChange(value);
-                            setComponentDate(reserveTime !=0? dayjs(value?.hour(reserveTime === 1? 9 : 13)) : null )
+                            setComponentDate(reserveTime !== 0 ? dayjs(value)?.hour(reserveTime === 1 ? 9 : 13) : null);
                         }}
                         renderInput={(props) => <TextField {...props} />}
                     />
