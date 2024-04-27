@@ -12,16 +12,10 @@ exports.getAppointments = async (req, res, next) => {
   if (req.user.role !== "admin") {
 
     if(req.user.userType === "patient") {
-      query = Appointment.find({ user: req.user.id }).populate({
-        path: "dentist",
-        select: "name yearsOfExperience areaOfExpertise",
-      });
+      query = Appointment.find({ user: req.user.id }).populate('dentist report');
     }
     else {
-      query = Appointment.find({ dentist: req.user.id }).populate({
-        path: "dentist",
-        select: "name yearsOfExperience areaOfExpertise",
-      });
+      query = Appointment.find({ dentist: req.user.id }).populate('dentist report');
     }
   }
    else {

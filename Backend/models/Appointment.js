@@ -27,6 +27,19 @@ const AppointmentSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   }
-});
+},
+
+{
+    toJSON: {virtuals : true} ,
+    toObject:{virtuals : true}
+}
+);
+
+AppointmentSchema.virtual('report',{
+  ref : 'Report',
+  localField: '_id',
+  foreignField: 'appointmentId',
+  justOne:false 
+}) ;
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);
