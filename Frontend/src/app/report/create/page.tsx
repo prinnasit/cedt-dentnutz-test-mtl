@@ -67,10 +67,13 @@ export default function addReport() {
             recommendation,
             token
         );
-        if (report) {
+        if (report.success) {
           sweetAlert("Successfully", "Create report successfully", "success");
           router.push(`/appointment/${appt}`);
-        } else {
+        } else if(!report.success){
+          sweetAlert("Failed", report.msg, "error");
+          router.push(`/appointment/${appt}`);
+        }else {
           sweetAlert("Failed", "Create report failed", "error");
         }
       }
