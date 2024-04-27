@@ -77,11 +77,11 @@ export default function SelectReport() {
 
       <div>
         <div className= "flex flex-wrap pt-10 rounded-xl ml-20">
-          {filteredReports.map((reportItem: ReportItem) => (
+          {filteredReports.map((reportItem) => (
             <HistoryBlock
               Key={reportItem._id}
               UserType={session.user.type}
-              oneT={reportItem.appointmentId.appDate}
+              oneT={reportItem.date}
               Doctor={reportItem.dentistId}
               Medication={reportItem.prescribed_medication}
               Treatment={reportItem.treatment}

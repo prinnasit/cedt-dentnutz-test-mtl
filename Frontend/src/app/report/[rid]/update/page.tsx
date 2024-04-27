@@ -5,9 +5,8 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import updateReport from "@/libs/updateReport";
 import getReport from "@/libs/getReport";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams,useRouter } from "next/navigation";
 import { sweetAlert } from "@/components/alert";
-import router from "next/router";
 
 export default function updateReportPage({
   params,
@@ -20,6 +19,8 @@ export default function updateReportPage({
   if (!token) return null;
 
   const searchParams = useSearchParams();
+
+  const router = useRouter();
 
   const [treatment, setTreatment] = useState<string>("");
   const [recommendation, setRecommendation] = useState<string>("");

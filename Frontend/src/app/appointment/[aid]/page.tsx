@@ -19,6 +19,7 @@ export default function AppointmentDetailPage({
   params: { aid: string };
 }) {
   const [appointmentDetail, setAppointmentDetail] = useState<any>(null);
+  const [hasReport, setHasReport] = useState<boolean>(false);
 
   const { data: session } = useSession();
 
@@ -29,6 +30,7 @@ export default function AppointmentDetailPage({
     const fetchAppointment = async () => {
       const appointment = await getAppointment(params.aid, token);
       setAppointmentDetail(appointment);
+      appointment.data.report.length > 0 ? setHasReport(true) : setHasReport(false);
     };
     fetchAppointment();
   }, []);
@@ -76,7 +78,7 @@ export default function AppointmentDetailPage({
           {/* <div className="text-lg font-medium absolute right-4 top-[-18px] bg-green-300 p-2 rounded-3xl">{appointmentDetail.data.finished === false? "active" : "Finished"}</div> */}
           {appointmentDetail.data.finished === false? <div className="text-lg font-medium absolute right-5 top-[-10px] bg-emerald-400 p-3 rounded-3xl"> </div> : <div className="text-lg font-medium absolute right-5 top-[-10px] bg-zinc-300 p-3 rounded-3xl"> </div>}
           <div className="text-right">
-          {
+          { appointmentDetail.data.finished === true ? null :
             ((session.user.type==='patient'&& session.user.role!=="admin") || (session.user.role==="admin"))?
             <div>
             <Link href={`/appointment/${appointmentDetail.data._id}/update`}>
@@ -91,17 +93,22 @@ export default function AppointmentDetailPage({
           Cancel
         </button>
         </div>
-            :
+            : !hasReport ? 
             <div>
             <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/create?userId=${appointmentDetail.data.user}&dentistId=${appointmentDetail.data.dentist._id}&apptId=${appointmentDetail.data._id}`)}}
               className="text-base text-blue-500 mt-5 text-right font-medium mr-5">
                 Create Report
             </button>
-            <button onClick={finishAppointment} className="text-base text-blue-500 mt-5 text-right font-medium">
+            </div> :  
+            <div>
+            <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/${appointmentDetail.data.report[0]._id}/update`)}}
+              className="text-base text-blue-500 mt-5 text-right font-medium mr-5">
+                Update Report
+            </button>
+              <button onClick={finishAppointment} className="text-base text-blue-500 mt-5 text-right font-medium">
                 Finish
             </button>
             </div>
-            
           }
             </div>
           </div>

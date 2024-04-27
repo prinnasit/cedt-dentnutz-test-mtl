@@ -38,9 +38,8 @@ export default function ReportDetailPage({
         <p className="mt-20 mb-5 text-black text-center text-5xl text-bold space-y-6">Loading... </p>
         <div className=" mb-20 "><LinearProgress/></div>
       </div>);
-
     return (
-        <main className="grid mt-5 mb-20 justify-items-center ">
+        <main className="grid mt-5 mb-20 justify-items-center text-black">
             <div className="text-3xl m-5">Report By <span style={{ fontWeight: 'bold' }}>{reportDetail.data.dentistId.name}</span></div>
             <div className="flex flex-row m-10">
                 <div className="w-600 h-600">   
