@@ -24,12 +24,12 @@ export default function SelectReport() {
     return <div>loading...</div>;
   }
   const token = session.user.token;
-  if (session.user.type !== 'dentist' && session.user.type !== 'patient' ) {
+  if (session.user.role === 'admin') {
     router.push('/');
   }
   useEffect( ()=>{
     const fetchData = async ()=>{
-      if(session.user.type === 'dentist' || session.user.type === 'patient'){
+      if((session.user.role!=="admin")){
         const data = await getReports(token);
         setReports(data);
       }

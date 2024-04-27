@@ -40,12 +40,12 @@ export default function addReport() {
           sweetAlert("Incomplete", "Please enter treatment", "warning");
           return
         }
-        if (!recommendation) {
-          sweetAlert("Incomplete", "Please enter recommendation", "warning");
-          return
-        }
         if (!medication) {
           sweetAlert("Incomplete", "Please enter medication", "warning");
+          return
+        }
+        if (!recommendation) {
+          sweetAlert("Incomplete", "Please enter recommendation", "warning");
           return
         }
         if (!patient || !dentist || !appointmentDate || !appt) {
@@ -65,6 +65,7 @@ export default function addReport() {
         );
         if (report) {
           sweetAlert("Successfully", "Create report successfully", "success");
+          router.push("/appointment");
         } else {
           sweetAlert("Failed", "Create report failed", "error");
         }

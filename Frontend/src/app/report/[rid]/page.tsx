@@ -21,13 +21,14 @@ export default function ReportDetailPage({
 
     const token = session?.user.token;
     if (!token) return null;
-    console.log(session.user.type)
 
   
     useEffect(() => {
         const fetchReport = async () => {
-          const report = await getReport(params.rid, token);
-          setReportDetail(report);
+          if(session.user.role !== "admin"){
+            const report = await getReport(params.rid, token);
+            setReportDetail(report);
+          }
         };
         fetchReport();
         
@@ -52,7 +53,7 @@ export default function ReportDetailPage({
                     <div>Recommend <span style={{ fontWeight: 'bold' }}>{reportDetail.data.recommendations}</span></div>
                     <div>Date <span style={{ fontWeight: 'bold' }}>{dayjs(reportDetail.data.date).format('DD / MM / YYYY - HH:mm')}</span></div>
 
-                    {(session.user.type=="patient")?null:
+                    {(session.user.type=="patient" && session.user.role!=="admin")?null:
                         <Link href={`/report/${params.rid}/update`}>
                             <button className=" my-4 px-10 py-2 text-lg text-blue-100 transition-colors duration-300 bg-blue-500 rounded-full shadow-xl hover:bg-blue-600 shadow-blue-400/30 ">Edit</button>
                         </Link>
