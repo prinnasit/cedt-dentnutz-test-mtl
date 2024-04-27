@@ -39,7 +39,7 @@ export default function AppointmentDetailPage({
     confirmAlert("Are you sure?", "finish this appointment", "warning", "Appointment finished", async () => {
       try{await updateAppointmentStatus(params.aid, true, token);
       sweetAlert("Successfully", "Update appointment status successfully", "success")
-      router.push("/")
+      router.push("/appointment")
       }
       catch(error){
         const err =  error as Error;
