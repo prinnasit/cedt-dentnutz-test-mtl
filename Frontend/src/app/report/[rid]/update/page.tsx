@@ -6,6 +6,8 @@ import { useSession } from "next-auth/react";
 import updateReport from "@/libs/updateReport";
 import getReport from "@/libs/getReport";
 import { useSearchParams } from "next/navigation";
+import { sweetAlert } from "@/components/alert";
+import router from "next/router";
 
 export default function updateReportPage({
   params,
@@ -38,7 +40,22 @@ export default function updateReportPage({
     },[]);
 
   const editReport = async () => {
-      if (!treatment || !recommendation || !medication || !reportID) return alert("Please enter all fields");
+    if (!treatment) {
+      sweetAlert("Incomplete", "Please enter treatment", "warning");
+      return
+    }
+    if (!medication) {
+      sweetAlert("Incomplete", "Please enter medication", "warning");
+      return
+    }
+    if (!recommendation) {
+      sweetAlert("Incomplete", "Please enter recommendation", "warning");
+      return
+    }
+    if (!reportID) {
+      sweetAlert("Incomplete", "Please select report again", "error");
+      return
+    }
       const report = await updateReport(
           treatment,
           medication,
@@ -47,9 +64,10 @@ export default function updateReportPage({
           token
       );
       if (report) {
-        alert("Update Report successfully");
+        sweetAlert("Successfully", "Update report successfully", "success");
+        router.push("/report");
       } else {
-        alert("Update Report failed");
+        sweetAlert("Failed", "Update report failed", "error");
       }
     };
 
