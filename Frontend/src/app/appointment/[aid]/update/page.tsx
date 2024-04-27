@@ -15,7 +15,6 @@ import updateAppointment from "@/libs/updateAppointment";
 import DateReserve from "@/components/DateReserve";
 import { LinearProgress } from "@mui/material";
 import { sweetAlert } from "@/components/alert";
-
 export default function AppointmentDetailPage({
   params,
 }: {
@@ -63,7 +62,9 @@ export default function AppointmentDetailPage({
 
   
   const router = useRouter();
-
+  if(session.user.type === 'dentist') {
+    router.push("/");
+  }
     const editAppointment = async () => {
       if (!dentist) {
         sweetAlert("Incomplete", "Please select dentist", "warning");
