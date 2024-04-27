@@ -5,7 +5,7 @@ export default function reportLayout({children}:{children:React.ReactNode}) {
   const router = useRouter();
   const { data: session } = useSession();
 
-  if (session?.user.role == "admin") {
+  if (session?.user.role == "admin" || (session?.user.type == "patient" && session?.user.role !== "admin")) {
     router.push('/');
   }
   
