@@ -66,6 +66,8 @@ export default function DateReserve({
     if (!allDentist) return (
         <CircularProgress />);
 
+    const today = new Date();
+
     return (
         <div className="rounded-lg space-x-5 space-y-2 px-10 py-5 flex flex-col ">
             
@@ -107,6 +109,7 @@ export default function DateReserve({
                     <DatePicker
                         className="text-2xl font-semibold  w-fit"
                         value={reserveDate}
+                        minDate={today}
                         onChange={(value) => {
                             setReserveDate(value);
                             onDateChange(value);
