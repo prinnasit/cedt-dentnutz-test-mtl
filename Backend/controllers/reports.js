@@ -53,6 +53,10 @@ exports.createReport = async (req,res,next)=>{
 //dentist
     if(req.user.userType === "dentist"){
         try{
+            const dupReport = await Report.find({appointmentId:req.body.appointmentId});
+            if(dupReport.length!=0){
+                return res.status(200).json({success: false , msg: "This appointment already have a report"}) ;
+            }
             const report = await Report.create(req.body);
             res.status(201).json({
                 success: true,
@@ -60,7 +64,7 @@ exports.createReport = async (req,res,next)=>{
             });
         }
         catch(error){
-            res.status(400).json({success: false , err:error.message}) ;
+            res.status(400).json({success: false , msg: "This appointment already have a report"}) ;
         }
     }
     else{
