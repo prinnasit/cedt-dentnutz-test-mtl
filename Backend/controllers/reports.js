@@ -64,7 +64,7 @@ exports.createReport = async (req,res,next)=>{
             });
         }
         catch(error){
-            res.status(400).json({success: false , msg: "This appointment already have a report"}) ;
+            res.status(400).json({success: false , err:error.message}) ;
         }
     }
     else{
