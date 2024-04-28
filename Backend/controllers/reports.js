@@ -56,7 +56,7 @@ exports.createReport = async (req,res,next)=>{
         try{
             const dupReport = await Report.find({appointmentId:req.body.appointmentId});
             if(dupReport.length!=0){
-                return res.status(200).json({success: false , msg: "This appointment already have a report"}) ;
+                return res.status(400).json({success: false , message: "This appointment already have a report"}) ;
             }
             const report = await Report.create(req.body);
             res.status(201).json({

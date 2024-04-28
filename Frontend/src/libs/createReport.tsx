@@ -9,10 +9,10 @@ export default async function createReport(patientID:string,dentistID:string, ap
         },
         body: JSON.stringify({patientId: patientID, appointmentId: apptID, dentistId: dentistID, treatment: treatment, prescribed_medication: presMed, recommendations: rec, date: apptDate})
     })
-
+    const res = await response.json()
     if (!response.ok) {
-        throw new Error("Failed to create Report")
+        throw new Error(res.message);
     }
 
-    return await response.json()
+    return res
 }
