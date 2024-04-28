@@ -147,22 +147,6 @@ exports.addAppointment = async (req, res, next) => {
         message: `The dentist with id ${req.params.dentistId} has already an appointment at ${req.body.appDate}`,
       });
     }
-    var mailOptions = {
-      from: `"DentNutz Support" <dentnutz@gmail.com>`,
-      to: appointment.user.email,
-      subject: "Your Appointment Has Been Created",
-      html: `
-          <p>Dear ${appointment.userName},</p>
-          <p>We would like to inform you that your appointment with <span style="color:red;">doctor ${appointment.dentist.name}</span> has been created. The new details are as follows:</p>
-          <ul>
-              <li>Appointment Date: <span style="color:red;">${appointment.appDate}</span></li>
-              <li>Updated At: ${appointment.createdAt}</li>
-          </ul>
-          <p>John doe,</p>
-          <p>DentNutz Support Team</p>
-      `,
-    };
-    sendMail(mailOptions);
 
     const appointment = await Appointment.create(req.body);
     res.status(200).json({
