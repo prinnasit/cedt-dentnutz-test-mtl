@@ -57,24 +57,27 @@ export default function addReport() {
           return
         }
         isClickedRef.current = true;
-        const report = await createReport(
-            patient,
-            dentist,
-            appt,
-            appointmentDate,
-            treatment,
-            medication,
-            recommendation,
-            token
-        );
-        if (report.success) {
-          sweetAlert("Successfully", "Create report successfully", "success");
+        try{
+            const report = await createReport(
+              patient,
+              dentist,
+              appt,
+              appointmentDate,
+              treatment,
+              medication,
+              recommendation,
+              token
+            );
+            if (report) {
+              sweetAlert("Successfully", "Create report successfully", "success");
+              router.push(`/appointment/${appt}`);
+            } else {
+              sweetAlert("Failed", "Create report failed", "error");
+            }
+        }catch(e){
+          const error = e as Error;
+          sweetAlert("Failed", error.message, "error");
           router.push(`/appointment/${appt}`);
-        } else if(!report.success){
-          sweetAlert("Failed", report.msg, "error");
-          router.push(`/appointment/${appt}`);
-        }else {
-          sweetAlert("Failed", "Create report failed", "error");
         }
       }
       };
