@@ -12,10 +12,10 @@ exports.getAppointments = async (req, res, next) => {
   if (req.user.role !== "admin") {
 
     if(req.user.userType === "patient") {
-      query = Appointment.find({ user: req.user.id }).populate('dentist report');
+      query = Appointment.find({ user: req.user.id, finished:false }).populate('dentist report');
     }
     else {
-      query = Appointment.find({ dentist: req.user.id }).populate('dentist report');
+      query = Appointment.find({ dentist: req.user.id, finished:false }).populate('dentist report');
     }
   }
    else {
@@ -23,16 +23,18 @@ exports.getAppointments = async (req, res, next) => {
     if (req.params.dentistID) {
       query = Appointment.find({
         dentist: req.params.dentistID,
+        finished:false,
       }).populate({
         path: "dentist"
       });
     } else {
-      query = Appointment.find().populate({
+      query = Appointment.find({finished:false}).populate({
         path: "dentist"
       });
     }
   }
   try {
+    query.sort('appDate')
     const appointments = await query;
     res.status(200).json({
       success: true,
@@ -147,6 +149,23 @@ exports.addAppointment = async (req, res, next) => {
     }
 
     const appointment = await Appointment.create(req.body);
+
+    var mailOptions = {
+      from: `"DentNutz Support" <dentnutz@gmail.com>`,
+      to: appointment.user.email,
+      subject: "Your Appointment Has Been Updated",
+      html: `
+          <p>Dear ${appointment.userName},</p>
+          <p>We would like to inform you that your appointment with <span style="color:red;">doctor ${appointment.dentist.name}</span> has been created. The new details are as follows:</p>
+          <ul>
+              <li>Appointment Date: <span style="color:red;">${appointment.appDate}</span></li>
+              <li>Updated At: ${appointment.createdAt}</li>
+          </ul>
+          <p>John doe,</p>
+          <p>DentNutz Support Team</p>
+      `,
+    };
+    sendMail(mailOptions);
 
     res.status(200).json({
       success: true,
