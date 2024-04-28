@@ -30,7 +30,9 @@ export default function AppointmentDetailPage({
     const fetchAppointment = async () => {
       const appointment = await getAppointment(params.aid, token);
       setAppointmentDetail(appointment);
-      appointment.data.report.length > 0 ? setHasReport(true) : setHasReport(false);
+      if (appointment.data && appointment.data.report) {
+        appointment.data.report.length > 0 ? setHasReport(true) : setHasReport(false);
+      }
     };
     fetchAppointment();
   }, []);

@@ -4,13 +4,14 @@ import { LinearProgress } from "@mui/material";
 import getDentists from "@/libs/getDentists";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import DentistCatalogHorizontal from "./DentistCatalogHorizontal";
 
-export default async function Dentist() {
+export default async function Promotion() {
     const dentist = getDentists();
 
     return (
-        <main className="text-center p-5 ">
-            <h1 className="text-center font-semibold text-4xl mb-10 my-5">
+        <main className="p-5">
+            <h1 className="text-center font-semibold text-4xl text-black">
                 Our Dentists
             </h1>
             <Suspense
@@ -25,7 +26,7 @@ export default async function Dentist() {
                     </div>
                 }
             >
-                <DentistCatalog dentistsJson={dentist} />
+                <DentistCatalogHorizontal dentistsJson={dentist} />
             </Suspense>
         </main>
     );

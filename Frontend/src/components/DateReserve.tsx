@@ -66,6 +66,8 @@ export default function DateReserve({
     if (!allDentist) return (
         <CircularProgress />);
 
+    const today = new Date();
+
     return (
         <div className="rounded-lg space-x-5 space-y-2 px-10 py-5 flex flex-col ">
             
@@ -107,10 +109,11 @@ export default function DateReserve({
                     <DatePicker
                         className="text-2xl font-semibold  w-fit"
                         value={reserveDate}
+                        minDate={today}
                         onChange={(value) => {
-                            setReserveDate(value);
+                            setReserveDate(dayjs(value));
                             onDateChange(value);
-                            setComponentDate(reserveTime !=0? dayjs(value?.hour(reserveTime === 1? 9 : 13)) : null )
+                            setComponentDate(reserveTime !== 0 ? dayjs(value)?.hour(reserveTime === 1 ? 9 : 13) : null);
                         }}
                         renderInput={(props) => <TextField {...props} />}
                     />
@@ -121,7 +124,7 @@ export default function DateReserve({
                         labelId="Appointment-date-select-label"
                         id="Appointment-date-select"
                         value={reserveTime}
-                        label="Appointment Time"
+                        label="Time"
                         
                         onChange={(e) => {
                             setReserveTime(e.target.value as number || 0);
