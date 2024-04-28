@@ -10,11 +10,12 @@ export default async function MyAppointment() {
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user.token) return null;
-
-  const appointment = getAppointment(session.user.token);
-  const readyAppt = await getAppointment(session.user.token);
-  if(readyAppt.count > 0){
-    redirect(`/appointment/${readyAppt.data[0]._id}`);  
+    const appointment = getAppointment(session.user.token);
+    if(session.user.type === "patient" && session.user.role !== "admin"){
+        const readyAppt = await appointment;
+        if(readyAppt.count > 0){
+            redirect(`/appointment/${readyAppt.data[0]._id}`);  
+    }
   }
 
     return (
