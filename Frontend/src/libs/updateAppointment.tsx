@@ -9,10 +9,10 @@ export default async function updateAppointment(appID:string ,dentist:string, ap
         },
         body: JSON.stringify({appDate: appDate, dentist: dentist})
     })
-
+    const res = await response.json();
     if (!response.ok) {
-        throw new Error("Failed to update appointment")
+        throw new Error(res.message)
     }
 
-    return await response.json()
+    return res
 }
