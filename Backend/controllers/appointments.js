@@ -167,10 +167,22 @@ exports.addAppointment = async (req, res, next) => {
 //@ts-check     Public
 exports.updateAppointment = async (req, res, next) => {
   try {
+    
+
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
     let timeBeforeUpdate = appointment.appDate;
     let report = await Report.findOne({ appointmentId: req.params.id });
-
+    const existedAppointmentsForDentist = await Appointment.findOne({ 
+      dentist: appointment.dentist ,
+      appDate: req.body.appDate
+    });
+    console.log(existedAppointmentsForDentist);
+    if (existedAppointmentsForDentist) {
+      return res.status(400).json({
+        success: false,
+        message: `The dentist with id ${appointment.dentist._id} has already an appointment at ${req.body.appDate}`,
+      });
+    }
     if(!report && req.body.finished){
       return res.status(418).json({
         success: false,

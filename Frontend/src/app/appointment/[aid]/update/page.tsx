@@ -73,9 +73,20 @@ export default function AppointmentDetailPage({
         sweetAlert("Incomplete", "Please select date for appointment", "warning")
       }
       else {
-        await updateAppointment(appointmentDetail.data._id,dentist,dayjs(appDate).format('YYYY-MM-DD HH:mm:ss Z'),token);
-        sweetAlert("Successfully", "Update appointment successfully", "success")
-        router.push(`/appointment/${appointmentDetail.data._id}`);
+        try{
+          const res = await updateAppointment(appointmentDetail.data._id,dentist,dayjs(appDate).format('YYYY-MM-DD HH:mm:ss Z'),token);
+          if(res){
+            sweetAlert("Successfully", "Update appointment successfully", "success")
+            router.push(`/appointment/${appointmentDetail.data._id}`);
+          }
+          else {
+            sweetAlert("Failed", "Appointment booking failed", "error");
+          }
+        }
+        catch(e){
+          const err = e as Error;
+          sweetAlert("Incomplete", err.message, "warning");
+        }
       }
     }
 
