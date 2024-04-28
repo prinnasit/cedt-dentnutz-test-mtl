@@ -14,6 +14,7 @@ exports.getReports = async (req,res,next)=>{
         return res.status(401).json({success:false , message: 'Not authorize to access this route'});
     }
     try{
+        query.sort('date');
         reports = await query;
         res.status(200).json({
             success: true,
