@@ -1,31 +1,33 @@
 const Report = require('../models/Report');
 
 
-exports.getReports = async (req,res,next)=>{
-//dentistId or patientId
-    let query;
-    if(req.user.userType==="patient"){
-        query = Report.find({ patientId: req.user.id }).populate('dentistId patientId appointmentId');
+    exports.getReports = async (req,res,next)=>{
+    //dentistId or patientId
+        let query;
+        if(req.user.userType==="patient"){
+            query = Report.find({ patientId: req.user.id }).populate('dentistId patientId appointmentId');
+        }
+        else if(req.user.userType==="dentist"){
+            query = Report.find({ dentistId: req.user.id }).populate('dentistId patientId appointmentId');
+        }
+        else{
+            return res.status(401).json({success:false , message: 'Not authorize to access this route'});
+        }
+        try{
+            query.sort('date'); 
+            reports = await query;
+            res.status(200).json({
+                success: true,
+                count: reports.length,
+                data: reports,
+            });
+        }
+        catch(error){
+            res.status(400).json({success: false}) ;
+        }
     }
-    else if(req.user.userType==="dentist"){
-        query = Report.find({ dentistId: req.user.id }).populate('dentistId patientId appointmentId');
-    }
-    else{
-        return res.status(401).json({success:false , message: 'Not authorize to access this route'});
-    }
-    try{
-        query.sort('date');
-        reports = await query;
-        res.status(200).json({
-            success: true,
-            count: reports.length,
-            data: reports,
-        });
-    }
-    catch(error){
-        res.status(400).json({success: false}) ;
-    }
-}
+
+
 exports.getReport = async (req,res,next)=>{
 //dentistId or patientId
     let query;
@@ -65,7 +67,7 @@ exports.createReport = async (req,res,next)=>{
             });
         }
         catch(error){
-            res.status(400).json({success: false , err:error.message}) ;
+            res.status(400).json({success: false}) ;
         }
     }
     else{
