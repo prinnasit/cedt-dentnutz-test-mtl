@@ -85,7 +85,7 @@ export default function AppointmentDetailPage({
         }
         catch(e){
           const err = e as Error;
-          sweetAlert("Incomplete", err.message, "warning");
+          sweetAlert("Failed", err.message, "error");
         }
       }
     }
