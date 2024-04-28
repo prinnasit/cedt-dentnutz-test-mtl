@@ -4,13 +4,18 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
+import { redirect } from 'next/navigation';
 
 export default async function MyAppointment() {
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user.token) return null;
 
-    const appointment = getAppointment(session.user.token);
+  const appointment = getAppointment(session.user.token);
+  const readyAppt = await getAppointment(session.user.token);
+  if(readyAppt.count > 0){
+    redirect(`/appointment/${readyAppt.data[0]._id}`);  
+  }
 
     return (
         <main className="justify-center items-center p-5">
