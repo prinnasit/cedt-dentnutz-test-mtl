@@ -1,4 +1,4 @@
-const {createReport} = require('../controllers/temp');
+const {createReport} = require('../controllers/reports');
 const Report = require("../models/Report");
   
 jest.mock("../models/Report");
