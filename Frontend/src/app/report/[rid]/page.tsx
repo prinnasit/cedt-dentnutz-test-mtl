@@ -39,13 +39,13 @@ export default function ReportDetailPage({
         <div className=" mb-20 "><LinearProgress/></div>
       </div>);
     return (
-        <main className="grid mt-5 mb-20 justify-items-center text-black">
-            <div className="text-3xl m-5">Report By <span style={{ fontWeight: 'bold' }}>{reportDetail.data.dentistId.name}</span></div>
+        <main className="grid mt-10 mb-20 justify-items-center text-black">
+            <div className="text-3xl">Report By <span style={{ fontWeight: 'bold' }}>{reportDetail.data.dentistId.name}</span></div>
             <div className="flex flex-row m-10">
-                <div className="w-600 h-600">   
+                <div className="w-1/2">   
                     <img src={reportDetail.data.dentistId.picture} alt="Description" width={600} height={600} />
                 </div>
-                <div className="self-center text-2xl space-y-2 m-20">
+                <div className="self-center text-2xl space-y-2 m-10">
                     <div>Patient Name <span style={{ fontWeight: 'bold' }}>{reportDetail.data.patientId.name}</span></div>
                     <div>Treatment <span style={{ fontWeight: 'bold' }}>{reportDetail.data.treatment}</span></div>
                     <div>Madication <span style={{ fontWeight: 'bold' }}>{reportDetail.data.prescribed_medication}</span></div>
