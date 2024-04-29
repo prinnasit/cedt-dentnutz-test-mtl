@@ -1,6 +1,6 @@
 "use client";
 import { TextField, Button, useMediaQuery } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import userRegister from "@/libs/userRegister";
 import * as React from "react";
@@ -99,11 +99,14 @@ export default function Booking() {
             console.error(error);
         }
     };
+    useEffect(() => {
+        const newName = `${nameFist} ${nameLast}`;
+        setName(newName);
+    }, [nameFist, nameLast]);
 
     const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setNameFirst(newName);
-        setName(nameFist + " " + nameLast);
         if (newName.length > 0) {
             setNameStatus(2); // correct
         } else {
@@ -113,7 +116,6 @@ export default function Booking() {
     const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setNameLast(newName);
-        setName(nameFist + " " + nameLast);
         if (newName.length > 0) {
             setNameLastStatus(2); // correct
         } else {
