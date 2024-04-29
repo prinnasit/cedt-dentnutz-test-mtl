@@ -54,7 +54,7 @@ export default function Banner() {
             </div>
             <main className="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24 z-30">
                 <div className="p-12 bg-white-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-40 border border-gray-100">
-                    <h1 className="text-8xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter text-black">
+                    <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter text-black">
                         Dentnutz
                     </h1>
                     <h2 className="text-3xl text-white lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter ">
