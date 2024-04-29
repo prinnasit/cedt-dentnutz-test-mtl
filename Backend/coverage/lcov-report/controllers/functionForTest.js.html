@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
@@ -112,12 +112,38 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -162,28 +188,41 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Report = require('../models/Report');
+const Appointment = require('../models/Appointment');
 &nbsp;
 exports.createReport = async (req,res,next)=&gt;{
     //dentist
-        if(req.user.userType === "dentist"){
-            try{
-                const dupReport = await Report.find({appointmentId:req.body.appointmentId});
-                if(dupReport.length!=0){
-                    return res.status(400).json({success: false , message: "This appointment already have a report"}) ;
-                }
-                const report = await Report.create(req.body);
-                res.status(201).json({
-                    success: true,
-                    data: report,
+    if(req.user.userType === "dentist"){
+        try{
+            const currentDate = new Date();
+            const appointment = await Appointment.findById(req.body.appointmentId);
+            if(currentDate &lt; appointment.appDate){
+                return res.status(400).json({
+                  success: false,
+                  message: 'Can not create report before appointment time',
                 });
+              }
+&nbsp;
+            if(req.user._id.toString() !== appointment.dentist.toString() ){
+                return res.status(401).json({success: false , message: "You are not appointment's dentist"});
             }
-            catch(error){
-                res.status(400).json({success: false}) ;
+            const dupReport = await Report.find({appointmentId:req.body.appointmentId});
+            if(dupReport.length!=0){
+                return res.status(400).json({success: false , message: "This appointment already have a report"}) ;
             }
+            const report = await Report.create({patientId:appointment.user, dentistId:appointment.dentist, appointmentId: req.body.appointmentId, treatment: req.body.treatment, prescribed_medication: req.body.prescribed_medication, recommendations: req.body.recommendations,date:appointment.appDate});
+            res.status(201).json({
+                success: true,
+                data: report,
+            });
         }
-        else{
-            res.status(401).json({success: false , message: "You are not authorized to create a report"});
+        catch(error){
+            res.status(400).json({success: false}) ;
         }
+    }
+    else{
+        res.status(401).json({success: false , message: "You are not authorized to create a report"});
+    }
     }
     exports.updateReport = async (req,res,next)=&gt;{
     //dentistId
@@ -217,7 +256,7 @@ exports.createReport = async (req,res,next)=&gt;{
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-29T09:51:59.247Z
+                at 2024-04-29T10:30:35.457Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for models/Report.js</title>
+    <title>Code coverage report for models/Appointment.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">models</a> Report.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">models</a> Appointment.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -104,8 +104,11 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,50 +145,59 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { ObjectId } = require("mongodb");
-const mongoose = require("mongoose");
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const mongoose = require("mongoose");
 &nbsp;
-const ReportSchema = new mongoose.Schema({
-  patientId: {
-    type: mongoose.Schema.ObjectId,
-    required: true,
-    ref: 'User'
-  },
-  dentistId: {
-    type: mongoose.Schema.ObjectId,
-    required: true,
-    ref: 'Dentist'
-  },
-  appointmentId: {
-    type: mongoose.Schema.ObjectId,
-    required: true,
-    ref: 'Appointment'
-  },
-  treatment: {
-    type: String,
-    required: true,
-  },
-  prescribed_medication: {
-    type: String,
-    required: true,
-  },
-  recommendations: {
-    type: String,
-    required: true,
-  },
-  date: {
+const AppointmentSchema = new mongoose.Schema({
+  appDate: {
     type: Date,
-    required: true
+    required: true,
   },
-  
-});
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  userName:{
+    type: String,
+    required:[true, "Please add User's name"]
+},
+  dentist: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Dentist",
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  finished: {
+    type: Boolean,
+    default: false,
+  }
+},
 &nbsp;
-// ReportSchema.index({ date: 1 }, { expireAfterSeconds: 5 * 365 * 24 * 60 * 60 });
+{
+    toJSON: {virtuals : true} ,
+    toObject:{virtuals : true}
+}
+);
 &nbsp;
-module.exports = mongoose.model("Report", ReportSchema);
+AppointmentSchema.virtual('report',{
+  ref : 'Report',
+  localField: '_id',
+  foreignField: 'appointmentId',
+  justOne:false 
+}) ;
+&nbsp;
+module.exports = mongoose.model("Appointment", AppointmentSchema);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
