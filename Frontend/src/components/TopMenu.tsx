@@ -260,23 +260,7 @@ export default function TopMenu() {
                                                         )}
                                                     </Menu.Item>
                                                 ) : null}
-                                                {session ? (
-                                                    <Menu.Item>
-                                                        {({ active }) => (
-                                                            <a
-                                                                href="#"
-                                                                className={classNames(
-                                                                    active
-                                                                        ? ""
-                                                                        : "",
-                                                                    "block px-4 py-2 text-sm text-gray-700"
-                                                                )}
-                                                            >
-                                                                Edit Profile
-                                                            </a>
-                                                        )}
-                                                    </Menu.Item>
-                                                ) : null}
+                                                
                                                 {!session ? (
                                                     <Menu.Item>
                                                         {({ active }) => (
