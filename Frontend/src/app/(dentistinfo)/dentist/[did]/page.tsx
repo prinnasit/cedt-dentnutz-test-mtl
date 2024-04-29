@@ -35,7 +35,7 @@ export default async function DentistDetailPage({
                             src={dentistDetail.data.picture}
                             alt="Hospital Image"
                             layout="fill"
-                            objectFit="cover"
+                            objectFit="contain"
                         />
                     </div>
                     <div className="text-xl mx-5 text-gray-800 w-[50%]">
