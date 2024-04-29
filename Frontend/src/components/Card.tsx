@@ -17,6 +17,7 @@ export default  function Card({dentistName , imgSrc, onRating  , yearsOfExperien
                     alt='Hospital picture'
                     fill={true}
                     className='object-cover rounded-t-2xl'
+                    objectFit="contain"
                     /> 
                 </div>
                 <div className="text-2xl text-slate-800 mt-3 font-semibold text-center">Doctor {dentistName}</div>

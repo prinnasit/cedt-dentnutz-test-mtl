@@ -43,9 +43,9 @@ export default function ReportDetailPage({
             <div className="text-3xl m-5">Report By <span style={{ fontWeight: 'bold' }}>{reportDetail.data.dentistId.name}</span></div>
             <div className="flex flex-row m-10">
                 <div className="w-600 h-600">   
-                    <Image src="/img/dentist00.png" alt="Description" width={600} height={600} />
+                    <img src={reportDetail.data.dentistId.picture} alt="Description" width={600} height={600} />
                 </div>
-                <div className="self-center text-2xl space-y-2">
+                <div className="self-center text-2xl space-y-2 m-20">
                     <div>Patient Name <span style={{ fontWeight: 'bold' }}>{reportDetail.data.patientId.name}</span></div>
                     <div>Treatment <span style={{ fontWeight: 'bold' }}>{reportDetail.data.treatment}</span></div>
                     <div>Madication <span style={{ fontWeight: 'bold' }}>{reportDetail.data.prescribed_medication}</span></div>
