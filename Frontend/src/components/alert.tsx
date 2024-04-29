@@ -32,7 +32,6 @@ export const confirmAlert = (
     title: string,
     message: string,
     icon: "success" | "error" | "warning" | "info" | "question" = "success",
-    confirmMessage: string,
     confirmFunction: () => {}
 ) => {
     Swal.fire({
@@ -45,9 +44,5 @@ export const confirmAlert = (
         confirmButtonText: "Yes, Confirm",
         cancelButtonText: "No, Cancel",
         preConfirm: confirmFunction
-    }).then((result) => {
-        if (result.isConfirmed) {
-            sweetAlert("Successfully", confirmMessage, "success");
-        }
-    })
+    });
 }

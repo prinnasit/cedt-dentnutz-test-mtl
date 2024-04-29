@@ -9,11 +9,11 @@ export default async function deleteAppointment(id:string,token: string) {
         },
       }
     );
-  
+    const res = await response.json();
     if (!response.ok) {
-      throw new Error("Cannot delete Appointment");
+      throw new Error(res.message);
     }
   
-    return await response.json();
+    return res;
   }
   
