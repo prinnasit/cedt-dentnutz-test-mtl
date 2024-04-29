@@ -106,7 +106,7 @@ export default async function DentistDetailPage({
                         {session?.user.type === "patient" &&
                             session?.user.role !== "admin" && (
                                 <Link
-                                    href={`/makeappointment?dentistid=${dentistDetail.data.id}&dentistname=$<div>{dentistDetail.data.name}</div>`}
+                                    href={`/makeappointment?dentistid=${dentistDetail.data.id}`}
                                 >
                                     <button className="bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-7 py-2 shadow-lg text-white mx-auto text-2xl mt-4">
                                         Select
