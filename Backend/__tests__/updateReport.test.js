@@ -1,4 +1,4 @@
-const {updateReport} = require('../controllers/reports');
+const {updateReport} = require('../controllers/functionForTest');
 const Report = require("../models/Report");
 
 // Mocking the Report model methods
@@ -6,7 +6,7 @@ jest.mock("../models/Report");
 
 
 describe('updateReport function', () => {
-    it('should return 400 if report is not found', async () => {
+    it('report not found status 400', async () => {
       
       const bodyForUpdate = {
         treatment: "Updated Treatment",
@@ -35,7 +35,7 @@ describe('updateReport function', () => {
     });
 
     // Test case for successful report update
-    it('should return updated report if successful', async () => {
+    it('updated report successful status 200', async () => {
       const bodyForUpdate = {
         treatment: "Updated Treatment",
         prescribed_medication: "Updated Medication",
@@ -78,7 +78,7 @@ describe('updateReport function', () => {
     });
 
     // Test case for unauthorized access
-    it('should return 401 if user is not authorized', async () => {
+    it('not authorized status 401', async () => {
       const bodyForUpdate = {
         treatment: "Updated Treatment",
         prescribed_medication: "Updated Medication",
@@ -86,7 +86,7 @@ describe('updateReport function', () => {
     };
     
     const req = {
-        user: { userType: "admin", id: "54532345132" },
+        user: { userType: "patient", id: "54532345132" },
         params: { id: "1235123553" },
         body: bodyForUpdate
     };
@@ -108,5 +108,68 @@ describe('updateReport function', () => {
         expect(res.json).toHaveBeenCalledWith({ success: false, message: "You are not authorized to update this report" });
     });
 
-    
+    it("not dentist's report status 401", async () => {
+        const bodyForUpdate = {
+          treatment: "Updated Treatment",
+          prescribed_medication: "Updated Medication",
+          recommendations: "Updated Recommendations",
+      };
+      
+      const req = {
+          user: { userType: "dentist", id: "54532345133" },
+          params: { id: "1235123553" },
+          body: bodyForUpdate
+      };
+      
+          const res = {
+              status: jest.fn().mockReturnThis(),
+              json: jest.fn()
+          };
+  
+          // Mocking the findById method of the Report model to return a report
+          Report.findById.mockResolvedValueOnce({
+              dentistId: "54532345132",
+              // Other properties of the report
+          });
+  
+          await updateReport(req, res);
+  
+          expect(res.status).toHaveBeenCalledWith(401);
+          expect(res.json).toHaveBeenCalledWith({ success: false, message: "You are not authorized to update this report" });
+      });
+
+      it("error status 400", async () => {
+
+        const bodyForUpdate = {
+            treatment: "Updated Treatment",
+            prescribed_medication: "Updated Medication",
+            recommendations: "Updated Recommendations",
+        };
+        
+      const req = {
+          user: { userType: "dentist", id: "54532345132" },
+          params: { id: "1235123553" },
+          body: bodyForUpdate
+      };
+      
+          const res = {
+              status: jest.fn().mockReturnThis(),
+              json: jest.fn()
+          };
+  
+          
+          
+
+          Report.findById.mockResolvedValueOnce({
+            dentistId: "54532345132",
+            // Other properties of the report
+        });
+
+        Report.findByIdAndUpdate.mockRejectedValueOnce(new Error());
+  
+          await updateReport(req, res);
+  
+          expect(res.status).toHaveBeenCalledWith(400);
+          expect(res.json).toHaveBeenCalledWith({ success: false});
+      });
 });
