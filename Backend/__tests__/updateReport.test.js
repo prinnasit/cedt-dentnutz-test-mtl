@@ -15,8 +15,8 @@ describe('updateReport function', () => {
     };
     
     const req = {
-        user: { userType: "dentist", id: "dentist_id" },
-        params: { id: "report_id" },
+        user: { userType: "dentist", id: "12351235123" },
+        params: { id: "51232353512" },
         body: bodyForUpdate
     };
     
@@ -43,19 +43,19 @@ describe('updateReport function', () => {
     };
     
     const req = {
-        user: { userType: "dentist", id: "dentist_id" },
-        params: { id: "report_id" },
+        user: { userType: "dentist", id: "234623462346" },
+        params: { id: "12344567" },
         body: bodyForUpdate
     };
     const updatedReport = {
-      _id: "report_id", // Assuming the ID of the updated report
-      patientId: "patient_id", // Assuming the ID of the patient associated with the report
-      dentistId: "dentist_id", // Assuming the ID of the dentist associated with the report
-      appointmentId: "appointment_id", // Assuming the ID of the appointment associated with the report
+      _id: "12344567", // Assuming the ID of the updated report
+      patientId: "14363462346", // Assuming the ID of the patient associated with the report
+      dentistId: "234623462346", // Assuming the ID of the dentist associated with the report
+      appointmentId: "2623462346", // Assuming the ID of the appointment associated with the report
       treatment: "Treatment",
       prescribed_medication: "Medication",
       recommendations: "Recommendations",
-      date: new Date(), // Assuming the date of the report is updated to the current date/time
+      date: new Date(), 
     };
         const res = {
             status: jest.fn().mockReturnThis(),
@@ -64,7 +64,7 @@ describe('updateReport function', () => {
 
         // Mocking the findById method of the Report model to return a report
         Report.findById.mockResolvedValueOnce({
-            dentistId: "dentist_id",
+            dentistId: "234623462346",
             // Other properties of the report
         });
 
@@ -86,8 +86,8 @@ describe('updateReport function', () => {
     };
     
     const req = {
-        user: { userType: "admin", id: "dentist_id" },
-        params: { id: "report_id" },
+        user: { userType: "admin", id: "54532345132" },
+        params: { id: "1235123553" },
         body: bodyForUpdate
     };
     
@@ -98,7 +98,7 @@ describe('updateReport function', () => {
 
         // Mocking the findById method of the Report model to return a report
         Report.findById.mockResolvedValueOnce({
-            dentistId: "dentist_id",
+            dentistId: "54532345132",
             // Other properties of the report
         });
 
@@ -108,5 +108,5 @@ describe('updateReport function', () => {
         expect(res.json).toHaveBeenCalledWith({ success: false, message: "You are not authorized to update this report" });
     });
 
-    // More test cases for different scenarios can be added here
+    
 });
