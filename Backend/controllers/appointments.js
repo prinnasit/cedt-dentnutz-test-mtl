@@ -163,9 +163,15 @@ exports.addAppointment = async (req, res, next) => {
 exports.updateAppointment = async (req, res, next) => {
   try {
     
-
+    const currentDate = new Date();
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
     let timeBeforeUpdate = appointment.appDate;
+    if(new Date(req.body.appDate) < currentDate){
+      return res.status(400).json({
+        success: false,
+        message: 'You cannot update an appointment to the past.',
+      });
+    }
     let report = await Report.findOne({ appointmentId: req.params.id });
     const existedAppointmentsForDentist = await Appointment.findOne({ 
       dentist: req.body.dentist ,
