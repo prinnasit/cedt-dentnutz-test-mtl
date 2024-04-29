@@ -44,7 +44,7 @@ export default async function DentistDetailPage({
                         <div className="text-3xl font-bold text-center">
                             Doctor {dentistDetail.data.name}
                         </div>
-                        <div className="h-[80] rounded-2xl border-2 border-slate-200 mt-5 ">
+                        <div className="h-[80] rounded-2xl border-2 border-slate-200 mt-8 ">
                             <table className=" border-separate border-spacing-6">
                                 <tbody className=" text-xl mx-10">
                                     <tr>
@@ -82,7 +82,7 @@ export default async function DentistDetailPage({
                                 <Link
                                     href={`/makeappointment?dentistid=${dentistDetail.data.id}`}
                                 >
-                                    <button className="bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-7 py-2 shadow-lg text-white mx-auto text-2xl mt-4">
+                                    <button className="bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-7 py-2 shadow-lg text-white mx-auto text-2xl mt-8">
                                         Select
                                     </button>
                                 </Link>
