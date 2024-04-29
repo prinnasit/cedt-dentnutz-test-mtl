@@ -41,7 +41,6 @@ exports.getAppointments = async (req, res, next) => {
       data: appointments,
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot find Appointment" });
@@ -77,7 +76,6 @@ exports.getAppointment = async (req, res, next) => {
       data: appointment,
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot find Appointment" });
@@ -153,7 +151,6 @@ exports.addAppointment = async (req, res, next) => {
       data: appointment
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot create Appointment" });
@@ -171,14 +168,13 @@ exports.updateAppointment = async (req, res, next) => {
     let timeBeforeUpdate = appointment.appDate;
     let report = await Report.findOne({ appointmentId: req.params.id });
     const existedAppointmentsForDentist = await Appointment.findOne({ 
-      dentist: appointment.dentist ,
+      dentist: req.body.dentist ,
       appDate: req.body.appDate
     });
-    console.log(existedAppointmentsForDentist);
     if (existedAppointmentsForDentist) {
       return res.status(400).json({
         success: false,
-        message: `The dentist with id ${appointment.dentist._id} has already an appointment at ${req.body.appDate}`,
+        message: `The dentist with id ${appointment.dentist} has already an appointment at ${req.body.appDate}`,
       });
     }
     if(!report && req.body.finished){
@@ -219,7 +215,6 @@ exports.updateAppointment = async (req, res, next) => {
 
     appointment = await Appointment.findById(req.params.id).populate('user dentist');
 
-    console.log(appointment.user.email);
     var mailOptions = {
       from: `"DentNutz Support" <dentnutz@gmail.com>`,
       to: appointment.user.email,
@@ -238,7 +233,6 @@ exports.updateAppointment = async (req, res, next) => {
     sendMail(mailOptions);
 
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot update Appointment" });
@@ -291,7 +285,6 @@ exports.deleteAppointment = async (req, res, next) => {
       data: {},
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot delete Appointment" });
