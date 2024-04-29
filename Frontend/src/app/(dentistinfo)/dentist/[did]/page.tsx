@@ -48,14 +48,6 @@ export default async function DentistDetailPage({
                                 <tbody className=" text-2xl mx-10">
                                     <tr>
                                         <td className="font-semibold font-medium pl-5 pr-20 text-left">
-                                            Expertise :{" "}
-                                        </td>
-                                        <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5">
-                                            General Dentistry
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="font-semibold font-medium pl-5 pr-20 text-left">
                                             Experiences :
                                         </td>
                                         <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5">
@@ -64,38 +56,6 @@ export default async function DentistDetailPage({
                                                     .yearsOfExperience
                                             }{" "}
                                             Years
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="font-semibold font-medium pl-5 pr-20 text-left">
-                                            Age :{" "}
-                                        </td>
-                                        <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 ">
-                                            32 Years
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="font-semibold font-medium pl-5 pr-20 text-left">
-                                            Gender :{" "}
-                                        </td>
-                                        <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 ">
-                                            Male
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="font-semibold font-medium pl-5 pr-20 text-left">
-                                            Education :{" "}
-                                        </td>
-                                        <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 ">
-                                            Factry Of Dentist CU
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="font-semibold font-medium pl-5 pr-20 text-left">
-                                            Dentist ID :{" "}
-                                        </td>
-                                        <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5 ">
-                                            6619704566e9ff32122e4542
                                         </td>
                                     </tr>
                                 </tbody>
