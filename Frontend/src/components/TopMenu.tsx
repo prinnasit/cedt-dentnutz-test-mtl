@@ -218,7 +218,7 @@ export default function TopMenu() {
                                                 </Menu.Button>
                                             </div>
                                         ) : (
-                                            <div className="flex space-x-1">
+                                            <div className="hidden space-x-1 sm:flex">
                                                 <a
                                                     href="/api/auth/register"
                                                     className="rounded-md px-3 py-2 text-sm font-medium hover:bg-sky-300"
@@ -333,7 +333,7 @@ export default function TopMenu() {
                                             item.current
                                                 ? "text-white"
                                                 : "text-gray-100 hover:text-white",
-                                            " px-3 py-2 text-white font-medium"
+                                            "block rounded-md px-3 py-2 text-base font-medium"
                                         )}
                                         aria-current={
                                             item.current ? "page" : undefined
@@ -342,6 +342,30 @@ export default function TopMenu() {
                                         {item.name}
                                     </Disclosure.Button>
                                 ))}
+                                {!session && (
+                                    <div className="">
+                                        <Disclosure.Button
+                                            key="Register"
+                                            as="a"
+                                            href={"/api/auth/register"}
+                                            className={classNames(
+                                                "text-gray-100 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                            )}
+                                        >
+                                            Register
+                                        </Disclosure.Button>
+                                        <Disclosure.Button
+                                            key="SignIn"
+                                            as="a"
+                                            href={"/api/auth/signin"}
+                                            className={classNames(
+                                                "text-gray-100 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                            )}
+                                        >
+                                            Sign in
+                                        </Disclosure.Button>
+                                    </div>
+                                )}
                             </div>
                         </Disclosure.Panel>
                     </>
