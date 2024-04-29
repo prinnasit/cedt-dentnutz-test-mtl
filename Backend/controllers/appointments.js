@@ -23,14 +23,13 @@ exports.getAppointments = async (req, res, next) => {
     if (req.params.dentistID) {
       query = Appointment.find({
         dentist: req.params.dentistID,
-        finished:false,
       }).populate({
         path: "dentist"
-      });
+      }).sort("finished");
     } else {
-      query = Appointment.find({finished:false}).populate({
+      query = Appointment.find().populate({
         path: "dentist"
-      });
+      }).sort("finished");
     }
   }
   try {
@@ -42,7 +41,6 @@ exports.getAppointments = async (req, res, next) => {
       data: appointments,
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot find Appointment" });
@@ -78,7 +76,6 @@ exports.getAppointment = async (req, res, next) => {
       data: appointment,
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot find Appointment" });
@@ -147,22 +144,6 @@ exports.addAppointment = async (req, res, next) => {
         message: `The dentist with id ${req.params.dentistId} has already an appointment at ${req.body.appDate}`,
       });
     }
-    var mailOptions = {
-      from: `"DentNutz Support" <dentnutz@gmail.com>`,
-      to: appointment.user.email,
-      subject: "Your Appointment Has Been Created",
-      html: `
-          <p>Dear ${appointment.userName},</p>
-          <p>We would like to inform you that your appointment with <span style="color:red;">doctor ${appointment.dentist.name}</span> has been created. The new details are as follows:</p>
-          <ul>
-              <li>Appointment Date: <span style="color:red;">${appointment.appDate}</span></li>
-              <li>Updated At: ${appointment.createdAt}</li>
-          </ul>
-          <p>John doe,</p>
-          <p>DentNutz Support Team</p>
-      `,
-    };
-    sendMail(mailOptions);
 
     const appointment = await Appointment.create(req.body);
     res.status(200).json({
@@ -170,7 +151,6 @@ exports.addAppointment = async (req, res, next) => {
       data: appointment
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot create Appointment" });
@@ -183,19 +163,31 @@ exports.addAppointment = async (req, res, next) => {
 exports.updateAppointment = async (req, res, next) => {
   try {
     
-
+    const currentDate = new Date();
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
     let timeBeforeUpdate = appointment.appDate;
+    if(currentDate > appointment.appDate){
+      return res.status(400).json({
+        success: false,
+        message: 'This appointment is in progress',
+      });
+    }
+
+    if(new Date(req.body.appDate) < currentDate){
+      return res.status(400).json({
+        success: false,
+        message: 'You cannot update an appointment to the past.',
+      });
+    }
     let report = await Report.findOne({ appointmentId: req.params.id });
     const existedAppointmentsForDentist = await Appointment.findOne({ 
-      dentist: appointment.dentist ,
+      dentist: req.body.dentist ,
       appDate: req.body.appDate
     });
-    console.log(existedAppointmentsForDentist);
     if (existedAppointmentsForDentist) {
       return res.status(400).json({
         success: false,
-        message: `The dentist with id ${appointment.dentist._id} has already an appointment at ${req.body.appDate}`,
+        message: `The dentist with id ${req.body.dentist} has already an appointment at ${req.body.appDate}`,
       });
     }
     if(!report && req.body.finished){
@@ -236,7 +228,6 @@ exports.updateAppointment = async (req, res, next) => {
 
     appointment = await Appointment.findById(req.params.id).populate('user dentist');
 
-    console.log(appointment.user.email);
     var mailOptions = {
       from: `"DentNutz Support" <dentnutz@gmail.com>`,
       to: appointment.user.email,
@@ -255,7 +246,6 @@ exports.updateAppointment = async (req, res, next) => {
     sendMail(mailOptions);
 
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot update Appointment" });
@@ -267,8 +257,14 @@ exports.updateAppointment = async (req, res, next) => {
 //@ts-check     Peivate
 exports.deleteAppointment = async (req, res, next) => {
   try {
+    const currentDate = new Date();
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
-
+    if(currentDate > appointment.appDate){
+      return res.status(400).json({
+        success: false,
+        message: 'This appointment is in progress',
+      });
+    }
     if (!appointment) {
       return res.status(404).json({
         success: false,
@@ -308,7 +304,6 @@ exports.deleteAppointment = async (req, res, next) => {
       data: {},
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Cannot delete Appointment" });

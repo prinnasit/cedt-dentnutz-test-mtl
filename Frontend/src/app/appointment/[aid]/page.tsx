@@ -40,9 +40,9 @@ export default function AppointmentDetailPage({
   const router = useRouter();
 
   const finishAppointment = async () => {
-    confirmAlert("Are you sure?", "finish this appointment", "warning", "Appointment finished", async () => {
+    confirmAlert("Are you sure?", "finish this appointment", "warning", async () => {
       try{await updateAppointmentStatus(params.aid, true, token);
-      sweetAlert("Successfully", "Update appointment status successfully", "success")
+      sweetAlert("Successfully", "Appointment finished", "success")
       router.push("/appointment")
       }
       catch(error){
@@ -59,9 +59,16 @@ export default function AppointmentDetailPage({
   }
 
   const cancelAppointment = async () => {
-    confirmAlert("Are you sure?", "Cancel this appointment", "warning", "Appointment cancelled", async () => {
-      await deleteAppointment(appointmentDetail.data._id, token);
-      router.push("/")
+    confirmAlert("Are you sure?", "Cancel this appointment", "warning", async () => {
+      try{
+        await deleteAppointment(appointmentDetail.data._id, token);
+        sweetAlert("Successfully", "Appointment canceled", "success")
+        router.push("/")
+      }
+      catch(e){
+        let error = e as Error;
+        sweetAlert("Failed", error.message, "error");
+      }
     })
   }
 
@@ -97,7 +104,7 @@ export default function AppointmentDetailPage({
         </div>
             : !hasReport ? 
             <div>
-            <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/create?userId=${appointmentDetail.data.user}&dentistId=${appointmentDetail.data.dentist._id}&apptId=${appointmentDetail.data._id}`)}}
+            <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/create?apptId=${appointmentDetail.data._id}`)}}
               className="text-base text-blue-500 mt-5 text-right font-medium mr-5">
                 Create Report
             </button>

@@ -11,31 +11,22 @@ import { useRef } from "react";
 
 
 export default function addReport() {
+  
     const searchParams = useSearchParams();
     const router = useRouter();
 
     const { data: session } = useSession();
     const token = session?.user.token;
     if (!token) return null;
-
+    if (session?.user.role == "admin" || (session?.user.type == "patient" && session?.user.role !== "admin")) {
+      router.push('/');
+    }
     const [treatment, setTreatment] = useState<string>("");
     const [recommendation, setRecommendation] = useState<string>("");
     const [medication, setMedication] = useState<string>("");
-    const [dentist, setDentist] = useState<string|null>(searchParams.get("dentistId"));
-    const [patient, setPatient] = useState<string|null>(searchParams.get("userId"));
-    const [appointmentDate, setAppointmentDate] = useState<Date|null>(null);
-    
+        
     let appt = searchParams.get("apptId");
     const isClickedRef = useRef(false);
-
-    useEffect(() => {
-        const fetchAppointment = async () => {
-          if (!appt) return;
-          const appointment = await getAppointment(appt, token);
-          setAppointmentDate(appointment.data.appDate);
-        };
-        fetchAppointment();
-      }, []);
 
     const makingReport = async () => {
       if (!isClickedRef.current) {
@@ -51,7 +42,7 @@ export default function addReport() {
           sweetAlert("Incomplete", "Please enter recommendation", "warning");
           return
         }
-        if (!patient || !dentist || !appointmentDate || !appt) {
+        if (!appt) {
           sweetAlert("Incomplete", "Please select appointment again", "warning");
           router.push("/schedule");
           return
@@ -59,10 +50,7 @@ export default function addReport() {
         isClickedRef.current = true;
         try{
             const report = await createReport(
-              patient,
-              dentist,
               appt,
-              appointmentDate,
               treatment,
               medication,
               recommendation,
@@ -77,7 +65,7 @@ export default function addReport() {
         }catch(e){
           const error = e as Error;
           sweetAlert("Failed", error.message, "error");
-          router.push(`/appointment/${appt}`);
+          router.push(`/appointment`);
         }
       }
       };
