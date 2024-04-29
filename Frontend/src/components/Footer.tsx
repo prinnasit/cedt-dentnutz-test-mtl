@@ -22,8 +22,8 @@ export default function Footer() {
         //   </div>
         // </footer>
 
-        <footer className="bg-white">
-            <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+        <footer className="g bg-slate-200">
+            <div className="w-full p-6 py-6 lg:py-8">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0 w-full md:w-1/3 text-black">
                         <h3 className="text-lg font-bold mb-4">
