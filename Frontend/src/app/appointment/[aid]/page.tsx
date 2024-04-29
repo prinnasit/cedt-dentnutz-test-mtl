@@ -104,7 +104,7 @@ export default function AppointmentDetailPage({
         </div>
             : !hasReport ? 
             <div>
-            <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/create?userId=${appointmentDetail.data.user}&dentistId=${appointmentDetail.data.dentist._id}&apptId=${appointmentDetail.data._id}`)}}
+            <button onClick={(e)=>{e.stopPropagation(); router.push(`../report/create?apptId=${appointmentDetail.data._id}`)}}
               className="text-base text-blue-500 mt-5 text-right font-medium mr-5">
                 Create Report
             </button>

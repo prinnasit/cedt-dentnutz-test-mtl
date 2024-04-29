@@ -1,4 +1,6 @@
 const Report = require('../models/Report');
+const Appointment = require('../models/Appointment');
+
 
 
 exports.getReports = async (req,res,next)=>{
@@ -54,11 +56,16 @@ exports.createReport = async (req,res,next)=>{
 //dentist
     if(req.user.userType === "dentist"){
         try{
+            const appointment = await Appointment.findById(req.body.appointmentId);
+            if(req.user._id.toString() !== appointment.dentist.toString() ){
+                return res.status(401).json({success: false , message: "You are not appointment's dentist"});
+            }
+            console.log(req.user._id.toString() , appointment.dentist.toString())
             const dupReport = await Report.find({appointmentId:req.body.appointmentId});
             if(dupReport.length!=0){
                 return res.status(400).json({success: false , message: "This appointment already have a report"}) ;
             }
-            const report = await Report.create(req.body);
+            const report = await Report.create({patientId:appointment.user, dentistId:appointment.dentist, appointmentId: req.body.appointmentId, treatment: req.body.treatment, prescribed_medication: req.body.prescribed_medication, recommendations: req.body.recommendations,date:appointment.appDate});
             res.status(201).json({
                 success: true,
                 data: report,
