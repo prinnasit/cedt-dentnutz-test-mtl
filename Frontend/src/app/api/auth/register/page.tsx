@@ -178,7 +178,7 @@ export default function Booking() {
         () =>
             createTheme({
                 palette: {
-                    mode: prefersDarkMode ? "dark" : "light",
+                    mode: prefersDarkMode ? "light" : "light",
                 },
             }),
         [prefersDarkMode]
@@ -195,7 +195,7 @@ export default function Booking() {
                     md={7}
                     sx={{
                         backgroundImage:
-                            "url(https://source.unsplash.com/random?wallpapers)",
+                            "url(/img/cover1.jpg)",
                         backgroundRepeat: "no-repeat",
                         backgroundColor: (t) =>
                             t.palette.mode === "light"
@@ -224,7 +224,7 @@ export default function Booking() {
                         }}
                     >
                         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                            <LockOutlinedIcon />
+                            <img src="/img/logo1.png" alt="Logo" />
                         </Avatar>
                         <Typography component="h1" variant="h5">
                             Register
