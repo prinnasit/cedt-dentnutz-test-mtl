@@ -11,7 +11,7 @@ export default async function DentistCatalog({
 
     return (
         <div className="container mx-auto">
-            <div className="flex flex-wrap justify- item-left">
+            <div className="flex flex-wrap items-center justify-center">
                 {dentistsJsonReady.data.map((dentistItem) => (
                     <Link
                         href={`/dentist/${dentistItem._id}`}
