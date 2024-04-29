@@ -43,7 +43,7 @@ export default async function DentistDetailPage({
                         <div className="text-5xl font-bold text-center">
                             Doctor {dentistDetail.data.name}
                         </div>
-                        <div className="h-[75%] rounded-2xl border-2 border-slate-200 mt-5 ">
+                        <div className="h-[80] rounded-2xl border-2 border-slate-200 mt-5 ">
                             <table className=" border-separate border-spacing-6">
                                 <tbody className=" text-2xl mx-10">
                                     <tr>
