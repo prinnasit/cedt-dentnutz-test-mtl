@@ -257,8 +257,14 @@ exports.updateAppointment = async (req, res, next) => {
 //@ts-check     Peivate
 exports.deleteAppointment = async (req, res, next) => {
   try {
+    const currentDate = new Date();
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
-
+    if(currentDate > appointment.appDate){
+      return res.status(400).json({
+        success: false,
+        message: 'This appointment is in progress',
+      });
+    }
     if (!appointment) {
       return res.status(404).json({
         success: false,
