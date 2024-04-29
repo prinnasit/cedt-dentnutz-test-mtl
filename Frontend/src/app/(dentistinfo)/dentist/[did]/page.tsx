@@ -30,7 +30,7 @@ export default async function DentistDetailPage({
             >
                 <h1 className="text-lg font-medium"></h1>
                 <div className="flex flex-row my-5 ">
-                    <div className="relative h-auto w-96 mx-20 rounded-lg overflow-hidden">
+                    <div className="relative h-auto w-1/3 mx-20 rounded-lg overflow-hidden">
                         <Image
                             src={dentistDetail.data.picture}
                             alt="Hospital Image"
