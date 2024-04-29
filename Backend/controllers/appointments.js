@@ -166,7 +166,7 @@ exports.updateAppointment = async (req, res, next) => {
     const currentDate = new Date();
     let appointment = await Appointment.findById(req.params.id).populate('user dentist');
     let timeBeforeUpdate = appointment.appDate;
-    if(currentDate > appointment.appDate){
+    if(currentDate > appointment.appDate && !req.body.finished){
       return res.status(400).json({
         success: false,
         message: 'This appointment is in progress',
