@@ -56,11 +56,19 @@ exports.createReport = async (req,res,next)=>{
 //dentist
     if(req.user.userType === "dentist"){
         try{
+            const currentDate = new Date();
             const appointment = await Appointment.findById(req.body.appointmentId);
+            if(currentDate < appointment.appDate){
+                return res.status(400).json({
+                  success: false,
+                  message: 'Can not create report before appointment time',
+                });
+              }
+
             if(req.user._id.toString() !== appointment.dentist.toString() ){
                 return res.status(401).json({success: false , message: "You are not appointment's dentist"});
             }
-            console.log(req.user._id.toString() , appointment.dentist.toString())
+            console.log(req.user._id.toString() ,  appointment.dentist.toString())
             const dupReport = await Report.find({appointmentId:req.body.appointmentId});
             if(dupReport.length!=0){
                 return res.status(400).json({success: false , message: "This appointment already have a report"}) ;
