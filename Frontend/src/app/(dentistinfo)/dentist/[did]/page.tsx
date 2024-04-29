@@ -34,18 +34,19 @@ export default async function DentistDetailPage({
                         <Image
                             src={dentistDetail.data.picture}
                             alt="Hospital Image"
-                            layout="fill"
+                            width={2000}
+                            height={2000}
                             objectFit="contain"
                         />
                     </div>
                     <div className="text-xl mx-5 text-gray-800 w-[50%]">
                         {" "}
-                        <div className="text-5xl font-bold text-center">
+                        <div className="text-3xl font-bold text-center">
                             Doctor {dentistDetail.data.name}
                         </div>
                         <div className="h-[80] rounded-2xl border-2 border-slate-200 mt-5 ">
                             <table className=" border-separate border-spacing-6">
-                                <tbody className=" text-2xl mx-10">
+                                <tbody className=" text-xl mx-10">
                                     <tr>
                                         <td className="font-semibold font-medium pl-5 pr-20 text-left">
                                             Experiences :
@@ -58,6 +59,19 @@ export default async function DentistDetailPage({
                                             Years
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td className="font-semibold font-medium pl-5 pr-20 text-left">
+                                            Expertise :
+                                        </td>
+                                        <td className="border-gray-200 border-2 rounded-full text-gray-800 font-medium text-center items-right px-5">
+                                            {
+                                                dentistDetail.data
+                                                    .areaOfExpertise
+                                            }{" "}
+                                            Years
+                                        </td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                             {/* <div className="mx-5">Year Of Experiences: {dentistDetail.data.yearsOfExperience}{" "}</div>
