@@ -75,7 +75,7 @@ export default function Calendar() {
     );
 
     return (
-        <Paper>
+        <Paper className="m-8">
             <Scheduler data={data}>
             <ViewState defaultCurrentDate={currentDate} />
             
