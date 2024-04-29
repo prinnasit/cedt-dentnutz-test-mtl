@@ -174,7 +174,7 @@ exports.updateAppointment = async (req, res, next) => {
     if (existedAppointmentsForDentist) {
       return res.status(400).json({
         success: false,
-        message: `The dentist with id ${appointment.dentist} has already an appointment at ${req.body.appDate}`,
+        message: `The dentist with id ${req.body.dentist} has already an appointment at ${req.body.appDate}`,
       });
     }
     if(!report && req.body.finished){
