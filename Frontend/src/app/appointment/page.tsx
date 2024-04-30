@@ -20,10 +20,10 @@ export default async function MyAppointment() {
     if(readyAppt.count ==0 ){
         return (
             <div>
-                <div className="mt-20 mb-20 text-black text-center text-3xl text-bold space-y-6">
+                <div className="mt-20 text-black text-center text-3xl text-bold space-y-6">
                     You don't have any appointment
                 </div>
-                <div className="mt-20 mb-20 text-black text-center text-2xl text-light space-y-6">
+                <div className="mt-5 mb-20 text-black text-center text-xl text-light space-y-6">
                     We're waiting you for join us :D
                 </div>
             </div>
