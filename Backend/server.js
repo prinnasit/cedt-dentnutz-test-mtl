@@ -91,11 +91,12 @@ const swaggerOptions={
       info: {
       title: 'Library API',
       version: '1.0.0',
-      description: 'Dentist API'
+      description: 'dentnaz API'
       },
       servers: [
         {
-          url: process.env.HOST + ':' + PORT + '/api/v1'
+          url: "http://localhost:5000/api/v1"
+          // url: process.env.HOST + ':' + 5000 + '/api/v1'
         }
       ],
     },
