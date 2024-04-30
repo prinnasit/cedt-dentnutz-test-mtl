@@ -85,7 +85,9 @@ export default function AppointmentDetailPage({
         }
         catch(e){
           const err = e as Error;
-          sweetAlert("Failed", err.message, "error");
+          if(err.message === "Appointment date and dentist already exists") {
+            sweetAlert("Failed", "Appointment date and dentist already exists", "error");
+          }
         }
       }
     }
