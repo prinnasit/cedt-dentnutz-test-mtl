@@ -44,7 +44,7 @@ export default function SelectReport() {
 
   return (
     <main className="justify-center items-center p-5 flex flex-col">
-      <h1 className="text-center text-black font-semibold text-4xl mb-10 mt-5">Report</h1>
+      <h1 className="text-center text-black font-semibold lg:text-5xl mb-10 mt-5">Report</h1>
       
 
       <form

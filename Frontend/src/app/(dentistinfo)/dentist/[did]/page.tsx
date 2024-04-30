@@ -67,8 +67,7 @@ export default async function DentistDetailPage({
                                             {
                                                 dentistDetail.data
                                                     .areaOfExpertise
-                                            }{" "}
-                                            Years
+                                            }
                                         </td>
                                     </tr>
 
