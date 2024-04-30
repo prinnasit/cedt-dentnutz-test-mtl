@@ -80,7 +80,7 @@ export default function Calendar() {
                 resources={[]}
                 onClick={() => router.push("/appointment/" + data.appID)}
                 style={{
-                    backgroundColor: isAtNine ? "#FFAA00" : "#0000FF",
+                    backgroundColor: isAtNine ? "#4287f5":"#FFAA00"  ,
                     borderRadius: '8px',
                 }}
             >
@@ -91,7 +91,7 @@ export default function Calendar() {
     
 
     return (
-        <div className="max-w-screen-xl mx-auto m-8">
+        <div className="max-w-screen-2xl mx-auto m-8">
         <Paper>
             <Scheduler data={data}>
                 <ViewState defaultCurrentDate={currentDate} />

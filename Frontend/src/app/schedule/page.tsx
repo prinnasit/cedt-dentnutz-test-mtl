@@ -15,7 +15,7 @@ export default function Schedule() {
 
   return (
     <main className="justify-center items-center">
-        <div className="lg:text-5xl text-3xl font-medium w-fit  text-black bg rounded-lg m-3 py-6 px-10 mx-auto bg-bule-300">Your Schedule</div>
+        <div className="lg:text-5xl text-3xl font-medium w-fit  text-black bg rounded-lg m-3 py-6 px-10 mx-auto bg-bule-300">{session.user.role !== "admin" ? "Your Schedule" : "All Schedule"}</div>
         <Calendar />
     </main>
     
