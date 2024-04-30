@@ -97,7 +97,8 @@ export default function DateReserve({
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     return (
-        <div className="rounded-lg space-x-5 space-y-2 px-10 py-5 flex flex-col ">
+        <div className="rounded-lg space-x-5 space-y-2 px-10 py-5 flex flex-col justify-center items-center">
+            <div className="mb-10">
             <div className="flex flex-row items-left space-x-5 ">
                 <div className="text-2xl font-medium mt-3 ml-10 mr-11 ">
                     <p>Dentist&nbsp;:&nbsp;Doctor</p>
@@ -183,6 +184,7 @@ export default function DateReserve({
                     </Select>
                 </FormControl>
                 {/* <h1>{dayjs(componentDate).format('YYYY-MM-DD HH:mm:ss Z')}</h1> */}
+            </div>
             </div>
             <button
           className="w-fit block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"name="Make Appointment"

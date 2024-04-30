@@ -91,8 +91,8 @@ export default function Calendar() {
     
 
     return (
-        <div className="max-w-screen-2xl mx-auto m-8">
-        <Paper>
+        <div className="max-w-screen-2xl mx-auto m-8 rounded-xl border-2 border-slate-200 hover: border-2 hover:bg-slate-50 shadow-lg hover:border-sky-500 relative">
+        <Paper className="rounded-xl">
             <Scheduler data={data}>
                 <ViewState defaultCurrentDate={currentDate} />
 

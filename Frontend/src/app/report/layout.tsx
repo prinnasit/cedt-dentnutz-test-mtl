@@ -10,7 +10,7 @@ export default function reportLayout({children}:{children:React.ReactNode}) {
   }
   
   return (
-      <div>
+      <div className="mt-10">
           {children}
       </div>
   );

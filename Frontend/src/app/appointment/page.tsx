@@ -33,7 +33,7 @@ export default async function MyAppointment() {
 
     return (
         <main className="justify-center items-center p-5">
-            <h1 className="lg:text-5xl text-3xl font-medium w-fit  text-black bg rounded-lg m-3 py-6 px-10 mx-auto bg-bule-300">
+            <h1 className="lg:text-5xl text-3xl font-semibold font-medium w-fit  text-black bg rounded-lg m-3 py-6 px-10 mx-auto bg-bule-300">
                 Appointments
             </h1>
             <Suspense

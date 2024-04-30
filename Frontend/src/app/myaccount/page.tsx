@@ -16,8 +16,8 @@ export default async function MyAccount() {
   var createdAt = new Date(profile.data.createdAt);
 
   return (
-    <main className="">
-      <div className="text-center font-semibold text-4xl mb-10 mt-8">Your Account</div>
+    <main>
+      <div className="text-center font-semibold text-black text-4xl lg:text-5xl mb-10 mt-8">Your Account</div>
       <div className="text-black mx-auto">
         <table className="table-auto border-separate border-spacing-6 mx-auto text-[22px] border-gray-200 border-2 rounded-2xl m-10 ">
           <tbody className="">
