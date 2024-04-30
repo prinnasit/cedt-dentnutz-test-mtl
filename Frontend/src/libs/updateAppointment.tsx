@@ -10,10 +10,7 @@ export default async function updateAppointment(appID:string ,dentist:string, ap
         body: JSON.stringify({appDate: appDate, dentist: dentist})
     })
     const res = await response.json();
-    if (response.status == 404) {
-        throw new Error("Appointment date and dentist already exists")
-    }
-    else if (!response.ok) {
+    if (!response.ok) {
         throw new Error(res.message)
     }
 
