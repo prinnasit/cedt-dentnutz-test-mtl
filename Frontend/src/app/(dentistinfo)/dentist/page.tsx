@@ -10,7 +10,7 @@ export default async function Dentist() {
 
     return (
         <main className="text-center p-5 ">
-            <h1 className="text-center font-semibold text-4xl mb-10 my-5">
+            <h1 className="text-center text-black font-semibold text-4xl mb-10 my-5">
                 Our Dentists
             </h1>
             <Suspense

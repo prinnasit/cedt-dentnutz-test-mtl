@@ -17,281 +17,346 @@ import { useSession } from "next-auth/react";
 import { useSelectedLayoutSegments } from "next/navigation";
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(" ");
 }
 
 export default function TopMenu() {
-  const path = useSelectedLayoutSegments().join("/");
+    const path = useSelectedLayoutSegments().join("/");
 
-  const { data: session } = useSession();
-  const navigation: { name: string; href: string; current: boolean }[] = [];
-  if (!session) {
-    navigation.push(
-      {
-        name: "Dentist",
-        href: "/dentist",
-        current: path === "(dentistinfo)/dentist",
-      },
-      {
-        name: "Booking",
-        href: "/makeappointment",
-        current: path === "makeappointment",
-      },
-      {
-        name: "Appointment",
-        href: "/appointment",
-        current: path === "appointment",
-      }
-    );
-  } else {
-    if (session.user.type === "patient" && session.user.role !== "admin") {
-      navigation.push(
-        {
-          name: "Dentist",
-          href: "/dentist",
-          current: path === "(dentistinfo)/dentist",
-        },
-        {
-          name: "Booking",
-          href: "/makeappointment",
-          current: path === "makeappointment",
-        },
-        {
-          name: "Appointment",
-          href: "/appointment",
-          current: path === "appointment",
-        },
-        { name: "Report", href: "/report", current: path === "report" }
-      );
-    } else if (session.user.type === "dentist") {
-      navigation.push(
-        {
-          name: "Appointment",
-          href: "/appointment",
-          current: path === "appointment",
-        },
-        {
-          name: "Schedule",
-          href: "/schedule",
-          current: path === "schedule",
-        },
-        {
-          name: "Report",
-          href: "/report",
-          current: path === "report",
-        }
-      );
-    } else if (session.user.role === "admin") {
-      navigation.push(
-        {
-          name: "Dentist",
-          href: "/dentist",
-          current: path === "(dentistinfo)/dentist",
-        },
-        {
-          name: "Appointment",
-          href: "/appointment",
-          current: path === "appointment",
-        },
-        {
-          name: "Schedule",
-          href: "/schedule",
-          current: path === "schedule",
-        }
-      );
+    const { data: session } = useSession();
+    const navigation: { name: string; href: string; current: boolean }[] = [];
+    if (!session) {
+        navigation.push(
+            {
+                name: "Dentist",
+                href: "/dentist",
+                current: path === "(dentistinfo)/dentist",
+            },
+            {
+                name: "Booking",
+                href: "/makeappointment",
+                current: path === "makeappointment",
+            },
+            {
+                name: "Appointment",
+                href: "/appointment",
+                current: path === "appointment",
+            }
+        );
     } else {
-      navigation.push(
-        {
-          name: "Dentist",
-          href: "/dentist",
-          current: path === "(dentistinfo)/dentist",
-        },
-        {
-          name: "Booking",
-          href: "/makeappointment",
-          current: path === "makeappointment",
-        },
-        {
-          name: "Appointment",
-          href: "/appointment",
-          current: path === "appointment",
+        if (session.user.type === "patient" && session.user.role !== "admin") {
+            navigation.push(
+                {
+                    name: "Dentist",
+                    href: "/dentist",
+                    current: path === "(dentistinfo)/dentist",
+                },
+                {
+                    name: "Booking",
+                    href: "/makeappointment",
+                    current: path === "makeappointment",
+                },
+                {
+                    name: "Appointment",
+                    href: "/appointment",
+                    current: path === "appointment",
+                },
+                { name: "Report", href: "/report", current: path === "report" }
+            );
+        } else if (session.user.type === "dentist") {
+            navigation.push(
+                {
+                    name: "Appointment",
+                    href: "/appointment",
+                    current: path === "appointment",
+                },
+                {
+                    name: "Schedule",
+                    href: "/schedule",
+                    current: path === "schedule",
+                },
+                {
+                    name: "Report",
+                    href: "/report",
+                    current: path === "report",
+                }
+            );
+        } else if (session.user.role === "admin") {
+            navigation.push(
+                {
+                    name: "Dentist",
+                    href: "/dentist",
+                    current: path === "(dentistinfo)/dentist",
+                },
+                {
+                    name: "Appointment",
+                    href: "/appointment",
+                    current: path === "appointment",
+                },
+                {
+                    name: "Schedule",
+                    href: "/schedule",
+                    current: path === "schedule",
+                }
+            );
+        } else {
+            navigation.push(
+                {
+                    name: "Dentist",
+                    href: "/dentist",
+                    current: path === "(dentistinfo)/dentist",
+                },
+                {
+                    name: "Booking",
+                    href: "/makeappointment",
+                    current: path === "makeappointment",
+                },
+                {
+                    name: "Appointment",
+                    href: "/appointment",
+                    current: path === "appointment",
+                }
+            );
         }
-      );
     }
-  }
-  return (
-    <div className="fixed top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 bg-sky-400">
-      <Disclosure as="nav" className="">
-        {({ open }) => (
-          <>
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-              <div className="relative flex h-16 items-center justify-between">
-                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                    <span className="absolute -inset-0.5" />
-                    <span className="sr-only">Open main menu</span>
-                    {open ? (
-                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                    ) : (
-                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                    )}
-                  </Disclosure.Button>
-                </div>
-                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="flex flex-shrink-0 items-center">
-                    <a href="/">
-                      <img
-                        className="h-8 w-auto"
-                        src="/img/LOGO2.png"
-                        alt="Dentnutz"
-                      />
-                    </a>
-                  </div>
-                  <div className="hidden sm:ml-6 sm:block">
-                    <div className="flex space-x-4">
-                      {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "text-xl text-white"
-                              : "text-slate-100",
-                            "rounded-md px-3 py-2 text-lg font-medium hover:underline hover:underline-offset-8 hover:decoration-2"  
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          {item.name}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <a className="ml-3 text-base leading-5 font-medium text-white dark:text-sky-400  rounded-full py-1 px-4 hidden xl:flex items-center bg-sky-600 ">
-                  <strong className="font-semibold">
-                    {!session
-                      ? "Not signed-in"
-                      : session.user.role === "admin"
-                      ? session?.user.role
-                      : session?.user.type}
-                  </strong>
-                </a>
-                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0  dark:border-slate-500">
-                  <Menu
-                    as="div"
-                    className="relative lg:border-l lg:border-slate-200 lg:ml-6 lg:pl-6 ml-3"
-                  >
-                    <div>
-                      <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                        <span className="absolute -inset-1.5" />
-                        <span className="sr-only">Open user menu</span>
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={
-                            session
-                              ? "/img/profilelogo.png"
-                              : "/img/profilelogo.png"
-                          }
-                          alt=""
-                        />
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="absolute right-0 z-10 bg mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {session ? (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a href="/myaccount" className={classNames(active ? "" : "","block px-4 py-2 text-sm text-gray-700")}>Your Profile</a>
-                            )}
-                          </Menu.Item>
-                        ) : null}
-                        {session ? (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active ? "" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                Edit Profile
-                              </a>
-                            )}
-                          </Menu.Item>
-                        ) : null}
-                        {!session ? (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="/api/auth/register"
-                                className={classNames(
-                                  active ? "" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                Register
-                              </a>
-                            )}
-                          </Menu.Item>
-                        ) : null}
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href={
-                                session
-                                  ? "/api/auth/signout"
-                                  : "/api/auth/signin"
-                              }
-                              className={classNames(
-                                active ? "" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              {session ? "Sign out" : "Sign in"}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                </div>
-              </div>
-            </div>
+    return (
+        <div className="fixed top-0 z-40 w-full flex-none lg:z-50 bg-sky-400">
+            <Disclosure as="nav" className="">
+                {({ open }) => (
+                    <>
+                        <div className="px-2 sm:px-6 lg:px-8">
+                            <div className="relative flex h-14 items-center justify-between">
+                                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                        <span className="absolute -inset-0.5" />
+                                        <span className="sr-only">
+                                            Open main menu
+                                        </span>
+                                        {open ? (
+                                            <XMarkIcon
+                                                className="block h-6 w-6"
+                                                aria-hidden="true"
+                                            />
+                                        ) : (
+                                            <Bars3Icon
+                                                className="block h-6 w-6"
+                                                aria-hidden="true"
+                                            />
+                                        )}
+                                    </Disclosure.Button>
+                                </div>
+                                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                                    <div className="flex flex-shrink-0 items-center">
+                                        <a href="/">
+                                            <img
+                                                className="h-6 w-auto"
+                                                src="/img/LOGO2.png"
+                                                alt="Dentnutz"
+                                            />
+                                        </a>
+                                    </div>
+                                    <div className="hidden sm:ml-6 sm:block">
+                                        <div className="flex space-x-4">
+                                            {navigation.map((item) => (
+                                                <a
+                                                    key={item.name}
+                                                    href={item.href}
+                                                    className={classNames(
+                                                        item.current
+                                                            ? " bg-sky-500 text-base text-white"
+                                                            : "text-slate-100 hover:text-white ",
+                                                        "rounded-md px-3 py-2 text-sm font-medium hover:bg-sky-300"
+                                                    )}
+                                                    aria-current={
+                                                        item.current
+                                                            ? "page"
+                                                            : undefined
+                                                    }
+                                                >
+                                                    {item.name}
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <a
+                                    className={`ml-3 text-sm leading-5 font-medium text-white rounded-full py-1 px-4 hidden xl:flex items-center ${
+                                        session?.user?.role === "admin"
+                                            ? "bg-sky-500"
+                                            : "bg-sky-500"
+                                    }`}
+                                >
+                                    <strong className="font-semibold">
+                                        {!session
+                                            ? "Not signed-in"
+                                            : session.user.role === "admin"
+                                            ? session?.user.role
+                                            : session?.user.type}
+                                    </strong>
+                                </a>
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0  dark:border-slate-500">
+                                    <Menu
+                                        as="div"
+                                        className="relative lg:border-l lg:border-slate-200 lg:ml-6 lg:pl-6 ml-3"
+                                    >
+                                        {session ? (
+                                            <div>
+                                                <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                                    <span className="absolute -inset-1.5" />
+                                                    <span className="sr-only">
+                                                        Open user menu
+                                                    </span>
+                                                    <img
+                                                        className="h-6 w- rounded-full"
+                                                        src={
+                                                            session
+                                                                ? "/img/profilelogo.png"
+                                                                : "/img/profilelogo.png"
+                                                        }
+                                                        alt=""
+                                                    />
+                                                </Menu.Button>
+                                            </div>
+                                        ) : (
+                                            <div className="hidden space-x-1 sm:flex">
+                                                <a
+                                                    href="/api/auth/register"
+                                                    className="rounded-md px-3 py-2 text-sm font-medium hover:bg-sky-300"
+                                                >
+                                                    Register
+                                                </a>
+                                                <a
+                                                    href="/api/auth/signin"
+                                                    className="rounded-md px-3 py-2 text-sm font-medium hover:bg-sky-300 bg-sky-500"
+                                                >
+                                                    Sign in
+                                                </a>
+                                            </div>
+                                        )}
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
+                                        >
+                                            <Menu.Items className="absolute right-0 z-10 bg mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                {session ? (
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <a
+                                                                href="/myaccount"
+                                                                className={classNames(
+                                                                    active
+                                                                        ? ""
+                                                                        : "",
+                                                                    "block px-4 py-2 text-sm text-gray-700"
+                                                                )}
+                                                            >
+                                                                Your Profile
+                                                            </a>
+                                                        )}
+                                                    </Menu.Item>
+                                                ) : null}
+                                                
+                                                {!session ? (
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <a
+                                                                href="/api/auth/register"
+                                                                className={classNames(
+                                                                    active
+                                                                        ? ""
+                                                                        : "",
+                                                                    "block px-4 py-2 text-sm text-gray-700"
+                                                                )}
+                                                            >
+                                                                Register
+                                                            </a>
+                                                        )}
+                                                    </Menu.Item>
+                                                ) : null}
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a
+                                                            href={
+                                                                session
+                                                                    ? "/api/auth/signout"
+                                                                    : "/api/auth/signin"
+                                                            }
+                                                            className={classNames(
+                                                                active
+                                                                    ? ""
+                                                                    : "",
+                                                                "block px-4 py-2 text-sm text-gray-700"
+                                                            )}
+                                                        >
+                                                            {session
+                                                                ? "Sign out"
+                                                                : "Sign in"}
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                            </Menu.Items>
+                                        </Transition>
+                                    </Menu>
+                                </div>
+                            </div>
+                        </div>
 
-            <Disclosure.Panel className="sm:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2">
-                {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "text-white"
-                        : "text-gray-100 hover:text-white",
-                      " px-3 py-2 text-white font-medium"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-              </div>
-            </Disclosure.Panel>
-          </>
-        )}
-      </Disclosure>
-    </div>
-  );
+                        <Disclosure.Panel className="sm:hidden">
+                            <div className="space-y-1 px-2 pb-3 pt-2">
+                                {navigation.map((item) => (
+                                    <Disclosure.Button
+                                        key={item.name}
+                                        as="a"
+                                        href={item.href}
+                                        className={classNames(
+                                            item.current
+                                                ? "text-white"
+                                                : "text-gray-100 hover:text-white",
+                                            "block rounded-md px-3 py-2 text-base font-medium"
+                                        )}
+                                        aria-current={
+                                            item.current ? "page" : undefined
+                                        }
+                                    >
+                                        {item.name}
+                                    </Disclosure.Button>
+                                ))}
+                                {!session && (
+                                    <div className="">
+                                        <Disclosure.Button
+                                            key="Register"
+                                            as="a"
+                                            href={"/api/auth/register"}
+                                            className={classNames(
+                                                "text-gray-100 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                            )}
+                                        >
+                                            Register
+                                        </Disclosure.Button>
+                                        <Disclosure.Button
+                                            key="SignIn"
+                                            as="a"
+                                            href={"/api/auth/signin"}
+                                            className={classNames(
+                                                "text-gray-100 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                            )}
+                                        >
+                                            Sign in
+                                        </Disclosure.Button>
+                                    </div>
+                                )}
+                            </div>
+                        </Disclosure.Panel>
+                    </>
+                )}
+            </Disclosure>
+        </div>
+    );
 }
 // import Image from 'next/image'
 // import TopMenuItem from './TopMenuItem'

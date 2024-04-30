@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Paper from "@mui/material/Paper";
-import { ViewState} from "@devexpress/dx-react-scheduler";
+import { ViewState } from "@devexpress/dx-react-scheduler";
 import {
     Scheduler,
     MonthView,
@@ -13,7 +13,7 @@ import {
     AppointmentTooltip,
     ViewSwitcher,
     WeekView,
-    DayView
+    DayView,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { useState, useEffect } from "react";
 import getAppointments from "@/libs/getAppointments";
@@ -35,18 +35,21 @@ export default function Calendar() {
             const appointments = await getAppointments(token);
             setData(
                 appointments.data
-                .filter((appointment: AppointmentItem) => !appointment.finished)
-                .map((appointment: AppointmentItem) => (
-                    {
-                    startDate: appointment.appDate,
-                    endDate: new Date(
-                        new Date(appointment.appDate).setHours(
-                            new Date(appointment.appDate).getHours() + 3
-                        )
-                    ),
-                    title: appointment.userName,
-                    appID: appointment._id,
-                }))
+                    .filter(
+                        (appointment: AppointmentItem) => !appointment.finished
+                    )
+                    
+                    .map((appointment: AppointmentItem) => ({
+                    
+                        startDate: appointment.appDate,
+                        endDate: new Date(
+                            new Date(appointment.appDate).setHours(
+                                new Date(appointment.appDate).getHours() + 3
+                            )
+                        ),
+                        title: appointment.userName,
+                        appID: appointment._id,
+                    }))
             );
         };
         fetchAppointment();
@@ -63,36 +66,48 @@ export default function Calendar() {
             title: string;
             appID: string;
         };
-    }) => (
-        <Appointments.Appointment
-            data={data}
-            draggable={false}
-            resources={[]}
-            onClick={() => router.push("/appointment/" + data.appID)}
-        > 
-            {children}
-        </Appointments.Appointment>
-    );
+    }) => {
+        const { startDate, endDate } = data;
+        const date = new Date(startDate);
+        const hoursInGMTPlus7 = (date.getUTCHours() + 7) % 24;
+        const isAtNine = hoursInGMTPlus7 === 9;
+        console.log(hoursInGMTPlus7);
+        return (
+            <Appointments.Appointment
+
+                data={data}
+                draggable={false}
+                resources={[]}
+                onClick={() => router.push("/appointment/" + data.appID)}
+                style={{
+                    backgroundColor: isAtNine ? "#FFAA00" : "#0000FF",
+                    borderRadius: '8px',
+                }}
+            >
+                {children}
+            </Appointments.Appointment>
+        );
+    };
+    
 
     return (
-        <Paper className="m-8">
+        <div className="max-w-screen-xl mx-auto m-8">
+        <Paper>
             <Scheduler data={data}>
-            <ViewState defaultCurrentDate={currentDate} />
-            
-            <MonthView />
-            <WeekView startDayHour={9} endDayHour={18} />
-            <DayView
-            startDayHour={9}
-            endDayHour={18}
-          />
-            <Toolbar />
-            <ViewSwitcher />
-            <DateNavigator />
-            <TodayButton />
-            <Appointments appointmentComponent={Appointment as any} />
-            <AppointmentTooltip />
-            <CurrentTimeIndicator updateInterval={1000} />
-          </Scheduler>
+                <ViewState defaultCurrentDate={currentDate} />
+
+                <MonthView />
+                <WeekView startDayHour={9} endDayHour={18} />
+                <DayView startDayHour={9} endDayHour={18} />
+                <Toolbar />
+                <ViewSwitcher />
+                <DateNavigator />
+                <TodayButton />
+                <Appointments appointmentComponent={Appointment as any} />
+                <AppointmentTooltip />
+                <CurrentTimeIndicator updateInterval={1000} />
+            </Scheduler>
         </Paper>
+        </div>
     );
 }
