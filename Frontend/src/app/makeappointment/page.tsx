@@ -114,7 +114,8 @@ export default function AppointmentMaking() {
             onTimeChange={(value: Dayjs) => {
               setAppointmentTime(value);
             }}
-            makingAppointment={makingAppointment}
+            pushButton={makingAppointment}
+            buttonName="Create Appointment"
           />
             
       </div>

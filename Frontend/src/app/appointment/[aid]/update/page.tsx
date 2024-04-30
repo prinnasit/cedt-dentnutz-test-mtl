@@ -108,11 +108,9 @@ export default function AppointmentDetailPage({
             currentDate={appointmentDate}
             onDentistChange={(value: string) => {setDentist(value)}}
             onTimeChange={(value: Dayjs) => {setAppointmentTime(value);}}
+            pushButton={editAppointment}
+            buttonName="Submit Changes"
           />
-          <button className="block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"
-            name="Submit Changes" onClick={editAppointment}>
-            Submit Changes
-          </button>
         </div>
     </main>
     )
