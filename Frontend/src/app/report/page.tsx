@@ -10,6 +10,7 @@ import HistoryBlock from "@/components/HistoryBlock";
 import { getServerSession } from "next-auth";
 import { ReportItem, ReportJson } from "../../../interface";
 import { useRouter } from "next/navigation";
+import { report } from "process";
 
 
 export default function SelectReport() {
@@ -36,7 +37,19 @@ export default function SelectReport() {
     }
     fetchData()
   },[])
-
+  if(reports?.count == 0){
+    return (
+      <div>
+        <div className="mt-20 text-black text-center text-3xl text-bold space-y-6">
+                You don't have any report
+            </div>
+            <div className="mt-5 mb-20 text-black text-center text-xl text-light space-y-6">
+                View your reports on this page :D
+            </div>
+        </div>
+  )
+  }
+   
   // Filter reports based on search term and doctor/patient name
   const filteredReports = reports?.data.filter(reportItem => 
     reportItem.patientId.name.includes(searchTerm) || reportItem.dentistId.name.includes(searchTerm)
