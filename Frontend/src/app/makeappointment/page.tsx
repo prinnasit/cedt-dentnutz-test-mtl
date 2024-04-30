@@ -22,6 +22,7 @@ export default function AppointmentMaking() {
   const [appointmentDate, setAppointmentDate] = useState<Dayjs | null>(null);
   const [appointmentTime, setAppointmentTime] = useState<Dayjs | null>(null);
   const [dentistID, setDentistID] = useState<string | null>(searchParams.get("dentistid"));
+  const [loading, setLoading] = useState(true);
 
   let appDate: string | null = null;
 
@@ -113,12 +114,10 @@ export default function AppointmentMaking() {
             onTimeChange={(value: Dayjs) => {
               setAppointmentTime(value);
             }}
+            pushButton={makingAppointment}
+            buttonName="Create Appointment"
           />
             
-        <button
-          className="block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"name="Make Appointment"
-          onClick={makingAppointment}>Create Appointment
-        </button>
       </div>
     </main>
   );

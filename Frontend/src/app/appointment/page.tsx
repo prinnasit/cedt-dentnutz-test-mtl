@@ -5,16 +5,29 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
 import { redirect } from 'next/navigation';
+import { readFile } from "fs";
 
 export default async function MyAppointment() {
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user.token) return null;
     const appointment = getAppointment(session.user.token);
-    if(session.user.type === "patient" && session.user.role !== "admin"){
-        const readyAppt = await appointment;
+    const readyAppt = await appointment;
+    if(session.user.type === "patient" && session.user.role !== "admin"){  
         if(readyAppt.count > 0){
             redirect(`/appointment/${readyAppt.data[0]._id}`);  
+    }
+    if(readyAppt.count ==0 ){
+        return (
+            <div>
+                <div className="mt-20 text-black text-center text-3xl text-bold space-y-6">
+                    You don't have any appointment
+                </div>
+                <div className="mt-5 mb-20 text-black text-center text-xl text-light space-y-6">
+                    We're waiting you for join us :D
+                </div>
+            </div>
+        )
     }
   }
 
