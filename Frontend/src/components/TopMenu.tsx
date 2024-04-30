@@ -30,7 +30,7 @@ export default function TopMenu() {
             {
                 name: "Dentist",
                 href: "/dentist",
-                current: path === "(dentistinfo)/dentist",
+                current: path.startsWith("(dentistinfo)/dentist"),
             },
             {
                 name: "Booking",
@@ -40,8 +40,9 @@ export default function TopMenu() {
             {
                 name: "Appointment",
                 href: "/appointment",
-                current: path === "appointment",
+                current: path.startsWith("appointment"),
             }
+            
         );
     } else {
         if (session.user.type === "patient" && session.user.role !== "admin") {
@@ -49,7 +50,7 @@ export default function TopMenu() {
                 {
                     name: "Dentist",
                     href: "/dentist",
-                    current: path === "(dentistinfo)/dentist",
+                    current: path.startsWith("(dentistinfo)/dentist"),
                 },
                 {
                     name: "Booking",
@@ -59,16 +60,16 @@ export default function TopMenu() {
                 {
                     name: "Appointment",
                     href: "/appointment",
-                    current: path === "appointment",
+                    current: path.startsWith("appointment"),
                 },
-                { name: "Report", href: "/report", current: path === "report" }
+                { name: "Report", href: "/report", current: path.startsWith("report") }
             );
         } else if (session.user.type === "dentist") {
             navigation.push(
                 {
                     name: "Appointment",
                     href: "/appointment",
-                    current: path === "appointment",
+                    current: path.startsWith("appointment"),
                 },
                 {
                     name: "Schedule",
@@ -78,7 +79,7 @@ export default function TopMenu() {
                 {
                     name: "Report",
                     href: "/report",
-                    current: path === "report",
+                    current: path.startsWith("report")
                 }
             );
         } else if (session.user.role === "admin") {
@@ -86,12 +87,12 @@ export default function TopMenu() {
                 {
                     name: "Dentist",
                     href: "/dentist",
-                    current: path === "(dentistinfo)/dentist",
+                    current: path.startsWith("(dentistinfo)/dentist"),
                 },
                 {
                     name: "Appointment",
                     href: "/appointment",
-                    current: path === "appointment",
+                    current: path.startsWith("appointment"),
                 },
                 {
                     name: "Schedule",
@@ -104,7 +105,7 @@ export default function TopMenu() {
                 {
                     name: "Dentist",
                     href: "/dentist",
-                    current: path === "(dentistinfo)/dentist",
+                    current: path.startsWith("(dentistinfo)/dentist"),
                 },
                 {
                     name: "Booking",
@@ -114,7 +115,7 @@ export default function TopMenu() {
                 {
                     name: "Appointment",
                     href: "/appointment",
-                    current: path === "appointment",
+                    current: path.startsWith("appointment"),
                 }
             );
         }
