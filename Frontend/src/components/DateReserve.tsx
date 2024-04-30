@@ -18,6 +18,7 @@ import getDentists from "@/libs/getDentists";
 import { useSession } from "next-auth/react";
 import TextField from "@mui/material/TextField";
 import { DentistItem } from "../../interface";
+import {LinearProgress} from "@mui/material";
 
 export default function DateReserve({
     onDateChange,
@@ -77,7 +78,16 @@ export default function DateReserve({
 
     // if (!allDentist) return null;
 
-    if (!allDentist) return <CircularProgress />;
+    if (!allDentist) return (
+        <div>
+      <p className="mt-20 mb-5 text-black text-center text-2xl text-semibold space-y-6">
+        Loading...{" "}
+      </p>
+      <div className=" mb-20 ">
+        <LinearProgress />
+      </div>
+    </div>
+    );
 
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
