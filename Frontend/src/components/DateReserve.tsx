@@ -26,12 +26,14 @@ export default function DateReserve({
     onTimeChange,
     currentDate,
     currentDentist,
+    makingAppointment,
 }: {
     onDateChange: Function;
     onTimeChange: Function;
     currentDentist: string | null;
     currentDate: Dayjs | null;
     onDentistChange: Function;
+    makingAppointment: ()=>Promise<void>;
 }) {
     const [reserveDate, setReserveDate] = useState<Dayjs | null>(currentDate);
     const [componentDate, setComponentDate] = useState<Dayjs | null>(
@@ -180,6 +182,10 @@ export default function DateReserve({
                 </FormControl>
                 {/* <h1>{dayjs(componentDate).format('YYYY-MM-DD HH:mm:ss Z')}</h1> */}
             </div>
+            <button
+          className="w-fit block bg-orange-400 rounded-full hover:bg-orange-300 text-white font-semibold px-5 py-3 shadow-xl text-white mx-auto text-2xl"name="Make Appointment"
+          onClick={()=>{makingAppointment}}>Create Appointment
+        </button>
         </div>
     );
 }
