@@ -1,0 +1,8 @@
+https://app.swaggerhub.com/apis/PRINNASIT/dentnutz/1.0.0#/reports/getReports 
+//swaggerhub
+
+https://docs.google.com/document/d/1sfiLD9m0i4aZR2b287SdaD9gWk_mOhAr7WpYQO0j54o/edit?usp=sharing
+//test eq
+
+https://docs.google.com/spreadsheets/d/1QLC7NJ8F9T020pGu1MJ8WO--tDomo5NIKAd0InbqEkA/edit?gid=144661155#gid=144661155
+//sprint backlog
