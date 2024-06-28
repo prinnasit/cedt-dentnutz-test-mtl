@@ -217,43 +217,7 @@
 
 
 import { Page, test as base, expect } from '@playwright/test';
-
-class BaseTest {
-    page: Page;
-
-    constructor(page) {
-        this.page = page;
-    }
-
-    async navigateToSignIn() {
-        await this.page.goto('https://frontendsw-mtl.vercel.app/');
-        await this.page.getByRole('link', { name: 'Sign in' }).click();
-    }
-
-    async login(email, password) {
-        await this.page.getByPlaceholder('email').fill(email);
-        await this.page.getByLabel('Password').fill(password);
-        await this.page.getByRole('button', { name: 'Sign in with Credentials' }).click();
-    }
-
-    async verifyLogout() {
-        await expect(this.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
-        await expect(this.page.locator('a').filter({ hasText: 'Not signed-in' })).toBeVisible();
-        await expect(this.page.getByRole('link', { name: 'Register' })).toBeVisible();
-        await expect(this.page.getByRole('link', { name: 'Sign in' })).toBeVisible();
-    }
-
-    async logout() {
-        await this.page.reload();
-        await this.page.getByRole('button', { name: 'Open user menu' }).click();
-        await this.page.getByRole('menuitem', { name: 'Sign out' }).click();
-        await expect(this.page.url()).toBe('https://frontendsw-mtl.vercel.app/api/auth/signout');
-        await expect(this.page.getByText('SignoutAre you sure you want')).toBeVisible();
-        await expect(this.page.getByRole('button', { name: 'Sign out' })).toBeEnabled();
-        await this.page.getByRole('button', { name: 'Sign out' }).click();
-        await this.verifyLogout();
-    }
-}
+import { BaseTest } from './Basetset.ts';
 
 class AdminTest extends BaseTest {
     async verifyAdminDashboard() {
