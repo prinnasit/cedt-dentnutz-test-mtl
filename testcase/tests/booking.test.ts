@@ -12,7 +12,7 @@ test.describe('addBookin', () => {
         await baseTest.navigateTobooking();
         await baseTest.verifyBookingPage();
         await baseTest.filldatabooking("Emma Considine" , "morning" , '27' , 6 , '2025' , false);
-        await baseTest.VerifyCompleteBooking();
+        await baseTest.VerifyComplete('Appointment booked successfully');
     });
 
     test('patient invalid date booking (past)', async ({ page }) => {
@@ -21,7 +21,7 @@ test.describe('addBookin', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateTobooking();
         await baseTest.filldatabooking("Emma Considine" , "morning", '27' , 6 , '2023' , true);
-        await baseTest.VerifyFailBooking("past");
+        await baseTest.VerifyFail("Cannot book appointment in the past");
     })
 
     test('patient invalid date booking (data invalid)', async ({ page }) => {
@@ -30,7 +30,7 @@ test.describe('addBookin', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateTobooking();
         await baseTest.filldatabooking("Emma Considine" , "morning", '99' , 99 , '9999' , true);
-        await baseTest.VerifyFailBooking("invalid");
+        await baseTest.VerifyFail("Failed to add appointment");
     })
 
     test('patient incomplete booking (Dentist)', async ({ page }) => {
@@ -39,7 +39,7 @@ test.describe('addBookin', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateTobooking();
         await baseTest.filldatabooking(null , "morning", '27' , 6 , '2025' , true);
-        await baseTest.VerifyIncompleteBooking("dentist");
+        await baseTest.VerifyIncomplete('Please select dentist');
     })
 
     
@@ -49,7 +49,7 @@ test.describe('addBookin', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateTobooking();
         await baseTest.filldatabooking("Emma Considine" ,"morning", null , null , null , true);
-        await baseTest.VerifyIncompleteBooking("date")
+        await baseTest.VerifyIncomplete('Please select date for appointment')
     })
 
     
@@ -59,7 +59,7 @@ test.describe('addBookin', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateTobooking();
         await baseTest.filldatabooking("Emma Considine" , null, '27' , 6 , '2025' , true);
-        await baseTest.VerifyIncompleteBooking("time")
+        await baseTest.VerifyIncomplete('Please select date for appointment')
     })
 
     
@@ -69,7 +69,7 @@ test.describe('addBookin', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateTobooking();
         await baseTest.filldatabooking(null , null,null ,null , null , true);
-        await baseTest.VerifyIncompleteBooking("all")
+        await baseTest.VerifyIncomplete('Please select dentist')
     })
 
     //patien booking dentist and date that already exists
@@ -79,7 +79,7 @@ test.describe('addBookin', () => {
         await baseTest.login('test02@gmail.com' , "Test01");
         await baseTest.navigateTobooking();
         await baseTest.filldatabooking("Emma Considine" , "morning", '27' , 6 , '2025' , false);
-        await baseTest.VerifyFailBooking("exist");
+        await baseTest.VerifyFail("Appointment date and dentist already exists");
     })
 
     //patien can not booking more than 1 appointment 
@@ -89,7 +89,7 @@ test.describe('addBookin', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateTobooking();
         await baseTest.filldatabooking("Emma Considine" , "morning", '27' , 7 , '2025' , false);
-        await baseTest.VerifyFailBooking("morethan1");
+        await baseTest.VerifyFail("Cannot book more than 1 appointment");
     });
 
     //admin can not booking

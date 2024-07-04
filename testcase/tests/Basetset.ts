@@ -23,6 +23,12 @@ export class BaseTest {
     async navigateToappointment() {
         await this.page.goto('https://frontendsw-mtl.vercel.app/');
         await this.page.getByRole('link', { name: 'Appointment' }).click();
+        // await this.page.reload();
+    }
+
+    async navigateToReport(){
+        await this.page.goto('https://frontendsw-mtl.vercel.app/');
+        await this.page.getByRole('link', { name: 'Report' }).click();
     }
 
     async login(email, password) {
@@ -113,49 +119,52 @@ export class BaseTest {
         await expect(this.page.locator('.MuiPickersArrowSwitcher-root')).toBeVisible();
     }
 
-    async VerifyIncompleteBooking(Incomplete : "date" | "time" | "dentist" | "all") {
+    async VerifyIncomplete(msg : string) {
         await expect(this.page.locator('div').filter({ hasText: '!' }).nth(2)).toBeVisible();
         await expect(this.page.getByLabel('Incomplete')).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Incomplete' })).toBeVisible();
-        if(Incomplete === "date"){
-            await expect(this.page.getByText('Please select date for appointment')).toBeVisible();
-        }
-        else if(Incomplete === "time"){
-            await expect(this.page.getByText('Please select date for appointment')).toBeVisible();
-        }
-        else if(Incomplete === "dentist"){
-            await expect(this.page.getByText('Please select dentist')).toBeVisible();
-        }
-        else if(Incomplete === "all"){
-            await expect(this.page.getByText('Please select dentist')).toBeVisible();
-        }
+        // if(Incomplete === "date"){
+        //     await expect(this.page.getByText('Please select date for appointment')).toBeVisible();
+        // }
+        // else if(Incomplete === "time"){
+        //     await expect(this.page.getByText('Please select date for appointment')).toBeVisible();
+        // }
+        // else if(Incomplete === "dentist"){
+        //     await expect(this.page.getByText('Please select dentist')).toBeVisible();
+        // }
+        // else if(Incomplete === "all"){
+        //     await expect(this.page.getByText('Please select dentist')).toBeVisible();
+        // }
+
+        await expect(this.page.getByText(msg)).toBeVisible();
       
         await expect(this.page.getByRole('button', { name: '👍 OK!' })).toBeVisible();
         await this.page.getByRole('button', { name: '👍 OK!' }).click();
     }
 
-    async VerifyFailBooking( type : "exist" | "past" | "invalid" | "morethan1") {
+    async VerifyFail (msg) {
         await expect(this.page.locator('div').filter({ hasText: '!' }).nth(2)).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Failed' })).toBeVisible();
-        if(type === "past"){
-            await expect(this.page.getByText('Cannot book appointment in the past')).toBeVisible();
-        }
-        else if(type === "invalid"){
-            await expect(this.page.getByText('Failed to add appointment')).toBeVisible();
-        }
-        else if(type === "exist"){
-            await expect(this.page.getByText('Appointment date and dentist already exists')).toBeVisible();
-        }
+        await expect(this.page.getByText(msg)).toBeVisible();
+        // if(type === "past"){
+        //     await expect(this.page.getByText('Cannot book appointment in the past')).toBeVisible();
+        // }
+        // else if(type === "invalid"){
+        //     await expect(this.page.getByText('Failed to add appointment')).toBeVisible();
+        // }
+        // else if(type === "exist"){
+        //     await expect(this.page.getByText('Appointment date and dentist already exists')).toBeVisible();
+        // }
         await expect(this.page.getByRole('button', { name: '👍 OK!' })).toBeVisible();
         await this.page.getByRole('button', { name: '👍 OK!' }).click();
     }
 
 
 
-    async VerifyCompleteBooking() {
+    async VerifyComplete(msg) {
         await expect(this.page.locator('div').filter({ hasText: '!' }).nth(2)).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Successfully' })).toBeVisible();
-        await expect(this.page.getByText('Appointment booked successfully')).toBeVisible();
+        await expect(this.page.getByText(msg)).toBeVisible();
         await expect(this.page.getByRole('button', { name: '👍 OK!' })).toBeVisible();
         await this.page.getByRole('button', { name: '👍 OK!' }).click();
     }
@@ -170,5 +179,61 @@ export class BaseTest {
         await expect(this.page.getByRole('button', { name: 'Cancel' })).toBeVisible();
         await expect(this.page.getByRole('button', { name: 'Edit Appointment' })).toBeVisible();
     };
+
+    async ChooseAppointment(name_patient : string)
+    {
+        await this.page.getByRole('link', { name: `Name : ${name_patient} Dentist` }).click();
+
+    }
+
+    async PatientChoosereport(doctor_name : string)
+    {
+        await this.page.getByRole('link', { name: `Doctor : ${doctor_name} Date :` }).click();
+
+    }
+
+    async navigateTocreatereport(){
+        // await this.page.waitForSelector('button[name="Create Report"]');
+        await this.page.getByRole('button', { name: 'Create Report' }).click();
+    } 
+   
+   
+    //create reprot
+    async createReport(Treatment,   Medication , Recommendation ) {
+        
+        await this.page.getByRole('textbox').first().fill(Treatment);
+        await this.page.getByRole('textbox').nth(1).fill(Medication);
+        await this.page.locator('textarea').fill(Recommendation);
+        await this.page.getByRole('button', { name: 'Create Report' }).click()
+    }
+
+    async check_element_reportpage()
+    {
+        await expect(this.page.getByText('TreatmentMedicationRecommendation:Create Report')).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Create Report' })).toBeVisible();
+        await expect(this.page.getByText('Treatment', { exact: true })).toBeVisible();
+        await expect(this.page.getByRole('textbox').first()).toBeVisible();
+        await expect(this.page.getByText('Medication')).toBeVisible();
+        await expect(this.page.getByRole('textbox').nth(1)).toBeVisible();
+        await expect(this.page.getByText('Recommendation:')).toBeVisible();
+        await expect(this.page.locator('textarea')).toBeVisible();
+        await expect(this.page.getByRole('button', { name: 'Create Report' })).toBeVisible();
+    }
+
+    async check_datareport(doctorName, treatment, medication, recommendation, date, patientName) {
+        await expect(this.page.getByText(`Report By ${doctorName}`)).toBeVisible();
+        await expect(this.page.getByRole('img', { name: 'Description' })).toBeVisible();
+        await expect(this.page.getByText(`Patient Name ${patientName}`)).toBeVisible();
+        await expect(this.page.getByText(treatment)).toBeVisible();
+        await expect(this.page.getByText(medication)).toBeVisible();
+        await expect(this.page.getByText(`Recommend ${recommendation}`)).toBeVisible();
+        await expect(this.page.getByText(`Date ${date}`)).toBeVisible();
+    }
+    
+    async DentistChoosereport(patientname)
+    {
+        await this.page.getByRole('link', { name: 'Edit Patient : test01 case01' }).click();
+    }
+
 
 }
