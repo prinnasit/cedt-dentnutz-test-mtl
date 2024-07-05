@@ -12,6 +12,7 @@ test.describe('addBookin', () => {
         await baseTest.navigateTobooking();
         await baseTest.verifyBookingPage();
         await baseTest.filldatabooking("Emma Considine" , "morning" , '27' , 6 , '2025' , false);
+        await baseTest.VerifyPatientAppointmentPage();
         await baseTest.VerifyComplete('Appointment booked successfully');
     });
 
@@ -117,11 +118,186 @@ test.describe('addBookin', () => {
 
 test.describe('viewBooking', () => {
 
-    test('check element', async ({ page }) => {
+    test('patient see his appoinment', async ({ page }) => {
         const baseTest = new BaseTest(page);
         await baseTest.navigateToSignIn();
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateToappointment();
-        await baseTest.VerifyAppointmentPage();
+        await baseTest.VerifyPatientAppointmentPage();
+    });
+
+    test('patient not see his appoinment (no appointment)', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('test01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await expect(page.getByText('You don\'t have any appointment')).toBeVisible();
+        await expect(page.getByText('We\'re waiting you for join us')).toBeVisible();
+    });
+
+    //dentist see all appoinment that select him as a doctor
+    test('dentist see all appoinment that select him as a doctor', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('dentist01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await baseTest.VerifyDentistOrAdminAppointment('dentist');
+    });
+
+    //dentist does not see appoinment (does not have any booking)
+    test('dentist does not see appoinment (does not have any booking)', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('dentist01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await expect(page.getByText('You don\'t have any appointment')).toBeVisible();
+        await expect(page.getByRole('heading', { name: 'Appointments' })).toBeVisible();
+    });
+
+    //admin see all appoinment 
+    test('admin see all appoinment', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('admin@gmail.com' , '123456')
+        await baseTest.navigateToappointment();
+        await baseTest.VerifyDentistOrAdminAppointment('admin');
+    });
+    
+});
+
+//edit booking
+test.describe('editBooking', () => {
+
+    test('patient edit his appoinment', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('test01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await baseTest.editAppointment('Emma Considine' , 'afternoon' , 27 , 7 , 2026 , false);
+        await baseTest.VerifyCompleteBooking(true);
+    });
+
+    // /patient invalid edit his appoinment( dentist and date that already exists)
+    test('patient invalid edit his appoinment( dentist and date that already exists)', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('test01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await baseTest.editAppointment('Emma Considine' , 'afternoon' , 28 , 6 , 2025 , false);
+        await baseTest.VerifyFailBooking("exist");
+    });
+
+    //patient invalid edit his appoinment( past )
+    test('patient invalid edit his appoinment( past )', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('test01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await baseTest.editAppointment('Emma Considine' , 'afternoon' , 27 , 6 , 2023 , true);
+        await baseTest.VerifyFailBooking("past");
+    });
+
+    //patient invalid edit his appoinment( doesn't change data)
+    test('patient invalid edit his appoinment( doesn\'t change data )', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('test01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await baseTest.page.getByRole('button', { name: 'Edit Appointment' }).click();
+        await baseTest.page.getByRole('button', { name: 'Submit Changes' }).click();
+        await baseTest.VerifyFailBooking("does not change");
+    });
+
+    //admin can edit all appoinment(valid)
+    test('admin can edit all appoinment(valid)', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('admin@gmail.com' , '123456')
+        await baseTest.navigateToappointment();
+        await page.getByRole('link', { name: 'Edit', exact: true }).click();
+        await baseTest.filldatabooking("Emma Considine" , "morning", '27' , 12 , '2025' , false);
+        await baseTest.VerifyCompleteBooking(true);
+        
+    });
+
+    //admin invalid edit appoinment( dentist and date that already exists)
+    test('admin invalid edit appoinment( dentist and date that already exists)', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('admin@gmail.com' , '123456')
+        await baseTest.navigateToappointment();
+        await page.getByRole('link', { name: 'Edit', exact: true }).click();
+        await baseTest.filldatabooking("Emma Considine" , "morning", '29' , 6 , '2025' , false);
+        await baseTest.VerifyFailBooking("exist");
+    });
+
+    //admin invalid edit his appoinment( past )
+    test('admin invalid edit his appoinment( past )', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('admin@gmail.com' , '123456')
+        await baseTest.navigateToappointment();
+        await page.getByRole('link', { name: 'Edit', exact: true }).click();
+        await baseTest.filldatabooking("Emma Considine" , "morning", '27' , 12 , '2023' , true);
+        await baseTest.VerifyFailBooking("past");
+    });
+
+    //admin invalid edit happoinment( doesn't change data)
+    test('admin invalid edit happoinment( doesn\'t change data )', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('admin@gmail.com' , '123456')
+        await baseTest.navigateToappointment();
+        await page.getByRole('link', { name: 'Edit', exact: true }).click();
+        await baseTest.page.getByRole('button', { name: 'Submit Changes' }).click();
+        await baseTest.VerifyFailBooking("does not change");
+    });
+});
+
+
+
+test.describe('deleteBooking', () => {
+    //patient delete his appoinment
+    test('patient delete his appoinment', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('test01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await baseTest.page.getByRole('button', { name: 'Cancel' }).click();
+        await baseTest.Suretocancel(true)
+        await baseTest.VerifyCancelAppointment();
+    });
+
+    //patient does not delete his appoinment
+    test('patient does not delete his appoinment', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('test01@gmail.com' , "Test01");
+        await baseTest.navigateToappointment();
+        await baseTest.page.getByRole('button', { name: 'Cancel' }).click();
+        await baseTest.Suretocancel(false)
+    });
+
+    //admin can delete any appoinment
+    test('admin can delete any appoinment', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('admin@gmail.com' , '123456')
+        await baseTest.navigateToappointment();
+        await baseTest.page.getByRole('link', { name: 'Name : test01 case01 Dentist' }).click();
+        await baseTest.page.getByRole('button', { name: 'Cancel' }).click();
+        await baseTest.Suretocancel(true)
+        await baseTest.VerifyCancelAppointment();
+    });
+
+    //admin does not delete his appoinment
+    test('admin does not delete his appoinment', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        await baseTest.navigateToSignIn();
+        await baseTest.login('admin@gmail.com' , '123456')
+        await baseTest.navigateToappointment();
+        await baseTest.page.getByRole('link', { name: 'Name : test01 case01 Dentist' }).click();
+        await baseTest.page.getByRole('button', { name: 'Cancel' }).click();
+        await baseTest.Suretocancel(false)
     });
 });
