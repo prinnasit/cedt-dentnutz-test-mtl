@@ -300,6 +300,14 @@ export class BaseTest {
         await this.page.getByRole('button', { name: 'Create Report' }).click()
     }
 
+    async updateReport(Treatment,   Medication , Recommendation ) {
+        
+        await this.page.getByRole('textbox').first().fill(Treatment);
+        await this.page.getByRole('textbox').nth(1).fill(Medication);
+        await this.page.locator('textarea').fill(Recommendation);
+        await this.page.getByRole('button', { name: 'Submit' }).click()
+    }
+
     async check_element_reportpage()
     {
         await expect(this.page.getByText('TreatmentMedicationRecommendation:Create Report')).toBeVisible();
@@ -325,7 +333,7 @@ export class BaseTest {
     
     async DentistChoosereport(patientname)
     {
-        await this.page.getByRole('link', { name: 'Edit Patient : test01 case01' }).click();
+        await this.page.getByRole('link', { name: `Edit Patient : ${patientname}` }).click();
     }
 
 

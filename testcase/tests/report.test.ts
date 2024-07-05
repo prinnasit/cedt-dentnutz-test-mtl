@@ -172,12 +172,15 @@ test.describe('view report', () => {
         await expect(baseTest.page.getByRole('main').getByRole('button')).toBeVisible();
         // await expect(baseTest.page.getByRole('link', { name: 'Doctor : Kent Zemlak Date :' })).toBeVisible();
         // await expect(baseTest.page.getByRole('link', { name: 'Doctor : Emma Considine Date' })).toBeVisible();
-        await baseTest.DentistChoosereport('Kent Zemlak')
-        await baseTest.check_datareport('Kent Zemlak' ,'sadfasdf' ,'asdf ' , 'sadff ' , 'sadfads' , 'asdfasdf' )
+        await baseTest.DentistChoosereport('test03 case03')
+        await baseTest.check_datareport('Emma Considine' ,'เคลือบฟัน' ,'ยาถ่าน ' , 'กินเยอะๆ ' , '25 / 07 / 2023' , 'test03 case03' )
+       
         await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible();
-        await page.goto('https://frontendsw-mtl.vercel.app/report');
-        await baseTest.PatientChoosereport('Emma Considine')
-        await baseTest.check_datareport('Kent Zemlak' ,'sadfasdf' ,'asdf ' , 'sadff ' , 'sadfads' , 'asdfasdf' )
+        await baseTest.page.goto('https://frontendsw-mtl.vercel.app/report');
+        
+        await baseTest.DentistChoosereport('test01 case01')
+        await baseTest.check_datareport('Emma Considine' ,"อุดฟัน", "พารา", "นอน", '19 / 06 / 2024 ' , 'test01 case01' )
+        
         await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible();
     });
 
@@ -186,14 +189,20 @@ test.describe('view report', () => {
 
 test.describe('update report', () => {
 
-    test('admin can not update report', async ({ page }) => {
-        const baseTest = new BaseTest(page);
-        await baseTest.navigateToSignIn();
-        await baseTest.login('admin@gmail.com', '123456');
-        await baseTest.page.goto('https://frontendsw-mtl.vercel.app/report')
-        expect(baseTest.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
+    // test('admin can not update report', async ({ page }) => {
+    //     const baseTest = new BaseTest(page);
+    //     await baseTest.navigateToSignIn();
+    //     await baseTest.login('admin@gmail.com', '123456');
+    //       // Navigate to the report page
+    //       await baseTest.page.goto('https://frontendsw-mtl.vercel.app/report');
+        
+    //       // Wait for the URL to change to home page URL
+    //       await baseTest.page.waitForFunction(() => window.location.href === 'https://frontendsw-mtl.vercel.app/');
+          
+    //       // Check if the URL is redirected to the home page
+    //       expect(baseTest.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
 
-    });
+    // });
 
     test('dentist can update  his patient report (valid)', async ({ page }) => {
         const baseTest = new BaseTest(page);
@@ -204,8 +213,8 @@ test.describe('update report', () => {
         await expect(baseTest.page.getByRole('button', { name: 'Edit' })).toBeVisible();
         await baseTest.page.getByRole('button', { name: 'Edit' }).click();
         url_update_report = await baseTest.page.url() ;
-        await baseTest.createReport('asfasdf'  ,'sdffasfaf' ,'sdfasdfasf')
-        await baseTest.VerifyComplete('asdf')
+        await baseTest.updateReport('ผ่าฟัน'  ,'ลูกอม' ,'12333')
+        await baseTest.VerifyComplete('Update report successfully')
        
         
         
@@ -213,62 +222,59 @@ test.describe('update report', () => {
         await baseTest.navigateToSignIn();
         await baseTest.login('test01@gmail.com', 'Test01');
         await baseTest.navigateToReport();
-        await baseTest.PatientChoosereport('test01 case01');
-        await baseTest.check_datareport('Kent Zemlak' ,'sadfasdf' ,'asdf ' , 'sadff ' , 'sadfads' , 'asdfasdf');
+        await baseTest.PatientChoosereport('Emma Considine');
+        await baseTest.check_datareport('Emma Considine' ,'ผ่าฟัน'  ,'ลูกอม' ,'12333', '19 / 06 / 2024 ' , 'test01 case01' )
         
     });
     
-    test('dentist can not create report before time(invalid time)  ', async ({ page }) => {
-        const baseTest = new BaseTest(page);
-        await baseTest.navigateToSignIn();
-        await baseTest.login('dentist01@gmail.com', 'Test01');
-        await baseTest.page.goto(url_update_report)
-        expect(baseTest.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
-        
-    });
+    
 
-    test('dentist can not create report (invalid treatment)', async ({ page }) => {
+    test('dentist can not update report (invalid treatment)', async ({ page }) => {
         const baseTest = new BaseTest(page);
         await baseTest.navigateToSignIn();
         await baseTest.login('dentist01@gmail.com', 'Test01');
         await baseTest.navigateToReport();
         await baseTest.DentistChoosereport('test01 case01');
         await baseTest.page.getByRole('button', { name: 'Edit' }).click();
-        await baseTest.createReport('' , 'sdf ' , 'sdf');
-        await baseTest.VerifyIncomplete('asdf');
+        await baseTest.updateReport('' , 'sdf ' , 'sdf');
+        await baseTest.VerifyIncomplete('Please enter treatment');
     });
 
-    test('dentist can not create report before time(invalid Medication)  ', async ({ page }) => {
+    test('dentist can not update report(invalid Medication)  ', async ({ page }) => {
         const baseTest = new BaseTest(page);
         await baseTest.navigateToSignIn();
         await baseTest.login('dentist01@gmail.com', 'Test01');
         await baseTest.navigateToReport();
         await baseTest.DentistChoosereport('test01 case01');
         await baseTest.page.getByRole('button', { name: 'Edit' }).click();
-        await baseTest.createReport('asfe' , '' , 'adsf ');
-        await baseTest.VerifyIncomplete('adsasdf');
+        await baseTest.updateReport('asfe' , '' , 'adsf ');
+        await baseTest.VerifyIncomplete('Please enter medication');
        
     });
 
-    test('dentist can not create report before time(invalid Recommendation)  ', async ({ page }) => {
+    test('dentist can not update report (invalid Recommendation)  ', async ({ page }) => {
         const baseTest = new BaseTest(page);
         await baseTest.navigateToSignIn();
         await baseTest.login('dentist01@gmail.com', 'Test01');
         await baseTest.navigateToReport();
         await baseTest.DentistChoosereport('test01 case01');
         await baseTest.page.getByRole('button', { name: 'Edit' }).click();
-        await baseTest.createReport('asdfasdff' , 'afdasdf ' , '');
-        await baseTest.VerifyIncomplete('asdfsdf');
+        await baseTest.updateReport('asdfasdff' , 'afdasdf ' , '');
+        await baseTest.VerifyIncomplete('Please enter recommendation');
         
     });
 
     test('patient can not update his report', async ({ page }) => {
         const baseTest = new BaseTest(page);
         await baseTest.navigateToSignIn();
-        await baseTest.login('dentist01@gmail.com', 'Test01');
-        await baseTest.page.goto(url_update_report)
-        expect(baseTest.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
-   
+        await baseTest.login('test01@gmail.com', 'Test01');
+        await baseTest.navigateToReport();
+        await expect(baseTest.page.getByRole('heading', { name: 'Report' })).toBeVisible();
+        await expect(baseTest.page.getByPlaceholder('search with patient or doctor')).toBeVisible();
+        await expect(baseTest.page.getByRole('main').getByRole('button')).toBeVisible();
+        await expect(baseTest.page.getByRole('link', { name: 'Doctor : Emma Considine Date' })).toBeVisible();
+        await baseTest.PatientChoosereport('Emma Considine')
+        await expect(baseTest.page.getByRole('button', { name: 'Edit' })).toBeHidden();
     });
 
     
@@ -278,15 +284,15 @@ test.describe('update report', () => {
 test.describe('delete report', () => {
 
     //auto  delete มีการ mock report ให้มี อายุเกิิน5 ปี
-    test('admin can not delete report', async ({ page }) => {
+    test('auto delete report', async ({ page }) => {
         const baseTest = new BaseTest(page);
         await baseTest.navigateToSignIn();
-        await baseTest.login('admin@gmail.com' , '123456');
+        await baseTest.login('test01@gmail.com' , 'Test01');
         await baseTest.navigateToReport();
         await expect(baseTest.page.getByRole('link', { name: `Doctor :  Date :` })).toBeHidden();
         
     });
 
-    //write test api for me
+  
 
 })

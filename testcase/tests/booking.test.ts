@@ -174,7 +174,7 @@ test.describe('editBooking', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateToappointment();
         await baseTest.editAppointment('Emma Considine' , 'afternoon' , 27 , 7 , 2026 , false);
-        await baseTest.VerifyCompleteBooking(true);
+        await baseTest.VerifyComplete(true);
     });
 
     // /patient invalid edit his appoinment( dentist and date that already exists)
@@ -184,7 +184,7 @@ test.describe('editBooking', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateToappointment();
         await baseTest.editAppointment('Emma Considine' , 'afternoon' , 28 , 6 , 2025 , false);
-        await baseTest.VerifyFailBooking("exist");
+        await baseTest.VerifyFail("exist");
     });
 
     //patient invalid edit his appoinment( past )
@@ -194,7 +194,7 @@ test.describe('editBooking', () => {
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateToappointment();
         await baseTest.editAppointment('Emma Considine' , 'afternoon' , 27 , 6 , 2023 , true);
-        await baseTest.VerifyFailBooking("past");
+        await baseTest.VerifyFail("past");
     });
 
     //patient invalid edit his appoinment( doesn't change data)
@@ -205,7 +205,7 @@ test.describe('editBooking', () => {
         await baseTest.navigateToappointment();
         await baseTest.page.getByRole('button', { name: 'Edit Appointment' }).click();
         await baseTest.page.getByRole('button', { name: 'Submit Changes' }).click();
-        await baseTest.VerifyFailBooking("does not change");
+        await baseTest.VerifyFail("does not change");
     });
 
     //admin can edit all appoinment(valid)
@@ -216,7 +216,7 @@ test.describe('editBooking', () => {
         await baseTest.navigateToappointment();
         await page.getByRole('link', { name: 'Edit', exact: true }).click();
         await baseTest.filldatabooking("Emma Considine" , "morning", '27' , 12 , '2025' , false);
-        await baseTest.VerifyCompleteBooking(true);
+        await baseTest.VerifyComplete(true);
         
     });
 
@@ -228,7 +228,7 @@ test.describe('editBooking', () => {
         await baseTest.navigateToappointment();
         await page.getByRole('link', { name: 'Edit', exact: true }).click();
         await baseTest.filldatabooking("Emma Considine" , "morning", '29' , 6 , '2025' , false);
-        await baseTest.VerifyFailBooking("exist");
+        await baseTest.VerifyFail("exist");
     });
 
     //admin invalid edit his appoinment( past )
@@ -239,7 +239,7 @@ test.describe('editBooking', () => {
         await baseTest.navigateToappointment();
         await page.getByRole('link', { name: 'Edit', exact: true }).click();
         await baseTest.filldatabooking("Emma Considine" , "morning", '27' , 12 , '2023' , true);
-        await baseTest.VerifyFailBooking("past");
+        await baseTest.VerifyFail("past");
     });
 
     //admin invalid edit happoinment( doesn't change data)
@@ -250,7 +250,7 @@ test.describe('editBooking', () => {
         await baseTest.navigateToappointment();
         await page.getByRole('link', { name: 'Edit', exact: true }).click();
         await baseTest.page.getByRole('button', { name: 'Submit Changes' }).click();
-        await baseTest.VerifyFailBooking("does not change");
+        await baseTest.VerifyFail("does not change");
     });
 });
 
