@@ -4,8 +4,36 @@ import { BaseTest } from './Basetset.ts';
 
 let id_for_report = '' ;
 let url_update_report = '' ;
-
 test.describe('create report', () => {
+
+    //admin can not create report
+    test('admin can not create report', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        const url_to_report = await baseTest.GetUrlForReport('test01 case01')
+        await baseTest.navigateToSignIn();
+        await baseTest.login('admin@gmail.com', '123456');
+        await baseTest.page.goto(url_to_report)
+        // Wait for the URL to change to home page URL
+        await baseTest.page.waitForFunction(() => window.location.href === 'https://frontendsw-mtl.vercel.app/');
+        
+        // Check if the URL is redirected to the home page
+        expect(baseTest.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
+    });
+
+    //patient can not create report
+    test('patient can not create report', async ({ page }) => {
+        const baseTest = new BaseTest(page);
+        const url_to_report = await baseTest.GetUrlForReport('test01 case01')
+        await baseTest.navigateToSignIn();
+        await baseTest.login('test01@gmail.com', 'Test01');
+        await baseTest.page.goto(url_to_report)
+        // Wait for the URL to change to home page URL
+        await baseTest.page.waitForFunction(() => window.location.href === 'https://frontendsw-mtl.vercel.app/');
+        
+        // Check if the URL is redirected to the home page
+        expect(baseTest.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
+        
+    });
 
 
 
@@ -20,10 +48,10 @@ test.describe('create report', () => {
 
         await baseTest.navigateTocreatereport();
         await baseTest.createReport('', "พารา", "นอน");
-        
-        await baseTest.VerifyIncomplete('Please enter treatment');
-        id_for_report = await baseTest.page.url() ;
+        id_for_report = await baseTest.page.evaluate(() => document.location.href);
         console.log(id_for_report)
+        await baseTest.VerifyIncomplete('Please enter treatment');
+        
     });
 
      //dentist can not create report (invalid Medication)
@@ -86,33 +114,9 @@ test.describe('create report', () => {
         
     });
 
-    // //admin can not create report
-    // test('admin can not create report', async ({ page }) => {
-    //     const baseTest = new BaseTest(page);
-    //     await baseTest.navigateToSignIn();
-    //     await baseTest.login('admin@gmail.com', '123456');
-    //     // await baseTest.navigateToappointment();
+    
 
-    //     // await baseTest.ChooseAppointment('test02 case02')
-    //     await baseTest.page.goto(id_for_report)
-    //     expect(baseTest.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
-        
-    // });
-
-
-
-    // //patient can not create report
-    // test('patient can not create report', async ({ page }) => {
-    //     const baseTest = new BaseTest(page);
-    //     await baseTest.navigateToSignIn();
-    //     await baseTest.login('admin@gmail.com', '123456');
-    //     // await baseTest.navigateToappointment();
-
-    //     // await baseTest.ChooseAppointment('test02 case02')
-    //     await baseTest.page.goto(id_for_report)
-    //     expect(baseTest.page.url()).toBe('https://frontendsw-mtl.vercel.app/');
-        
-    // });
+    
     
     
 });

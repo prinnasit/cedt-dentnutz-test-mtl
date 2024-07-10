@@ -15,6 +15,16 @@ export class BaseTest {
         await this.page.getByRole('link', { name: 'Sign in' }).click();
     }
 
+    async navigateToSchedule() {
+        await this.page.goto('https://frontendsw-mtl.vercel.app/');
+        await this.page.getByRole('link', { name: 'Schedule' }).click();
+    }
+
+    async navigateTocreatereport(){
+        // await this.page.waitForSelector('button[name="Create Report"]');
+        await this.page.getByRole('button', { name: 'Create Report' }).click();
+    }
+
     async navigateTobooking() {
         await this.page.goto('https://frontendsw-mtl.vercel.app/');
         await this.page.getByRole('link', { name: 'Booking' }).click();
@@ -29,6 +39,11 @@ export class BaseTest {
     async navigateToReport(){
         await this.page.goto('https://frontendsw-mtl.vercel.app/');
         await this.page.getByRole('link', { name: 'Report' }).click();
+    }
+
+    async navigateToDentistList() {
+        await this.page.goto('https://frontendsw-mtl.vercel.app/');
+        await this.page.getByRole('link', { name: 'Dentist' }).click();
     }
 
     async login(email, password) {
@@ -285,11 +300,15 @@ export class BaseTest {
 
     }
 
-    async navigateTocreatereport(){
-        // await this.page.waitForSelector('button[name="Create Report"]');
-        await this.page.getByRole('button', { name: 'Create Report' }).click();
-    } 
+     
    
+    async chcek_detiest_list(){
+        await expect(this.page.getByRole('heading', { name: 'Our Dentists' })).toBeVisible();
+        await expect(this.page.getByRole('link', { name: 'Hospital picture Doctor Emma' })).toBeVisible();
+        await expect(this.page.getByRole('link', { name: 'Hospital picture Doctor Kent' })).toBeVisible();
+        await expect(this.page.getByRole('link', { name: 'Hospital picture Doctor Emma' })).toBeEnabled();
+        await expect(this.page.getByRole('link', { name: 'Hospital picture Doctor Kent' })).toBeEnabled();
+    }
    
     //create reprot
     async createReport(Treatment,   Medication , Recommendation ) {
@@ -336,5 +355,72 @@ export class BaseTest {
         await this.page.getByRole('link', { name: `Edit Patient : ${patientname}` }).click();
     }
 
+    async GetUrlForReport(patientname)
+    {
+        await this.page.goto(`https://frontendsw-mtl.vercel.app/report/${patientname}`);
+        await this.navigateToSignIn
+        await this.login('dentist01@gmail.com', 'Test01');
+        await this.navigateToappointment();
 
+        await this.ChooseAppointment(patientname)
+
+        await this.navigateTocreatereport();
+        await this.page.getByRole('textbox').first().fill('asdf');
+        await this.page.getByRole('textbox').nth(1).fill('adf');
+        await this.page.locator('textarea').fill('adf');
+        const id_for_report = await this.page.evaluate(() => document.location.href);
+        
+        await this.logout();
+        return id_for_report;
+    }
+
+
+    async check_schedule()
+    {
+        await expect(this.page.getByText('All Schedule')).toBeVisible();
+        await expect(this.page.getByRole('button', { name: 'Today' })).toBeVisible();
+        await expect(this.page.getByRole('button').nth(2)).toBeVisible();
+        await expect(this.page.getByRole('button').nth(3)).toBeVisible();
+        
+        
+        await expect(this.page.locator('//div[@class="Root-root css-18bo7dq"]')).toBeVisible();
+        await expect(this.page.locator('//div[@class="MuiInputBase-root MuiOutlinedInput-root Switcher-inputRoot MuiInputBase-colorPrimary OutlinedSelect-root css-1m8q70a"]')).toBeVisible();
+        //div[@class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular Toolbar-toolbar css-jha8ml"]
+        await expect(this.page.locator('//div[@class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular Toolbar-toolbar css-jha8ml"]')).toBeVisible();
+    }
+
+    async check_appointment_schedule()
+    {
+
+    }
+
+
+    async Chooes_dentsit_list(dentistname)
+    {
+        await this.page.getByRole('link', { name: `Hospital picture ${dentistname}` }).click();
+    }
+
+
+    async check_dentist_detail(dentistname , Experiences  ,Expertise )
+    {
+        await expect(this.page.getByRole('img', { name: 'Hospital Image' })).toBeVisible();
+        await expect(this.page.getByText(`Doctor ${dentistname}`)).toBeVisible();
+        await expect(this.page.getByRole('table')).toBeVisible();
+        await expect(this.page.getByRole('cell', { name: 'Experiences :' })).toBeVisible();
+        await expect(this.page.getByRole('cell', { name: 'Expertise :' })).toBeVisible();
+        await expect(this.page.getByRole('cell', { name: "Yesrs" })).toHaveText(Experiences);
+        await expect(this.page.getByRole('cell', { name: Expertise })).toHaveText(Expertise);
+    }
+
+    async GetUrlOfDentist(dentistname)
+    {
+        await this.page.goto('https://frontendsw-mtl.vercel.app/dentist');
+        await this.navigateToSignIn();
+        await this.login('test01@gmail.com'     , 'Test01');
+        await this.navigateToDentistList();
+        await this.Chooes_dentsit_list(dentistname);
+        const id_of_dentist = await this.page.evaluate(() => document.location.href);        
+        await this.logout();
+        return id_of_dentist;
+    }
 }
