@@ -30,6 +30,12 @@ export class BaseTest {
         await this.page.getByRole('link', { name: 'Booking' }).click();
     }
 
+    async navigateToProfile() {
+        await this.page.goto('https://frontendsw-mtl.vercel.app/');
+        await this.page.getByRole('button', { name: 'Open user menu' }).click();
+        await this.page.getByRole('menuitem', { name: 'Your Profile' }).click();
+    }
+
     async navigateToappointment() {
         await this.page.goto('https://frontendsw-mtl.vercel.app/');
         await this.page.getByRole('link', { name: 'Appointment' }).click();
@@ -70,6 +76,11 @@ export class BaseTest {
         await this.verifyLogout();
     }
     
+    async check_data_profile(patientname , mail , phone){
+        await expect(this.page.getByRole('cell', { name: patientname })).toBeVisible();
+        await expect(this.page.getByRole('cell', { name: mail })).toBeVisible();
+        await expect(this.page.getByRole('cell', { name: phone })).toBeVisible();
+    }
     
     async filldatabooking( doctername , time : "morning" | "afternoon" | null , day , month , year , fillwithkeyborad : boolean) {
         let timeValue;
@@ -397,7 +408,7 @@ export class BaseTest {
 
     async Chooes_dentsit_list(dentistname)
     {
-        await this.page.getByRole('link', { name: `Hospital picture ${dentistname}` }).click();
+        await this.page.getByRole('link', { name: `Hospital picture Doctor ${dentistname}` }).click();
     }
 
 
@@ -408,7 +419,7 @@ export class BaseTest {
         await expect(this.page.getByRole('table')).toBeVisible();
         await expect(this.page.getByRole('cell', { name: 'Experiences :' })).toBeVisible();
         await expect(this.page.getByRole('cell', { name: 'Expertise :' })).toBeVisible();
-        await expect(this.page.getByRole('cell', { name: "Yesrs" })).toHaveText(Experiences);
+        await expect(this.page.getByRole('cell', { name: "Years" })).toHaveText(Experiences);
         await expect(this.page.getByRole('cell', { name: Expertise })).toHaveText(Expertise);
     }
 

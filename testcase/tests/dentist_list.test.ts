@@ -64,11 +64,11 @@ test.describe('view Dentist list', () => {
         await baseTest.navigateToSignIn();
         await baseTest.login('test01@gmail.com' , "Test01");
         await baseTest.navigateToDentistList();
-        await baseTest.Chooes_dentsit_list('Emma Considine');
-        await baseTest.check_dentist_detail("Emma Considine" , '5 Yesr' , 'ถอนฟัน');
+        await baseTest.Chooes_dentsit_list('Emma');
+        await baseTest.check_dentist_detail("Emma Considine" , '5 Years' , 'ถอนฟัน');
         await baseTest.page.goto('https://frontendsw-mtl.vercel.app/dentist');
-        await baseTest.Chooes_dentsit_list('Kent Zemlak')
-        await baseTest.check_dentist_detail('Kent Zemlak' , '6 Yesr' , 'อุดฟัน')
+        await baseTest.Chooes_dentsit_list('Kent')
+        await baseTest.check_dentist_detail('Kent Zemlak' , '6 Years' , 'อุดฟัน')
         
     });
 
@@ -78,10 +78,10 @@ test.describe('view Dentist list', () => {
         await baseTest.login('admin@gmail.com' , '123456');
         await baseTest.navigateToDentistList();
         await baseTest.Chooes_dentsit_list('Emma Considine');
-        await baseTest.check_dentist_detail("Emma Considine" , '5 Yesr' , 'ถอนฟัน');
+        await baseTest.check_dentist_detail("Emma Considine" , '5 Year' , 'ถอนฟัน');
         await baseTest.page.goto('https://frontendsw-mtl.vercel.app/dentist');
         await baseTest.Chooes_dentsit_list('Kent Zemlak')
-        await baseTest.check_dentist_detail('Kent Zemlak' , '6 Yesr' , 'อุดฟัน')
+        await baseTest.check_dentist_detail('Kent Zemlak' , '6 Year' , 'อุดฟัน')
 
     });
 
@@ -144,7 +144,7 @@ test.describe('booking from dentist list', () => {
         const baseTest = new BaseTest(page);
         await baseTest.navigateToSignIn();
         await baseTest.login('dentist01@gmail.com' , 'Test01');
-        await baseTest.navigateToDentistList();
+        await baseTest.page.goto('https://frontendsw-mtl.vercel.app/dentist');
         await baseTest.Chooes_dentsit_list('Emma Considine');
         await expect(page.getByRole('button', { name: 'Select' })).toBeHidden();
     });
